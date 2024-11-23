@@ -7,7 +7,7 @@ plugins {
     application
 }
 
-group = "com.dan-mc"
+group = "com.danmc"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -16,6 +16,8 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    implementation("io.ktor:ktor-server-core:2.1.2")
+    implementation("io.ktor:ktor-server-netty:2.1.2")
 }
 
 tasks.test {
