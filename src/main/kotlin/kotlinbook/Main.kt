@@ -6,7 +6,13 @@ import io.ktor.server.netty.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
+import org.slf4j.LoggerFactory
+
+private val log = LoggerFactory.getLogger("kotlinbook.Main")
+
 fun main() {
+    log.debug("Starting application...")
+
     embeddedServer(Netty, port = 4207) {
         createKtorApplication()
     }.start(wait = true)
