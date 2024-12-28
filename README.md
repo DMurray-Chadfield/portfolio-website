@@ -20,3 +20,6 @@ using your IDE, or with gradle by running
 ```
 from the project root.
 
+Switch between environment types using the `KOTLINBOOK_ENV` env variable, setting to either
+`local` or `production`. If none is set, it will default to `local`.
+

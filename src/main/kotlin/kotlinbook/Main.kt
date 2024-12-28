@@ -20,7 +20,9 @@ data class WebappConfig(
 fun main() {
     log.debug("Starting application...")
 
-    val webappConfig = createAppConfig()
+    val env = System.getenv("KOTLINBOOK_ENV") ?: "local"
+    log.debug("Application runs in the environment $env")
+    val webappConfig = createAppConfig(env)
 
     embeddedServer(Netty, port = webappConfig.httpPort) {
         createKtorApplication()
@@ -46,9 +48,10 @@ fun Application.createKtorApplication() {
     }
 }
 
-fun createAppConfig() =
+fun createAppConfig(env: String) =
     ConfigFactory
-    .parseResources("app.conf")
+    .parseResources("app-${env}.conf")
+    .withFallback(ConfigFactory.parseResources("app.conf"))
     .resolve()
     .let {
         WebappConfig(
