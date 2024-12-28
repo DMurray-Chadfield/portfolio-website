@@ -13,12 +13,16 @@ import org.slf4j.LoggerFactory
 
 private val log = LoggerFactory.getLogger("kotlinbook.Main")
 
+data class WebappConfig(
+    val httpPort: Int
+)
+
 fun main() {
     log.debug("Starting application...")
 
-    val config = ConfigFactory.parseResources("app.conf").resolve()
+    val webappConfig = createAppConfig()
 
-    embeddedServer(Netty, port = config.getInt("httpPort")) {
+    embeddedServer(Netty, port = webappConfig.httpPort) {
         createKtorApplication()
     }.start(wait = true)
 }
@@ -41,3 +45,13 @@ fun Application.createKtorApplication() {
         }
     }
 }
+
+fun createAppConfig() =
+    ConfigFactory
+    .parseResources("app.conf")
+    .resolve()
+    .let {
+        WebappConfig(
+            httpPort = it.getInt("httpPort")
+        )
+    }
