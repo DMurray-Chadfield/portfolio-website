@@ -10,6 +10,7 @@ import io.ktor.server.routing.*
 import io.ktor.server.plugins.statuspages.*
 
 import org.slf4j.LoggerFactory
+import kotlin.reflect.full.declaredMemberProperties
 
 private val log = LoggerFactory.getLogger("kotlinbook.Main")
 
@@ -23,6 +24,21 @@ fun main() {
     val env = System.getenv("KOTLINBOOK_ENV") ?: "local"
     log.debug("Application runs in the environment $env")
     val webappConfig = createAppConfig(env)
+
+    val secretsRegex = "password|secret|key"
+        .toRegex(RegexOption.IGNORE_CASE)
+    log.debug("Configuration loaded successfully: ${
+        WebappConfig::class.declaredMemberProperties
+            .sortedBy { it.name }
+            .map{
+                if (secretsRegex.containsMatchIn(it.name)) {
+                    "${it.name} = ${it.get(webappConfig).toString().take(2)}*****"
+                } else {
+                    "${it.name} = ${it.get(webappConfig)}"
+                }
+            }
+            .joinToString(separator = "\n")
+    }")
 
     embeddedServer(Netty, port = webappConfig.httpPort) {
         createKtorApplication()
