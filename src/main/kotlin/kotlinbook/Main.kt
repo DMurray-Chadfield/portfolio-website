@@ -10,6 +10,7 @@ import io.ktor.server.routing.*
 import io.ktor.server.plugins.statuspages.*
 
 import org.slf4j.LoggerFactory
+import java.io.File
 import kotlin.reflect.full.declaredMemberProperties
 
 private val log = LoggerFactory.getLogger("kotlinbook.Main")
@@ -76,7 +77,10 @@ fun Application.createKtorApplication() {
 
     routing {
         get("/") {
-            call.respondText("Hello, World!")
+            call.respondFile(
+                File("/home/d-murray-chadfield/personal_git/portfolio-website"),
+                "file.html"
+            )
         }
     }
 }
