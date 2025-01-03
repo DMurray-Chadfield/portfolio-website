@@ -18,6 +18,23 @@ data class WebappConfig(
     val httpPort: Int
 )
 
+sealed class WebResponse {
+    abstract val statusCode: Int
+    abstract val headers: Map<String, List<String>>
+}
+
+data class TextWebResponse(
+    val body: String,
+    override val statusCode: Int = 200,
+    override val headers : Map<String, List<String>> = mapOf()
+) : WebResponse()
+
+data class JsonWebResponse(
+    val body: Any?,
+    override val statusCode: Int = 200,
+    override val headers: Map<String, List<String>> = mapOf()
+) : WebResponse()
+
 fun main() {
     log.debug("Starting application...")
 
