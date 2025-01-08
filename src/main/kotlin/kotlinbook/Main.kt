@@ -18,19 +18,50 @@ private val log = LoggerFactory.getLogger("kotlinbook.Main")
 sealed class WebResponse {
     abstract val statusCode: Int
     abstract val headers: Map<String, List<String>>
+
+    abstract fun copyResponse(
+        statusCode: Int,
+        headers: Map<String, List<String>>
+    ) : WebResponse
+    fun appendHeader(headerName: String, headerValue: String) = appendHeader(headerName, listOf(headerValue))
+    fun appendHeader(
+        headerName: String,
+        headerValue: List<String>
+    ) = copyResponse(
+        statusCode,
+        headers.plus(
+            Pair(
+                headerName,
+                headers.getOrDefault(
+                    headerName,
+                    listOf()
+                ).plus(headerValue)
+            )
+        )
+    )
 }
 
 data class TextWebResponse(
     val body: String,
     override val statusCode: Int = 200,
     override val headers : Map<String, List<String>> = mapOf()
-) : WebResponse()
+) : WebResponse() {
+    override fun copyResponse(
+        statusCode: Int,
+        headers: Map<String, List<String>>
+    ): WebResponse = copy(body = body, statusCode = statusCode, headers = headers)
+}
 
 data class JsonWebResponse(
     val body: Any?,
     override val statusCode: Int = 200,
     override val headers: Map<String, List<String>> = mapOf()
-) : WebResponse()
+) : WebResponse() {
+    override fun copyResponse(
+        statusCode: Int,
+        headers: Map<String, List<String>>
+    ): WebResponse = copy(body = body, statusCode = statusCode, headers = headers)
+}
 
 val env = System.getenv("KOTLINBOOK_ENV") ?: "local"
 val webappConfig = createAppConfig(env)
