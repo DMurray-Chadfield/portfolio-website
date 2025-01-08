@@ -15,10 +15,6 @@ import kotlin.reflect.full.declaredMemberProperties
 
 private val log = LoggerFactory.getLogger("kotlinbook.Main")
 
-data class WebappConfig(
-    val httpPort: Int
-)
-
 sealed class WebResponse {
     abstract val statusCode: Int
     abstract val headers: Map<String, List<String>>
@@ -36,12 +32,13 @@ data class JsonWebResponse(
     override val headers: Map<String, List<String>> = mapOf()
 ) : WebResponse()
 
+val env = System.getenv("KOTLINBOOK_ENV") ?: "local"
+val webappConfig = createAppConfig(env)
+
 fun main() {
     log.debug("Starting application...")
-
-    val env = System.getenv("KOTLINBOOK_ENV") ?: "local"
     log.debug("Application runs in the environment $env")
-    val webappConfig = createAppConfig(env)
+
 
     val secretsRegex = "password|secret|key"
         .toRegex(RegexOption.IGNORE_CASE)
@@ -78,20 +75,10 @@ fun Application.createKtorApplication() {
     routing {
         get("/") {
             call.respondFile(
-                File("/home/d-murray-chadfield/personal_git/portfolio-website"),
-                "file.html"
+                File(webappConfig.projectRoot + webappConfig.htmlLocation),
+                "index.html"
             )
         }
     }
 }
 
-fun createAppConfig(env: String) =
-    ConfigFactory
-    .parseResources("app-${env}.conf")
-    .withFallback(ConfigFactory.parseResources("app.conf"))
-    .resolve()
-    .let {
-        WebappConfig(
-            httpPort = it.getInt("httpPort")
-        )
-    }
