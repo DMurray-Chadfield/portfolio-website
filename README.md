@@ -10,7 +10,7 @@ It is currently a just a pet project but will one day hopefully serve as a portf
 ## Installation
 
 ### Requirements
-- jdk 11 or later
+- jdk 17 or later
 - gradle
 
 The project uses gradle as its build system. Currently, to run just requires running the main clas. This can be done
