@@ -80,6 +80,21 @@ fun Application.createKtorApplication() {
 
     routing {
         get("/", webResponse {TextWebResponse("Hello, World!")})
+
+        get("/param_test", webResponse {
+            TextWebResponse(
+                "The param is ${call.request.queryParameters["foo"]}"
+            )
+        })
+
+        get("/json_test", webResponse {
+            JsonWebResponse(mapOf("foo" to "bar"))
+        })
+
+        get("/json_test_with_header", webResponse {
+            JsonWebResponse(mapOf("foo" to "bar"))
+                .appendHeader("X-Test-Header", "Just a test!")
+        })
 /*        get("/") {
             call.respondFile(
                 File(webappConfig.projectRoot + webappConfig.htmlLocation),
