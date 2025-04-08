@@ -1,0 +1,12 @@
+modules = ["web", "java-graalvm22.3"]
+run = "./gradlew run"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "./gradlew run"]
+
+[[ports]]
+localPort = 4207
+externalPort = 80
