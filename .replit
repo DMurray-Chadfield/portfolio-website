@@ -1,4 +1,4 @@
-modules = ["web", "java-graalvm22.3"]
+modules = ["web", "java-graalvm22.3", "postgresql-16"]
 run = "./gradlew run"
 
 [nix]
