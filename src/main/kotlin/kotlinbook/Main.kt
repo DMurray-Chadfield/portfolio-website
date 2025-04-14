@@ -13,6 +13,7 @@ import io.ktor.util.pipeline.*
 import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.reflect.full.declaredMemberProperties
+import com.zaxxer.hikari.HikariDataSource
 
 private val log = LoggerFactory.getLogger("kotlinbook.Main")
 
@@ -41,12 +42,13 @@ data class JsonWebResponse(
 val env = System.getenv("KOTLINBOOK_ENV") ?: "local"
 val webappConfig = createAppConfig(env)
 
+
 fun main() {
     log.debug("Starting application...")
     log.debug("Application runs in the environment $env")
 
 
-    val secretsRegex = "password|secret|key"
+    val secretsRegex = "password|secret|key|url"
         .toRegex(RegexOption.IGNORE_CASE)
     log.debug("Configuration loaded successfully: ${
         WebappConfig::class.declaredMemberProperties
@@ -60,6 +62,13 @@ fun main() {
             }
             .joinToString(separator = "\n")
     }")
+
+    val dataSource = createDataSource(webappConfig)
+    dataSource.getConnection().use {
+        conn -> conn.createStatement().use {
+            stmt -> stmt.executeQuery("SELECT 1")
+        }
+    }
 
     embeddedServer(Netty, port = webappConfig.httpPort) {
         createKtorApplication()
@@ -132,4 +141,11 @@ fun webResponse(
         }
     }
 }
+
+fun createDataSource(config: WebappConfig) =
+    HikariDataSource().apply() {
+        jdbcUrl = config.dbUrl
+        username = config.dbUser
+        password = config.dbPassword
+    }
 
