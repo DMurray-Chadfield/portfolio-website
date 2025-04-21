@@ -14,6 +14,9 @@ import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.reflect.full.declaredMemberProperties
 import com.zaxxer.hikari.HikariDataSource
+import javax.sql.DataSource
+import org.flywaydb.core.Flyway
+import kotlinbook.createAndMigrateDataSource
 
 private val log = LoggerFactory.getLogger("kotlinbook.Main")
 
@@ -63,7 +66,7 @@ fun main() {
             .joinToString(separator = "\n")
     }")
 
-    val dataSource = createDataSource(webappConfig)
+    val dataSource = createAndMigrateDataSource(webappConfig)
     dataSource.getConnection().use {
         conn -> conn.createStatement().use {
             stmt -> stmt.executeQuery("SELECT 1")
@@ -149,3 +152,14 @@ fun createDataSource(config: WebappConfig) =
         password = config.dbPassword
     }
 
+fun migrateDataSource(dataSource: DataSource) {
+    Flyway.configure()
+        .dataSource(dataSource)
+        .locations("db/migration")
+        .table("flyway_schema_history")
+        .load()
+        .migrate()
+}
+
+fun createAndMigrateDataSource(config: WebappConfig) = 
+    createDataSource(config).also(::migrateDataSource)
