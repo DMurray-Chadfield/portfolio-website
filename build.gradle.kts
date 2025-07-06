@@ -24,7 +24,7 @@ dependencies {
     implementation("com.typesafe:config:1.4.2")
     implementation("com.google.code.gson:gson:2.10")
     implementation("com.zaxxer:HikariCP:5.0.1")
-    implementation("org.postgresql:postgresql:42.7.5")
+    implementation("com.h2database:h2:2.1.214")
     implementation("org.flywaydb:flyway-core:9.5.1")
 }
 

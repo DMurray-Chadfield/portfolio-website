@@ -21,9 +21,9 @@ fun createAppConfig(env: String) =
                 httpPort = it.getInt("httpPort"),
                 projectRoot = it.getString("projectRoot"),
                 htmlLocation = it.getString("htmlLocation"),
-                dbUser = System.getenv("PGUSER"),
-                dbPassword = System.getenv("PGPASSWORD"),
-                dbUrl = "jdbc:postgresql://" + System.getenv("PGHOST") + "/" + System.getenv("PGDATABASE") + "?sslmode=require"
+                dbUser = it.getString("dbUser"),
+                dbPassword = it.getString("dbPassword"),
+                dbUrl = it.getString("dbUrl")
             )
         }
 
