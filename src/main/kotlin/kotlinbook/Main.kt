@@ -17,6 +17,7 @@ import com.zaxxer.hikari.HikariDataSource
 import javax.sql.DataSource
 import org.flywaydb.core.Flyway
 import kotlinbook.createAndMigrateDataSource
+import kotliquery.Row
 
 private val log = LoggerFactory.getLogger("kotlinbook.Main")
 
@@ -163,3 +164,14 @@ fun migrateDataSource(dataSource: DataSource) {
 
 fun createAndMigrateDataSource(config: WebappConfig) = 
     createDataSource(config).also(::migrateDataSource)
+
+fun mapFromRow(row: Row): Map<String, Any?> {
+    return row.underlying.metaData
+        .let {
+            (1..it.columnCount).map(it::getColumnName)
+        }
+        .map {
+            it to row.anyOrNull(it)
+        }
+        .toMap()
+}

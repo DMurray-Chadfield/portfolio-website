@@ -26,6 +26,7 @@ dependencies {
     implementation("com.zaxxer:HikariCP:5.0.1")
     implementation("com.h2database:h2:2.1.214")
     implementation("org.flywaydb:flyway-core:9.5.1")
+    implementation("com.github.seratch:kotliquery:1.9.0")
 }
 
 tasks.test {
