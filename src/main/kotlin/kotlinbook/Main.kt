@@ -18,6 +18,9 @@ import javax.sql.DataSource
 import org.flywaydb.core.Flyway
 import kotlinbook.createAndMigrateDataSource
 import kotliquery.Row
+import kotliquery.Session
+import kotliquery.queryOf
+import kotliquery.sessionOf
 
 private val log = LoggerFactory.getLogger("kotlinbook.Main")
 
@@ -45,6 +48,7 @@ data class JsonWebResponse(
 
 val env = System.getenv("KOTLINBOOK_ENV") ?: "local"
 val webappConfig = createAppConfig(env)
+val dataSource = createAndMigrateDataSource(webappConfig)
 
 
 fun main() {
@@ -67,7 +71,6 @@ fun main() {
             .joinToString(separator = "\n")
     }")
 
-    val dataSource = createAndMigrateDataSource(webappConfig)
     dataSource.getConnection().use {
         conn -> conn.createStatement().use {
             stmt -> stmt.executeQuery("SELECT 1")
@@ -108,6 +111,12 @@ fun Application.createKtorApplication() {
             JsonWebResponse(mapOf("foo" to "bar"))
                 .appendHeader("X-Test-Header", "Just a test!")
         })
+
+        get("/db_test", webResponseDb(dataSource) { dbSess ->
+            JsonWebResponse(
+                dbSess.single(queryOf("SELECT 1"), ::mapFromRow)
+            )
+        })
 /*        get("/") {
             call.respondFile(
                 File(webappConfig.projectRoot + webappConfig.htmlLocation),
@@ -143,6 +152,20 @@ fun webResponse(
                 ))
             }
         }
+    }
+}
+
+fun webResponseDb(
+    dataSource: DataSource,
+    handler: suspend PipelineContext<Unit, ApplicationCall>.(
+        dbSess: Session
+    ) -> WebResponse
+) = webResponse {
+    sessionOf(
+        dataSource,
+        returnGeneratedKey = true
+    ).use { dbSess ->
+        handler(dbSess)
     }
 }
 
