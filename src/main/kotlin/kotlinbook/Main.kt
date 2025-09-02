@@ -19,6 +19,7 @@ import org.flywaydb.core.Flyway
 import kotlinbook.createAndMigrateDataSource
 import kotliquery.Row
 import kotliquery.Session
+import kotliquery.TransactionalSession
 import kotliquery.queryOf
 import kotliquery.sessionOf
 
@@ -168,6 +169,17 @@ fun webResponseDb(
         handler(dbSess)
     }
 }
+
+fun webResponseTx(
+    dataSource: DataSource,
+    handler: suspend PipelineContext<Unit, ApplicationCall>.(
+        dbSess: TransactionalSession
+    ) -> WebResponse) = webResponseDb(dataSource) {
+        dbSess -> dbSess.transaction{
+            txSess -> handler(txSess)
+        }
+}
+)
 
 fun createDataSource(config: WebappConfig) =
     HikariDataSource().apply() {
