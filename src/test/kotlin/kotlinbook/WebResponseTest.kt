@@ -1,13 +1,13 @@
 package kotlinbook
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
+import kotlin.test.BeforeTest
+import kotlin.test.Test
 
 class WebResponseTest {
     private lateinit var textResponse: TextWebResponse
 
-    @BeforeEach
+    @BeforeTest
     fun setUp() {
         textResponse = TextWebResponse("body")
     }

@@ -179,7 +179,6 @@ fun webResponseTx(
             txSess -> handler(txSess)
         }
 }
-)
 
 fun createDataSource(config: WebappConfig) =
     HikariDataSource().apply() {
