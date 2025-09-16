@@ -14,6 +14,13 @@ import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.reflect.full.declaredMemberProperties
 import com.zaxxer.hikari.HikariDataSource
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.request.get
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsText
+import io.ktor.server.request.receiveText
 import javax.sql.DataSource
 import org.flywaydb.core.Flyway
 import kotlinbook.db.datasource.createAndMigrateDataSource
@@ -22,6 +29,9 @@ import kotlinbook.web.response.JsonWebResponse
 import kotlinbook.web.response.TextWebResponse
 import kotlinbook.web.webResponse
 import kotlinbook.web.webResponseDb
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotliquery.Row
 import kotliquery.Session
 import kotliquery.TransactionalSession
@@ -45,7 +55,7 @@ fun main() {
     log.debug("Configuration loaded successfully: ${
         WebappConfig::class.declaredMemberProperties
             .sortedBy { it.name }
-            .map{
+            .map {
                 if (secretsRegex.containsMatchIn(it.name)) {
                     "${it.name} = ${it.get(webappConfig).toString().take(2)}*****"
                 } else {
@@ -60,6 +70,24 @@ fun main() {
             stmt -> stmt.executeQuery("SELECT 1")
         }
     }
+
+    embeddedServer(Netty, port = 9876) {
+        routing {
+            get("/random_number", webResponse {
+                val num = (200L..2000L).random()
+                delay(num)
+                TextWebResponse(num.toString())
+            })
+
+            get("/ping", webResponse {
+                TextWebResponse("pong")
+            })
+
+            post("/reverse", webResponse {
+                TextWebResponse(call.receiveText().reversed())
+            })
+        }
+    }.start(wait = false)
 
     embeddedServer(Netty, port = webappConfig.httpPort) {
         createKtorApplication()
@@ -101,6 +129,10 @@ fun Application.createKtorApplication() {
                 dbSess.single(queryOf("SELECT 1"), ::mapFromRow)
             )
         })
+
+        get("/coroutine_test", webResponseDb(dataSource) { dbSess ->
+            handleCoroutineTest(dbSess)
+        })
 /*        get("/") {
             call.respondFile(
                 File(webappConfig.projectRoot + webappConfig.htmlLocation),
@@ -109,6 +141,38 @@ fun Application.createKtorApplication() {
         }
  */
     }
+}
+
+suspend fun handleCoroutineTest(
+    dbSess: Session
+) = coroutineScope {
+    val client = HttpClient(CIO)
+
+    val randomNumberRequest = async {
+        client.get("http://localhost:9876/random_number").bodyAsText()
+    }
+
+    val reverseRequest = async {
+        client.post("http://localhost:9876/reverse") {
+            setBody(randomNumberRequest.await())
+        }.bodyAsText()
+    }
+
+    val queryOperation = async {
+        val pingPong = client.get("http://localhost:9876/ping").bodyAsText()
+        dbSess.single(
+            queryOf(
+                "SELECT count(*) count from user_t WHERE email != ?",
+                pingPong
+            ),
+            ::mapFromRow
+        )
+    }
+    TextWebResponse("""
+        Random number: ${randomNumberRequest.await()}
+        Reversed: ${reverseRequest.await()}
+        Query: ${queryOperation.await()}
+    """)
 }
 
 
