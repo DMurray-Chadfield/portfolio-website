@@ -16,7 +16,8 @@ import kotlin.reflect.full.declaredMemberProperties
 import com.zaxxer.hikari.HikariDataSource
 import javax.sql.DataSource
 import org.flywaydb.core.Flyway
-import kotlinbook.createAndMigrateDataSource
+import kotlinbook.db.datasource.createAndMigrateDataSource
+import kotlinbook.db.mapFromRow
 import kotliquery.Row
 import kotliquery.Session
 import kotliquery.TransactionalSession
@@ -179,63 +180,3 @@ fun webResponseTx(
             txSess -> handler(txSess)
         }
 }
-
-fun createDataSource(config: WebappConfig) =
-    HikariDataSource().apply() {
-        jdbcUrl = config.dbUrl
-        username = config.dbUser
-        password = config.dbPassword
-    }
-
-fun migrateDataSource(dataSource: DataSource) {
-    Flyway.configure()
-        .dataSource(dataSource)
-        .locations("db/migration")
-        .table("flyway_schema_history")
-        .load()
-        .migrate()
-}
-
-fun createAndMigrateDataSource(config: WebappConfig) = 
-    createDataSource(config).also(::migrateDataSource)
-
-fun mapFromRow(row: Row): Map<String, Any?> {
-    return row.underlying.metaData
-        .let {
-            (1..it.columnCount).map(it::getColumnName)
-        }
-        .map {
-            it to row.anyOrNull(it)
-        }
-        .toMap()
-}
-
-fun createUser(
-    dbSession: Session,
-    email: String,
-    name: String,
-    passwordText: String,
-    tosAccepted: Boolean = false
-): Long {
-    val userId = dbSession.updateAndReturnGeneratedKey(
-        queryOf(
-            """
-                INSERT INTO user_t (email, name, tos_accepted, password_hash)
-                VALUES (:email, :name, :tosAccepted, :passwordHash)
-            """,
-            mapOf(
-                "email" to email,
-                "name" to name,
-                "tosAccepted" to tosAccepted,
-                "passwordHash" to passwordText.toByteArray(Charsets.UTF_8)
-            )
-        )
-    )
-
-    return userId!!
-}
-
-fun listUsers(dbSession: Session) =
-    dbSession
-        .list(queryOf("SELECT * FROM user_t"), ::mapFromRow)
-        .map(User::fromRow)

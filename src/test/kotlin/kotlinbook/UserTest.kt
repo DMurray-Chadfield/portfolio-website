@@ -1,5 +1,7 @@
 package kotlinbook
 
+import kotlinbook.db.createUser
+import kotlinbook.db.listUsers
 import kotlinbook.util.testDataSource
 import kotlinbook.util.testTx
 import kotliquery.sessionOf
