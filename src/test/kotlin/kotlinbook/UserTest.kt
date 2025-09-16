@@ -1,6 +1,7 @@
 package kotlinbook
 
 import kotlinbook.db.createUser
+import kotlinbook.db.getUser
 import kotlinbook.db.listUsers
 import kotlinbook.util.testDataSource
 import kotlinbook.util.testTx
@@ -9,6 +10,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class UserTest {
     @Test
@@ -70,6 +72,26 @@ class UserTest {
                 assertEquals(2, usersAfter.size - usersBefore.size)
                 assertNotNull(usersAfter.find {it.id == userAId})
                 assertNotNull(usersAfter.find {it.id == userBId})
+        }
+    }
+
+    @Test
+    fun testGetUser() {
+        testTx {
+            dbSess ->
+                val userId = createUser(
+                    dbSess,
+                    email = "someeamil@mail.com",
+                    name = "some fella",
+                    passwordText = "1234",
+                    tosAccepted = true
+                )
+
+                assertNull(getUser(dbSess, -9000))
+
+                val user = getUser(dbSess, userId)
+                assertNotNull(user)
+                assertEquals(user.email, "someeamil@mail.com")
         }
     }
 }
