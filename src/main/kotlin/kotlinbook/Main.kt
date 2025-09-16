@@ -234,3 +234,8 @@ fun createUser(
 
     return userId!!
 }
+
+fun listUsers(dbSession: Session) =
+    dbSession
+        .list(queryOf("SELECT * FROM user_t"), ::mapFromRow)
+        .map(User::fromRow)
