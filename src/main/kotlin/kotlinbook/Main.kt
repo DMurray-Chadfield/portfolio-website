@@ -29,9 +29,11 @@ import kotlinbook.web.response.JsonWebResponse
 import kotlinbook.web.response.TextWebResponse
 import kotlinbook.web.webResponse
 import kotlinbook.web.webResponseDb
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import kotliquery.Row
 import kotliquery.Session
 import kotliquery.TransactionalSession
@@ -160,13 +162,17 @@ suspend fun handleCoroutineTest(
 
     val queryOperation = async {
         val pingPong = client.get("http://localhost:9876/ping").bodyAsText()
-        dbSess.single(
-            queryOf(
-                "SELECT count(*) count from user_t WHERE email != ?",
-                pingPong
-            ),
-            ::mapFromRow
-        )
+
+        withContext(Dispatchers.IO)
+        {
+            dbSess.single(
+                queryOf(
+                    "SELECT count(*) count from user_t WHERE email != ?",
+                    pingPong
+                ),
+                ::mapFromRow
+            )
+        }
     }
     TextWebResponse("""
         Random number: ${randomNumberRequest.await()}
