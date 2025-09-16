@@ -1,8 +1,6 @@
 package kotlinbook.db
 
-import kotlinbook.User
-import kotlinbook.User.Companion.fromRow
-import kotlinbook.db.mapFromRow
+import kotlinbook.domain.User
 import kotliquery.Session
 import kotliquery.queryOf
 

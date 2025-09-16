@@ -18,6 +18,10 @@ import javax.sql.DataSource
 import org.flywaydb.core.Flyway
 import kotlinbook.db.datasource.createAndMigrateDataSource
 import kotlinbook.db.mapFromRow
+import kotlinbook.web.response.JsonWebResponse
+import kotlinbook.web.response.TextWebResponse
+import kotlinbook.web.webResponse
+import kotlinbook.web.webResponseDb
 import kotliquery.Row
 import kotliquery.Session
 import kotliquery.TransactionalSession
@@ -25,28 +29,6 @@ import kotliquery.queryOf
 import kotliquery.sessionOf
 
 private val log = LoggerFactory.getLogger("kotlinbook.Main")
-
-data class TextWebResponse(
-    val body: String,
-    override val statusCode: Int = 200,
-    override val headers : Map<String, List<String>> = mapOf()
-) : WebResponse() {
-    override fun copyResponse(
-        statusCode: Int,
-        headers: Map<String, List<String>>
-    ): WebResponse = copy(body = body, statusCode = statusCode, headers = headers)
-}
-
-data class JsonWebResponse(
-    val body: Any?,
-    override val statusCode: Int = 200,
-    override val headers: Map<String, List<String>> = mapOf()
-) : WebResponse() {
-    override fun copyResponse(
-        statusCode: Int,
-        headers: Map<String, List<String>>
-    ): WebResponse = copy(body = body, statusCode = statusCode, headers = headers)
-}
 
 val env = System.getenv("KOTLINBOOK_ENV") ?: "local"
 val webappConfig = createAppConfig(env)
@@ -129,54 +111,4 @@ fun Application.createKtorApplication() {
     }
 }
 
-fun webResponse(
-    handler: suspend PipelineContext<Unit, ApplicationCall>.() -> WebResponse
-): PipelineInterceptor<Unit, ApplicationCall> {
-    return {
-        val resp = this.handler()
-        for ((name, values) in resp.headers())
-            for (value in values)
-                call.response.header(name, value)
 
-        val statusCode = HttpStatusCode.fromValue(resp.statusCode)
-
-        when (resp) {
-            is TextWebResponse -> {
-                call.respondText(
-                    text = resp.body,
-                    status = statusCode
-                )
-            }
-            is JsonWebResponse -> {
-                call.respond(KtorJsonWebResponse (
-                    body = resp.body,
-                    status = statusCode
-                ))
-            }
-        }
-    }
-}
-
-fun webResponseDb(
-    dataSource: DataSource,
-    handler: suspend PipelineContext<Unit, ApplicationCall>.(
-        dbSess: Session
-    ) -> WebResponse
-) = webResponse {
-    sessionOf(
-        dataSource,
-        returnGeneratedKey = true
-    ).use { dbSess ->
-        handler(dbSess)
-    }
-}
-
-fun webResponseTx(
-    dataSource: DataSource,
-    handler: suspend PipelineContext<Unit, ApplicationCall>.(
-        dbSess: TransactionalSession
-    ) -> WebResponse) = webResponseDb(dataSource) {
-        dbSess -> dbSess.transaction{
-            txSess -> handler(txSess)
-        }
-}

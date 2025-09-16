@@ -1,4 +1,4 @@
-package kotlinbook
+package kotlinbook.domain
 
 import java.nio.ByteBuffer
 import java.time.OffsetDateTime

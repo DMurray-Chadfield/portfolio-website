@@ -1,5 +1,6 @@
 package kotlinbook
 
+import kotlinbook.web.response.TextWebResponse
 import kotlin.test.assertEquals
 import kotlin.test.BeforeTest
 import kotlin.test.Test
