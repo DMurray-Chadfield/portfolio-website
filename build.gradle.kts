@@ -29,6 +29,8 @@ dependencies {
     implementation("com.github.seratch:kotliquery:1.9.0")
     implementation("io.ktor:ktor-client-core:2.1.2")
     implementation("io.ktor:ktor-client-cio:2.1.2")
+    implementation("io.arrow-kt:arrow-fx-coroutines:1.1.2")
+    implementation("io.arrow-kt:arrow-fx-stm:1.1.2")
 }
 
 tasks.test {
