@@ -20,6 +20,9 @@ import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
+import io.ktor.server.html.respondHtml
+import io.ktor.server.http.content.resources
+import io.ktor.server.http.content.static
 import io.ktor.server.request.receiveText
 import javax.sql.DataSource
 import org.flywaydb.core.Flyway
@@ -34,6 +37,10 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import kotlinx.html.body
+import kotlinx.html.head
+import kotlinx.html.h1
+import kotlinx.html.title
 import kotliquery.Row
 import kotliquery.Session
 import kotliquery.TransactionalSession
@@ -135,6 +142,22 @@ fun Application.createKtorApplication() {
         get("/coroutine_test", webResponseDb(dataSource) { dbSess ->
             handleCoroutineTest(dbSess)
         })
+
+        get("/html_test") {
+            call.respondHtml {
+                head {
+                    title("Hello, World!")
+                }
+                body {
+                    h1 { +"Hello, World!" }
+                }
+
+            }
+        }
+
+        static("/") {
+            resources("public")
+        }
 /*        get("/") {
             call.respondFile(
                 File(webappConfig.projectRoot + webappConfig.htmlLocation),
