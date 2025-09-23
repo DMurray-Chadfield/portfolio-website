@@ -8,7 +8,8 @@ data class WebappConfig(
     val htmlLocation: String,
     val dbUser: String,
     val dbPassword: String,
-    val dbUrl: String
+    val dbUrl: String,
+    val useFileSystemAssets: Boolean
 )
 
 fun createAppConfig(env: String) =
@@ -23,7 +24,8 @@ fun createAppConfig(env: String) =
                 htmlLocation = it.getString("htmlLocation"),
                 dbUser = it.getString("dbUser"),
                 dbPassword = it.getString("dbPassword"),
-                dbUrl = it.getString("dbUrl")
+                dbUrl = it.getString("dbUrl"),
+                useFileSystemAssets = it.getBoolean("useFileSystemAssets")
             )
         }
 

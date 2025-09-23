@@ -21,6 +21,7 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
 import io.ktor.server.html.respondHtml
+import io.ktor.server.http.content.files
 import io.ktor.server.http.content.resources
 import io.ktor.server.http.content.static
 import io.ktor.server.request.receiveText
@@ -40,6 +41,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.html.body
 import kotlinx.html.head
 import kotlinx.html.h1
+import kotlinx.html.styleLink
 import kotlinx.html.title
 import kotliquery.Row
 import kotliquery.Session
@@ -147,6 +149,7 @@ fun Application.createKtorApplication() {
             call.respondHtml {
                 head {
                     title("Hello, World!")
+                    styleLink("/app.css")
                 }
                 body {
                     h1 { +"Hello, World!" }
@@ -156,7 +159,11 @@ fun Application.createKtorApplication() {
         }
 
         static("/") {
-            resources("public")
+            if (webappConfig.useFileSystemAssets) {
+                files("src/main/resources/public")
+            } else {
+                resources("public")
+            }
         }
 /*        get("/") {
             call.respondFile(
