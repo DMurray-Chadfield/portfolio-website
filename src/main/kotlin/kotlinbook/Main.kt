@@ -20,6 +20,10 @@ import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
+import io.ktor.server.auth.Authentication
+import io.ktor.server.auth.authenticate
+import io.ktor.server.auth.principal
+import io.ktor.server.auth.session
 import io.ktor.server.html.respondHtml
 import io.ktor.server.http.content.files
 import io.ktor.server.http.content.resources
@@ -37,6 +41,7 @@ import jdk.nashorn.internal.objects.NativeJava.type
 import javax.sql.DataSource
 import org.flywaydb.core.Flyway
 import kotlinbook.db.datasource.createAndMigrateDataSource
+import kotlinbook.db.getUser
 import kotlinbook.db.mapFromRow
 import kotlinbook.web.html.AppLayout
 import kotlinbook.web.response.HtmlWebResponse
@@ -52,6 +57,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.html.ButtonType
 import kotlinx.html.FormMethod
 import kotlinx.html.InputType
+import kotlinx.html.a
 import kotlinx.html.body
 import kotlinx.html.button
 import kotlinx.html.form
@@ -208,6 +214,27 @@ fun Application.createKtorApplication() {
             })
         })
 
+        authenticate("auth-session") {
+            get("/secret", webResponseDb(dataSource) { dbSess ->
+                val userSession = call.principal<UserSession>()!!
+                val user = getUser(dbSess, userSession.userId)!!
+
+                HtmlWebResponse(
+                    AppLayout("Welcome, ${user.email}").apply {
+                        pageBody {
+                            h1 {
+                                +"Hello there, ${user.email}"
+                            }
+                            p { +"You're logged in." }
+                            p {
+                                a(href = "/logout") { +"Log out" }
+                            }
+                        }
+                    }
+                )
+            })
+        }
+
         static("/") {
             if (webappConfig.useFileSystemAssets) {
                 files("src/main/resources/public")
@@ -242,6 +269,17 @@ fun Application.setUpKtorCookieSecurity(
             cookie.path = "/"
             cookie.secure = appConfig.useSecureCookie
             cookie.extensions["SameSite"] = "lax"
+        }
+    }
+
+    install(Authentication) {
+        session<UserSession>("auth-session") {
+            validate{ session ->
+                session
+            }
+            challenge {
+                call.respondRedirect("/login")
+            }
         }
     }
 

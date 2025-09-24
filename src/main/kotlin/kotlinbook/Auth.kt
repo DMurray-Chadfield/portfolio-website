@@ -67,4 +67,12 @@ fun getRandomBytesHex(length: Int) =
         .also { SecureRandom().nextBytes(it) }
         .let(::hex)
 
+fun passwordToHash(password: String) =
+    hex(
+        bcryptHasher.hash(
+        12,
+        password.toByteArray(Charsets.UTF_8)
+    )
+)
+
 data class UserSession(val userId: Long): Principal
