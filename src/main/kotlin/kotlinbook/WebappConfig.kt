@@ -9,7 +9,10 @@ data class WebappConfig(
     val dbUser: String,
     val dbPassword: String,
     val dbUrl: String,
-    val useFileSystemAssets: Boolean
+    val useFileSystemAssets: Boolean,
+    val useSecureCookie: Boolean,
+    val cookieEncryptionKey: String,
+    val cookieSigningKey: String
 )
 
 fun createAppConfig(env: String) =
@@ -25,7 +28,10 @@ fun createAppConfig(env: String) =
                 dbUser = it.getString("dbUser"),
                 dbPassword = it.getString("dbPassword"),
                 dbUrl = it.getString("dbUrl"),
-                useFileSystemAssets = it.getBoolean("useFileSystemAssets")
+                useFileSystemAssets = it.getBoolean("useFileSystemAssets"),
+                useSecureCookie = it.getBoolean("useSecureCookie"),
+                cookieEncryptionKey = it.getString("cookieEncryptionKey"),
+                cookieSigningKey = it.getString("cookieSigningKey")
             )
         }
 

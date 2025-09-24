@@ -33,6 +33,8 @@ dependencies {
     implementation("io.arrow-kt:arrow-fx-stm:1.1.2")
     implementation("io.ktor:ktor-server-html-builder:2.1.2")
     implementation("at.favre.lib:bcrypt:0.9.0")
+    implementation("io.ktor:ktor-server-auth:2.1.2")
+    implementation("io.ktor:ktor-server-sessions:2.1.2")
 }
 
 tasks.test {
