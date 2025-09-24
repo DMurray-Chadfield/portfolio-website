@@ -32,6 +32,7 @@ dependencies {
     implementation("io.arrow-kt:arrow-fx-coroutines:1.1.2")
     implementation("io.arrow-kt:arrow-fx-stm:1.1.2")
     implementation("io.ktor:ktor-server-html-builder:2.1.2")
+    implementation("at.favre.lib:bcrypt:0.9.0")
 }
 
 tasks.test {

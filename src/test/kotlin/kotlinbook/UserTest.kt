@@ -1,13 +1,17 @@
 package kotlinbook
 
-import kotlinbook.db.createUser
+
 import kotlinbook.db.getUser
 import kotlinbook.db.listUsers
+import kotlinbook.db.mapFromRow
 import kotlinbook.util.testDataSource
 import kotlinbook.util.testTx
+import kotliquery.queryOf
 import kotliquery.sessionOf
+import java.util.Arrays
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
@@ -93,5 +97,60 @@ class UserTest {
                 assertNotNull(user)
                 assertEquals(user.email, "someeamil@mail.com")
         }
+    }
+
+    @Test
+    fun testVerifyUserPassword() = testTx { dbSess ->
+        val userId = createUser(
+            dbSess,
+            email = "a@b.com",
+            name = "Dave Silverman",
+            passwordText = "1234",
+            tosAccepted = true
+        )
+
+        assertEquals(
+            userId,
+            authenticateUser(dbSess, "a@b.com", "1234")
+        )
+        assertEquals(
+            null,
+            authenticateUser(dbSess, "a@b.com", "incorrect")
+        )
+        assertEquals(
+            null,
+            authenticateUser(dbSess, "does@not.exist", "1234")
+        )
+    }
+
+    @Test
+    fun testUserPasswordSalting() = testTx { dbSess ->
+        val userAId = createUser(
+            dbSess,
+            email = "a@b.com",
+            name = "A",
+            passwordText = "1234",
+            tosAccepted = true
+        )
+
+        val userBId = createUser(
+            dbSess,
+            email = "x@b.com",
+            name = "X",
+            passwordText = "1234",
+            tosAccepted = true
+        )
+
+        val userAHash = dbSess.single(
+            queryOf("SELECT * FROM user_t WHERE id = ?", userAId),
+            ::mapFromRow
+        )!!["password_hash"] as ByteArray
+
+        val userBHash = dbSess.single(
+            queryOf("SELECT * FROM user_t WHERE id = ?", userBId),
+            ::mapFromRow
+        )!!["password_hash"] as ByteArray
+
+        assertFalse(Arrays.equals(userAHash, userBHash))
     }
 }
