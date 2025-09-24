@@ -24,7 +24,16 @@ import io.ktor.server.html.respondHtml
 import io.ktor.server.http.content.files
 import io.ktor.server.http.content.resources
 import io.ktor.server.http.content.static
+import io.ktor.server.request.receiveParameters
 import io.ktor.server.request.receiveText
+import io.ktor.server.sessions.SessionTransportTransformerEncrypt
+import io.ktor.server.sessions.Sessions
+import io.ktor.server.sessions.cookie
+import io.ktor.server.sessions.maxAge
+import io.ktor.server.sessions.sessions
+import io.ktor.server.sessions.set
+import io.ktor.util.hex
+import jdk.nashorn.internal.objects.NativeJava.type
 import javax.sql.DataSource
 import org.flywaydb.core.Flyway
 import kotlinbook.db.datasource.createAndMigrateDataSource
@@ -40,9 +49,17 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import kotlinx.html.ButtonType
+import kotlinx.html.FormMethod
+import kotlinx.html.InputType
 import kotlinx.html.body
+import kotlinx.html.button
+import kotlinx.html.form
 import kotlinx.html.head
 import kotlinx.html.h1
+import kotlinx.html.input
+import kotlinx.html.label
+import kotlinx.html.p
 import kotlinx.html.styleLink
 import kotlinx.html.title
 import kotliquery.Row
@@ -50,6 +67,7 @@ import kotliquery.Session
 import kotliquery.TransactionalSession
 import kotliquery.queryOf
 import kotliquery.sessionOf
+import kotlin.time.Duration
 
 private val log = LoggerFactory.getLogger("kotlinbook.Main")
 
@@ -103,6 +121,7 @@ fun main() {
     }.start(wait = false)
 
     embeddedServer(Netty, port = webappConfig.httpPort) {
+        setUpKtorCookieSecurity(webappConfig, dataSource)
         createKtorApplication()
     }.start(wait = true)
 }
@@ -170,6 +189,25 @@ fun Application.createKtorApplication() {
             })
         })
 
+        get("/login", webResponse {
+            HtmlWebResponse(AppLayout("Log in").apply {
+                pageBody {
+                    form(method = FormMethod.post, action = "/login") {
+                        p {
+                            label { +"E-mail" }
+                            input(type = InputType.text, name = "username")
+                        }
+                        p {
+                            label { +"Password" }
+                            input(type = InputType.password, name = "password")
+                        }
+
+                        button(type = ButtonType.submit) { +"Log in" }
+                    }
+                }
+            })
+        })
+
         static("/") {
             if (webappConfig.useFileSystemAssets) {
                 files("src/main/resources/public")
@@ -184,6 +222,47 @@ fun Application.createKtorApplication() {
             )
         }
  */
+    }
+}
+
+fun Application.setUpKtorCookieSecurity(
+    appConfig: WebappConfig,
+    dataSource: DataSource
+) {
+    install(Sessions) {
+        cookie<UserSession>("user-session") {
+            transform(
+                SessionTransportTransformerEncrypt(
+                    hex(appConfig.cookieEncryptionKey),
+                    hex(appConfig.cookieSigningKey)
+                )
+            )
+            cookie.maxAge = Duration.parse("7d")
+            cookie.httpOnly = true
+            cookie.path = "/"
+            cookie.secure = appConfig.useSecureCookie
+            cookie.extensions["SameSite"] = "lax"
+        }
+    }
+
+    routing {
+        post("/login") {
+            sessionOf(kotlinbook.dataSource).use { dbSess ->
+                val params = call.receiveParameters()
+                val userId = authenticateUser(
+                    dbSess,
+                    params["username"]!!,
+                    params["password"]!!
+                )
+
+                if (userId == null) {
+                    call.respondRedirect("/login")
+                } else {
+                    call.sessions.set(UserSession(userId = userId))
+                    call.respondRedirect("/secret")
+                }
+            }
+        }
     }
 }
 
