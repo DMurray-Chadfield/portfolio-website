@@ -32,6 +32,7 @@ import io.ktor.server.request.receiveParameters
 import io.ktor.server.request.receiveText
 import io.ktor.server.sessions.SessionTransportTransformerEncrypt
 import io.ktor.server.sessions.Sessions
+import io.ktor.server.sessions.clear
 import io.ktor.server.sessions.cookie
 import io.ktor.server.sessions.maxAge
 import io.ktor.server.sessions.sessions
@@ -214,27 +215,6 @@ fun Application.createKtorApplication() {
             })
         })
 
-        authenticate("auth-session") {
-            get("/secret", webResponseDb(dataSource) { dbSess ->
-                val userSession = call.principal<UserSession>()!!
-                val user = getUser(dbSess, userSession.userId)!!
-
-                HtmlWebResponse(
-                    AppLayout("Welcome, ${user.email}").apply {
-                        pageBody {
-                            h1 {
-                                +"Hello there, ${user.email}"
-                            }
-                            p { +"You're logged in." }
-                            p {
-                                a(href = "/logout") { +"Log out" }
-                            }
-                        }
-                    }
-                )
-            })
-        }
-
         static("/") {
             if (webappConfig.useFileSystemAssets) {
                 files("src/main/resources/public")
@@ -299,6 +279,34 @@ fun Application.setUpKtorCookieSecurity(
                     call.sessions.set(UserSession(userId = userId))
                     call.respondRedirect("/secret")
                 }
+            }
+        }
+
+        authenticate("auth-session") {
+            get("/secret", webResponseDb(kotlinbook.dataSource) { dbSess ->
+                val userSession = call.principal<UserSession>()!!
+                val user = getUser(dbSess, userSession.userId)!!
+
+                HtmlWebResponse(
+                    AppLayout("Welcome, ${user.email}").apply {
+                        pageBody {
+                            h1 {
+                                +"Hello there, ${user.email}"
+                            }
+                            p { +"You're logged in." }
+                            p {
+                                a(href = "/logout") { +"Log out" }
+                            }
+                        }
+                    }
+                )
+            })
+        }
+
+        authenticate("auth-session") {
+            get("/logout") {
+                call.sessions.clear<UserSession>()
+                call.respondRedirect("/login")
             }
         }
     }
