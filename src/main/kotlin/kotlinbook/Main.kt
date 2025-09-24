@@ -29,6 +29,8 @@ import javax.sql.DataSource
 import org.flywaydb.core.Flyway
 import kotlinbook.db.datasource.createAndMigrateDataSource
 import kotlinbook.db.mapFromRow
+import kotlinbook.web.html.AppLayout
+import kotlinbook.web.response.HtmlWebResponse
 import kotlinbook.web.response.JsonWebResponse
 import kotlinbook.web.response.TextWebResponse
 import kotlinbook.web.webResponse
@@ -157,6 +159,16 @@ fun Application.createKtorApplication() {
 
             }
         }
+
+        get("/html_webresponse_test", webResponse {
+            HtmlWebResponse(AppLayout("Hello, World!").apply {
+                pageBody {
+                    h1 {
+                        +"Hello, readers!"
+                    }
+                }
+            })
+        })
 
         static("/") {
             if (webappConfig.useFileSystemAssets) {

@@ -3,11 +3,13 @@ package kotlinbook.web
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.call
+import io.ktor.server.html.respondHtml
 import io.ktor.server.response.header
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
 import io.ktor.util.pipeline.PipelineContext
 import io.ktor.util.pipeline.PipelineInterceptor
+import kotlinbook.web.response.HtmlWebResponse
 import kotlinbook.web.response.KtorJsonWebResponse
 import kotlinbook.web.response.WebResponse
 import kotlinbook.web.response.JsonWebResponse
@@ -43,6 +45,11 @@ fun webResponse(
                     body = resp.body,
                     status = statusCode
                 ))
+            }
+            is HtmlWebResponse -> {
+                call.respondHtml(statusCode) {
+                    with(resp.body) { apply() }
+                }
             }
         }
     }
