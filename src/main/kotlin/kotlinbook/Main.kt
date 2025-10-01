@@ -1,6 +1,7 @@
 package kotlinbook
 
-import com.typesafe.config.ConfigFactory
+import arrow.core.continuations.either
+import com.google.gson.Gson
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -11,9 +12,7 @@ import io.ktor.server.plugins.statuspages.*
 import io.ktor.util.pipeline.*
 
 import org.slf4j.LoggerFactory
-import java.io.File
 import kotlin.reflect.full.declaredMemberProperties
-import com.zaxxer.hikari.HikariDataSource
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.request.get
@@ -38,16 +37,18 @@ import io.ktor.server.sessions.maxAge
 import io.ktor.server.sessions.sessions
 import io.ktor.server.sessions.set
 import io.ktor.util.hex
-import jdk.nashorn.internal.objects.NativeJava.type
 import javax.sql.DataSource
-import org.flywaydb.core.Flyway
 import kotlinbook.db.datasource.createAndMigrateDataSource
 import kotlinbook.db.getUser
 import kotlinbook.db.mapFromRow
+import kotlinbook.domain.User
 import kotlinbook.web.html.AppLayout
 import kotlinbook.web.response.HtmlWebResponse
 import kotlinbook.web.response.JsonWebResponse
 import kotlinbook.web.response.TextWebResponse
+import kotlinbook.web.validation.ValidationError
+import kotlinbook.web.validation.validateEmail
+import kotlinbook.web.validation.validatePassword
 import kotlinbook.web.webResponse
 import kotlinbook.web.webResponseDb
 import kotlinx.coroutines.Dispatchers
@@ -69,11 +70,10 @@ import kotlinx.html.label
 import kotlinx.html.p
 import kotlinx.html.styleLink
 import kotlinx.html.title
-import kotliquery.Row
 import kotliquery.Session
-import kotliquery.TransactionalSession
 import kotliquery.queryOf
 import kotliquery.sessionOf
+import kotlin.collections.mapOf
 import kotlin.time.Duration
 
 private val log = LoggerFactory.getLogger("kotlinbook.Main")
@@ -213,6 +213,29 @@ fun Application.createKtorApplication() {
                     }
                 }
             })
+        })
+
+        post("/test_json", webResponse {
+            either<ValidationError, User> {
+                val input = Gson().fromJson(
+                    call.receiveText(), Map::class.java
+                )
+                User(
+                    email = validateEmail(input["email"]).bind(),
+                    password = validatePassword(input["password"]).bind()
+                )
+            }.fold(
+                { err ->
+                    JsonWebResponse(
+                        mapOf("error" to err.error),
+                        statusCode = 422
+                    )
+                },
+                { user ->
+                    // do something with User
+                    JsonWebResponse(mapOf("success" to true))
+                }
+            )
         })
 
         static("/") {

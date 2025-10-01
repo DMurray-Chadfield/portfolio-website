@@ -5,13 +5,14 @@ import java.time.OffsetDateTime
 import java.time.ZonedDateTime
 
 data class User(
-    val id: Long,
-    val createdAt: ZonedDateTime,
-    val updatedAt: ZonedDateTime,
+    val id: Long? = null,
+    val createdAt: ZonedDateTime? = null,
+    val updatedAt: ZonedDateTime? = null,
     val email: String,
-    val tosAccepted: Boolean,
-    val name: String?,
-    val passwordHash: ByteBuffer
+    val tosAccepted: Boolean? = null,
+    val name: String? = null,
+    val passwordHash: ByteBuffer? = null,
+    val password: String? = null
 ) {
     companion object {
         fun fromRow(row: Map<String, Any?>) = User(
