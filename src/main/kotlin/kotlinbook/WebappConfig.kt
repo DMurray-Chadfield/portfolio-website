@@ -5,7 +5,6 @@ import com.typesafe.config.ConfigFactory
 data class WebappConfig(
     val httpPort: Int,
     val projectRoot: String,
-    val htmlLocation: String,
     val dbUser: String,
     val dbPassword: String,
     val dbUrl: String,
@@ -24,7 +23,6 @@ fun createAppConfig(env: String) =
             WebappConfig(
                 httpPort = it.getInt("httpPort"),
                 projectRoot = it.getString("projectRoot"),
-                htmlLocation = it.getString("htmlLocation"),
                 dbUser = it.getString("dbUser"),
                 dbPassword = it.getString("dbPassword"),
                 dbUrl = it.getString("dbUrl"),

@@ -26,6 +26,7 @@ import io.ktor.server.auth.session
 import io.ktor.server.html.respondHtml
 import io.ktor.server.http.content.files
 import io.ktor.server.http.content.resources
+import io.ktor.server.http.content.singlePageApplication
 import io.ktor.server.http.content.static
 import io.ktor.server.request.receiveParameters
 import io.ktor.server.request.receiveText
@@ -238,20 +239,15 @@ fun Application.createKtorApplication() {
             )
         })
 
-        static("/") {
+        singlePageApplication {
             if (webappConfig.useFileSystemAssets) {
-                files("src/main/resources/public")
+                filesPath = "src/main/resources/public"
             } else {
-                resources("public")
+                useResources = true
+                filesPath = "public"
             }
+            defaultPage = "index.html"
         }
-/*        get("/") {
-            call.respondFile(
-                File(webappConfig.projectRoot + webappConfig.htmlLocation),
-                "index.html"
-            )
-        }
- */
     }
 }
 
