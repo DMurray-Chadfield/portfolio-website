@@ -5,6 +5,7 @@ application {
 plugins {
     kotlin("jvm") version "2.0.21"
     application
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 group = "com.danmc"

@@ -24,6 +24,13 @@ from the project root.
 Switch between environment types using the `KOTLINBOOK_ENV` env variable, setting to either
 `local` or `production`. If none is set, it will default to `local`.
 
+### Packaging
+Run
+```bash
+./gradlew shadowJar
+```
+from the project root to produce a jar file packaged with all necessary dependencies.
+
 ## For developers
 ### Migration issues
 If a migration fails, there are two general ways you will want to solve it
