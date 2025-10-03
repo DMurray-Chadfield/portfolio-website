@@ -48,3 +48,9 @@ you will need to execute:
 UPDATE flyway_schema_history SET success = true WHERE version = ${version};
 ```
 where ${version} is the version number of the migration you want to rerun.
+
+### Run unit tests
+Unit tests can be run using
+```bash
+./gradlew test
+```
