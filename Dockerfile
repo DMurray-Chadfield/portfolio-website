@@ -1,4 +1,4 @@
-FROM amazoncorretto:17-al2-native-jdk
+FROM eclipse-temurin:17-jdk-jammy
 
 RUN mkdir /app
 COPY build/libs/portfolio-website-1.0-SNAPSHOT-all.jar /app/
