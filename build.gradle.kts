@@ -26,6 +26,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10")
     implementation("com.zaxxer:HikariCP:5.0.1")
     implementation("com.h2database:h2:2.1.214")
+    implementation("org.postgresql:postgresql:42.6.0")
     implementation("org.flywaydb:flyway-core:9.5.1")
     implementation("com.github.seratch:kotliquery:1.9.0")
     implementation("io.ktor:ktor-client-core:2.1.2")
