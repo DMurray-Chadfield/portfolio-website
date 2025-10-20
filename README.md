@@ -31,6 +31,11 @@ Run
 ```
 from the project root to produce a jar file packaged with all necessary dependencies.
 
+To then build a docker image, run
+```bash
+docker build -f Dockerfile -t kotlinbook:latest .
+```
+
 ## For developers
 ### Migration issues
 If a migration fails, there are two general ways you will want to solve it
