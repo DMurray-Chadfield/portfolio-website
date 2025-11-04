@@ -44,6 +44,7 @@ dependencies {
     implementation("org.eclipse.jetty:jetty-servlet:9.4.49.v20220914")
     implementation("org.springframework.security:spring-security-web:5.7.3")
     implementation("org.springframework.security:spring-security-config:5.7.3")
+    implementation("org.springframework:spring-context:5.3.23")
 }
 
 tasks.test {
