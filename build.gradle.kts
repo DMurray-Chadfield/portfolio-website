@@ -38,6 +38,7 @@ dependencies {
     implementation("io.ktor:ktor-server-auth:2.1.2")
     implementation("io.ktor:ktor-server-sessions:2.1.2")
     implementation("io.ktor:ktor-server-forwarded-header:2.1.2")
+    implementation("org.springframework:spring-context:5.3.23")
 }
 
 tasks.test {
