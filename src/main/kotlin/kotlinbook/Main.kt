@@ -78,18 +78,17 @@ import kotliquery.sessionOf
 import kotlin.collections.mapOf
 import kotlin.time.Duration
 
-public val log = LoggerFactory.getLogger("kotlinbook.Main")
+private val log = LoggerFactory.getLogger("kotlinbook.Main")
 
 val env = System.getenv("KOTLINBOOK_ENV") ?: "local"
-val webappConfig = createAppConfig(env)
-val dataSource = createAndMigrateDataSource(webappConfig)
 
 
 fun main() {
     log.debug("Starting application...")
     log.debug("Application runs in the environment $env")
 
-
+    val webappConfig = createAppConfig(env)
+    val dataSource = createAndMigrateDataSource(webappConfig)
     val secretsRegex = "password|secret|key|url"
         .toRegex(RegexOption.IGNORE_CASE)
     log.debug("Configuration loaded successfully: ${
@@ -132,7 +131,7 @@ fun main() {
     embeddedServer(Netty, port = webappConfig.httpPort) {
         install(XForwardedHeaders)
         setUpKtorCookieSecurity(webappConfig, dataSource)
-        createKtorApplication()
+        createKtorApplication(webappConfig, dataSource)
     }.start(wait = true)
 }
 

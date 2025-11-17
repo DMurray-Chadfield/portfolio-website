@@ -1,7 +1,6 @@
 package kotlinbook
 
 import arrow.core.continuations.either
-import arrow.core.continuations.either.invoke
 import com.google.gson.Gson
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
@@ -57,11 +56,14 @@ import kotlinx.html.styleLink
 import kotlinx.html.title
 import kotliquery.queryOf
 import kotliquery.sessionOf
+import org.slf4j.LoggerFactory
 import javax.sql.DataSource
 import kotlin.collections.get
 import kotlin.time.Duration
 
-fun Application.createKtorApplication() {
+private val log = LoggerFactory.getLogger("kotlinbook.KtorKt")
+
+fun Application.createKtorApplication(webappConfig: WebappConfig, dataSource: DataSource) {
     install(StatusPages) {
         exception<Throwable> { call, cause ->
             log.error("An unknown error occurred", cause)
@@ -211,7 +213,7 @@ fun Application.setUpKtorCookieSecurity(
 
     routing {
         post("/login") {
-            sessionOf(kotlinbook.dataSource).use { dbSess ->
+            sessionOf(dataSource).use { dbSess ->
                 val params = call.receiveParameters()
                 val userId = authenticateUser(
                     dbSess,
@@ -229,7 +231,7 @@ fun Application.setUpKtorCookieSecurity(
         }
 
         authenticate("auth-session") {
-            get("/secret", webResponseDb(kotlinbook.dataSource) { dbSess ->
+            get("/secret", webResponseDb(dataSource) { dbSess ->
                 val userSession = call.principal<UserSession>()!!
                 val user = getUser(dbSess, userSession.userId)!!
 
