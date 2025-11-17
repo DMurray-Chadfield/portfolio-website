@@ -1,5 +1,5 @@
 application {
-    mainClass = "kotlinbook.MainKt"
+    mainClass = "kotlinbook.MainSpringContextKt"
 }
 
 plugins {
