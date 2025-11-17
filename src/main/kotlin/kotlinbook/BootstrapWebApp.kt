@@ -8,11 +8,6 @@ import io.ktor.server.engine.installDefaultTransformations
 import io.ktor.server.servlet.ServletApplicationEngine
 import kotlinbook.db.datasource.createAndMigrateDataSource
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.support.DefaultListableBeanFactory
-import org.springframework.context.annotation.AnnotatedBeanDefinitionReader
-import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl
-import org.springframework.web.context.support.AbstractRefreshableWebApplicationContext
-import org.springframework.web.filter.DelegatingFilterProxy
 import javax.servlet.annotation.WebListener
 import javax.servlet.ServletContextEvent
 import javax.servlet.ServletContextListener
@@ -63,6 +58,7 @@ class BootstrapWebApp : ServletContextListener {
         ).apply {
             addMapping("/")
         }
+<<<<<<< HEAD
 
         log.debug("Setting up Spring Security")
         val roleHierarchy = """
@@ -98,6 +94,8 @@ class BootstrapWebApp : ServletContextListener {
         ).apply {
             addMappingForServletNames(null, false, "ktorServlet")
         }
+=======
+>>>>>>> acc0dea (Convert to servlet and wrap in jetty server)
     }
 
     override fun contextDestroyed(sce: ServletContextEvent) {

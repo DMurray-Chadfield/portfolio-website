@@ -10,6 +10,8 @@ import org.springframework.beans.factory.config.RuntimeBeanReference
 import org.springframework.context.support.StaticApplicationContext
 import javax.sql.DataSource
 
+private val log = LoggerFactory.getLogger("kotlinbook.MainSpringContextKt")
+
 fun main() {
     log.debug("Starting application...")
     val env = System.getenv("KOTLINBOOK_ENV") ?: "local"
@@ -22,7 +24,7 @@ fun main() {
         ctx.getBean("dataSource", DataSource::class.java)
     embeddedServer(Netty, port = config.httpPort) {
         setUpKtorCookieSecurity(config, dataSource)
-        createKtorApplication()
+        createKtorApplication(config, dataSource)
     }.start(wait = true)
 }
 
