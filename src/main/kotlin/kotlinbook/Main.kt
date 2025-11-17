@@ -78,7 +78,7 @@ import kotliquery.sessionOf
 import kotlin.collections.mapOf
 import kotlin.time.Duration
 
-private val log = LoggerFactory.getLogger("kotlinbook.Main")
+public val log = LoggerFactory.getLogger("kotlinbook.Main")
 
 val env = System.getenv("KOTLINBOOK_ENV") ?: "local"
 
