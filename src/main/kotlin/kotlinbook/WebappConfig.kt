@@ -11,7 +11,8 @@ data class WebappConfig(
     val useFileSystemAssets: Boolean,
     val useSecureCookie: Boolean,
     val cookieEncryptionKey: String,
-    val cookieSigningKey: String
+    val cookieSigningKey: String,
+    val rememberMeKey: String
 )
 
 fun createAppConfig(env: String) =
@@ -29,7 +30,8 @@ fun createAppConfig(env: String) =
                 useFileSystemAssets = it.getBoolean("useFileSystemAssets"),
                 useSecureCookie = it.getBoolean("useSecureCookie"),
                 cookieEncryptionKey = it.getString("cookieEncryptionKey"),
-                cookieSigningKey = it.getString("cookieSigningKey")
+                cookieSigningKey = it.getString("cookieSigningKey"),
+                rememberMeKey = it.getString("rememberMeKey")
             )
         }
 

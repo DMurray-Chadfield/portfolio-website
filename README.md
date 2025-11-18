@@ -37,6 +37,10 @@ docker build -f Dockerfile -t kotlinbook:latest .
 ```
 
 ## For developers
+### App routes
+App routes are configured in Ktor.kt.
+
+Security filter chain is configured in WebappSecurityConfig.kt
 ### Migration issues
 If a migration fails, there are two general ways you will want to solve it
 #### Rerunning a migration

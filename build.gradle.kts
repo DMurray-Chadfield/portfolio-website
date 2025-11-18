@@ -42,6 +42,8 @@ dependencies {
     implementation("io.ktor:ktor-server-servlet:2.1.2")
     implementation("org.eclipse.jetty:jetty-server:9.4.49.v20220914")
     implementation("org.eclipse.jetty:jetty-servlet:9.4.49.v20220914")
+    implementation("org.springframework.security:spring-security-web:5.7.3")
+    implementation("org.springframework.security:spring-security-config:5.7.3")
 }
 
 tasks.test {

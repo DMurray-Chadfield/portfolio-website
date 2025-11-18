@@ -8,6 +8,11 @@ import io.ktor.server.engine.installDefaultTransformations
 import io.ktor.server.servlet.ServletApplicationEngine
 import kotlinbook.db.datasource.createAndMigrateDataSource
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.support.DefaultListableBeanFactory
+import org.springframework.context.annotation.AnnotatedBeanDefinitionReader
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl
+import org.springframework.web.context.support.AbstractRefreshableWebApplicationContext
+import org.springframework.web.filter.DelegatingFilterProxy
 import javax.servlet.annotation.WebListener
 import javax.servlet.ServletContextEvent
 import javax.servlet.ServletContextListener
@@ -57,6 +62,41 @@ class BootstrapWebApp : ServletContextListener {
             ServletApplicationEngine::class.java
         ).apply {
             addMapping("/")
+        }
+
+        log.debug("Setting up Spring Security")
+        val roleHierarchy = """
+  ROLE_ADMIN > ROLE_USER
+"""
+        val wac = object : AbstractRefreshableWebApplicationContext() {
+            override fun loadBeanDefinitions(
+                beanFactory: DefaultListableBeanFactory
+            ) {
+                beanFactory.registerSingleton(
+                    "dataSource",
+                    dataSource
+                )
+                beanFactory.registerSingleton(
+                    "rememberMeKey",
+                    appConfig.rememberMeKey
+                )
+                beanFactory.registerSingleton(
+                    "roleHierarchy",
+                    RoleHierarchyImpl().apply {
+                        setHierarchy(roleHierarchy)
+                    }
+                )
+                AnnotatedBeanDefinitionReader(beanFactory)
+                    .register(WebappSecurityConfig::class.java)
+            }
+        }
+
+        wac.servletContext = ctx
+        ctx.addFilter(
+            "springSecurityFilterChain",
+            DelegatingFilterProxy("springSecurityFilterChain", wac)
+        ).apply {
+            addMappingForServletNames(null, false, "ktorServlet")
         }
     }
 
