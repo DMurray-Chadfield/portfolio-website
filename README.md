@@ -59,7 +59,27 @@ Build the production JAR:
 Build a Docker image:
 
 ```bash
-docker build -f Dockerfile -t portfolio:latest .
+docker build -f Dockerfile -t kotlinbook:latest .
+```
+
+### Running with Docker
+
+Run the container:
+
+```bash
+docker run -p 4207:4207 -d --name kotlinbook kotlinbook:latest
+```
+
+If you need to pass environment variables (e.g., for production database), use an environment file:
+
+```bash
+docker run -p 4207:4207 -d --env-file .env --name kotlinbook kotlinbook:latest
+```
+
+Alternatively, you can use the provided helper script:
+
+```bash
+./run_docker.sh .env
 ```
 
 ## Testing
