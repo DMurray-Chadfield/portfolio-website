@@ -47,7 +47,8 @@ docker run -d --name $CONTAINER_NAME \
   -e POSTGRES_PASSWORD=password \
   -e POSTGRES_DB=postgres \
   -p 5432:5432 \
-  -v kotlinbook_pgdata:/var/lib/postgresql/data \
+  -e PGDATA=/var/lib/postgresql/data \
+  -v kotlinbook_pgdata:/var/lib/postgresql \
   postgres:latest
 
 echo "Waiting for PostgreSQL to become ready..."
