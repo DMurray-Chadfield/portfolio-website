@@ -32,7 +32,7 @@ if [ -z "$KOTLINBOOK_DB_USER" ] || [ -z "$KOTLINBOOK_DB_PASSWORD" ]; then
   exit 1
 fi
 
-CONTAINER_NAME="kotlinbook-postgres"
+CONTAINER_NAME="postgres"
 
 # 1) Bring up new postgres docker container
 echo "Starting PostgreSQL container ($CONTAINER_NAME)..."
