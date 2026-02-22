@@ -37,6 +37,7 @@ dependencies {
     implementation("at.favre.lib:bcrypt:0.9.0")
     implementation("io.ktor:ktor-server-auth:2.1.2")
     implementation("io.ktor:ktor-server-sessions:2.1.2")
+    implementation("io.ktor:ktor-server-forwarded-header:2.1.2")
 }
 
 tasks.test {

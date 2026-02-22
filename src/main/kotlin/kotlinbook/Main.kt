@@ -9,6 +9,7 @@ import io.ktor.server.netty.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.plugins.statuspages.*
+import io.ktor.server.plugins.forwardedheaders.*
 import io.ktor.util.pipeline.*
 
 import org.slf4j.LoggerFactory
@@ -129,6 +130,7 @@ fun main() {
     }.start(wait = false)
 
     embeddedServer(Netty, port = webappConfig.httpPort) {
+        install(XForwardedHeaders)
         setUpKtorCookieSecurity(webappConfig, dataSource)
         createKtorApplication()
     }.start(wait = true)
