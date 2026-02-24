@@ -7,4 +7,5 @@ then
 	exit 1
 fi
 
-docker run -p 4207:4207 -d --env-file "$env_file" --name kotlinbook kotlinbook:latest
+docker pull ghcr.io/dmurray-chadfield/portfolio-website:latest
+docker run -p 4207:4207 -d --env-file "$env_file" --name portfolio-website ghcr.io/dmurray-chadfield/portfolio-website:latest

@@ -20,7 +20,7 @@ This is a Kotlin web application using:
 ./gradlew shadowJar
 
 # Build Docker image
-docker build -f Dockerfile -t kotlinbook:latest .
+docker build -f Dockerfile -t portfolio-website:latest .
 
 # Run all tests
 ./gradlew test
