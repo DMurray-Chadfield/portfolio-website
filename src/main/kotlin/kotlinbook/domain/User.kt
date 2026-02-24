@@ -1,7 +1,9 @@
 package kotlinbook.domain
 
 import java.nio.ByteBuffer
+import java.sql.Timestamp
 import java.time.OffsetDateTime
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
 
 data class User(
@@ -15,12 +17,19 @@ data class User(
     val password: String? = null
 ) {
     companion object {
+        private fun Any?.toZoned(): ZonedDateTime? = when (this) {
+            is OffsetDateTime -> this.toZonedDateTime()
+            is Timestamp -> this.toInstant().atZone(ZoneOffset.UTC)
+            null -> null
+            else -> throw IllegalArgumentException(
+                "Unexpected timestamp type: ${this.javaClass}"
+            )
+        }
+
         fun fromRow(row: Map<String, Any?>) = User(
             id = row["id"] as Long,
-            createdAt = (row["created_at"] as OffsetDateTime)
-                .toZonedDateTime(),
-            updatedAt = (row["updated_at"] as OffsetDateTime)
-                .toZonedDateTime(),
+            createdAt = row["created_at"].toZoned(),
+            updatedAt = row["updated_at"].toZoned(),
             email = row["email"] as String,
             name = row["name"] as? String,
             tosAccepted = row["tos_accepted"] as Boolean,
