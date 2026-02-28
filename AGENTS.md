@@ -20,7 +20,7 @@ This is a Kotlin web application using:
 ./gradlew shadowJar
 
 # Build Docker image
-docker build -f Dockerfile -t portfolio-website:latest .
+docker build -f Dockerfile -t kotlinbook:latest .
 
 # Run all tests
 ./gradlew test
@@ -57,6 +57,7 @@ Configuration files in `src/main/resources/`:
 
 ### General Principles
 
+- **No comments** unless explicitly required
 - Use **Arrow** (`arrow-core`, `arrow-fx-coroutines`, `arrow-fx-stm`) for functional error handling and monadic operations
 - Prefer **sealed classes** for union types (see `WebResponse.kt`)
 - Use **data classes** for DTOs and domain models

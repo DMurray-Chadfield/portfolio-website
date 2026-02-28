@@ -1,61 +1,153 @@
 # Dan's Portfolio Website
 
-This is a website I am building in Kotlin, following *Pro Kotlin Webapps from Scratch* by August Lilleaas.
-It is currently a just a pet project but will one day hopefully serve as a portfolio for any other coding projects I build.
+A Kotlin web application built with Ktor and Spring Security, serving as a personal portfolio and demonstrating modern web development practices.
 
-## Table of Contents
+## Tech Stack
 
-*   [Installation](#installation)
-*   [For developers](#for-developers)
+- **Framework**: Ktor 2.1.2
+- **Security**: Spring Security 5.7.3
+- **Database**: PostgreSQL (production) / H2 (development)
+- **Build System**: Gradle with Kotlin DSL
+- **ORM**: Kotliquery
+- **Migrations**: Flyway
+- **Functional Programming**: Arrow
+- **Password Hashing**: BCrypt
 
-## Installation
+## Features
 
-### Requirements
-- jdk 17 or later
-- gradle
+- User authentication with session-based login
+- Encrypted cookie sessions
+- Database migrations with Flyway
+- Type-safe SQL queries with Kotliquery
+- Functional error handling with Arrow Either
+- HTML templating with kotlinx.html
+- RESTful JSON endpoints
+- Single Page Application support
 
-The project uses gradle as its build system. Currently, to run just requires running the main clas. This can be done
-using your IDE, or with gradle by running
+## Requirements
+
+- JDK 17 or later
+- Gradle
+
+## Getting Started
+
+### Running Locally
+
 ```bash
 ./gradlew run
 ```
-from the project root.
 
-Switch between environment types using the `KOTLINBOOK_ENV` env variable, setting to either
-`local` or `production`. If none is set, it will default to `local`.
+The application runs on port 4207 by default.
 
-### Packaging
-Run
+### Environment Configuration
+
+Set the `KOTLINBOOK_ENV` environment variable:
+
+| Value | Description |
+|-------|-------------|
+| `local` (default) | Development with H2 in-memory database |
+| `production` | Production with PostgreSQL |
+
+### Building
+
+Build the production JAR:
+
 ```bash
 ./gradlew shadowJar
 ```
-from the project root to produce a jar file packaged with all necessary dependencies.
 
-To then build a docker image, run
+Build a Docker image:
+
 ```bash
 docker build -f Dockerfile -t kotlinbook:latest .
 ```
 
-## For developers
-### Migration issues
-If a migration fails, there are two general ways you will want to solve it
-#### Rerunning a migration
-After manually reverting a failed migration, and fixing the migration script, in order to make flyway forget that
-migration has been run, you will need to execute:
-```sql
-DELETE FROM flyway_schema_history WHERE version = ${version};
-```
-where ${version} is the version number of the migration you want to rerun.
-#### Finishing the migration manually
-After manually running sql to finish a failed migration, in order to make flyway think the migration was successful,
-you will need to execute:
-```sql
-UPDATE flyway_schema_history SET success = true WHERE version = ${version};
-```
-where ${version} is the version number of the migration you want to rerun.
+### Running with Docker
 
-### Run unit tests
-Unit tests can be run using
+Run the container:
+
+```bash
+docker run -p 4207:4207 -d --name kotlinbook kotlinbook:latest
+```
+
+If you need to pass environment variables (e.g., for production database), use an environment file:
+
+```bash
+docker run -p 4207:4207 -d --env-file .env --name kotlinbook kotlinbook:latest
+```
+
+Alternatively, you can use the provided helper script:
+
+```bash
+./run_docker.sh .env
+```
+
+## Testing
+
+Run all tests:
+
 ```bash
 ./gradlew test
+```
+
+Run a specific test class:
+
+```bash
+./gradlew test --tests "kotlinbook.UserTest"
+```
+
+Run tests with verbose output:
+
+```bash
+./gradlew test --info
+```
+
+## Project Structure
+
+```
+src/
+├── main/
+│   ├── kotlin/kotlinbook/
+│   │   ├── Main.kt              # Application entry point
+│   │   ├── MainSpringSecurity.kt # Spring Security integration
+│   │   ├── Ktor.kt              # Routes and handlers
+│   │   ├── Auth.kt              # Authentication logic
+│   │   ├── BootstrapWebApp.kt   # App bootstrap
+│   │   ├── WebappConfig.kt      # Configuration
+│   │   ├── db/                  # Database utilities
+│   │   ├── domain/              # Domain models
+│   │   └── web/                 # HTTP handlers, responses
+│   └── resources/
+│       ├── app*.conf           # Configuration files
+│       ├── db/migration/       # Flyway migrations
+│       └── public/             # Static assets
+└── test/
+    └── kotlin/kotlinbook/
+        └── UserTest.kt
+```
+
+## Routes
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/` | Hello World |
+| GET | `/login` | Login page |
+| POST | `/login` | Submit login |
+| GET | `/secret` | Protected route (requires auth) |
+| GET | `/logout` | Logout |
+
+## Database Migrations
+
+SQL migrations are in `src/main/resources/db/migration/`. Format: `V{version}__{description}.sql`
+
+### Troubleshooting Migrations
+
+Rerun a failed migration:
+```sql
+DELETE FROM flyway_schema_history WHERE version = '{version}';
+```
+
+Mark migration as successful:
+```sql
+UPDATE flyway_schema_history SET success = true WHERE version = '{version}';
 ```
