@@ -14,12 +14,6 @@ import io.ktor.util.pipeline.*
 
 import org.slf4j.LoggerFactory
 import kotlin.reflect.full.declaredMemberProperties
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
-import io.ktor.client.request.get
-import io.ktor.client.request.post
-import io.ktor.client.request.setBody
-import io.ktor.client.statement.bodyAsText
 import io.ktor.server.auth.Authentication
 import io.ktor.server.auth.authenticate
 import io.ktor.server.auth.principal
@@ -54,8 +48,6 @@ import kotlinbook.web.validation.validatePassword
 import kotlinbook.web.webResponse
 import kotlinbook.web.webResponseDb
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import kotlinx.html.ButtonType
@@ -110,24 +102,6 @@ fun main() {
         }
     }
 
-    embeddedServer(Netty, port = 9876) {
-        routing {
-            get("/random_number", webResponse {
-                val num = (200L..2000L).random()
-                delay(num)
-                TextWebResponse(num.toString())
-            })
-
-            get("/ping", webResponse {
-                TextWebResponse("pong")
-            })
-
-            post("/reverse", webResponse {
-                TextWebResponse(call.receiveText().reversed())
-            })
-        }
-    }.start(wait = false)
-
     embeddedServer(Netty, port = webappConfig.httpPort) {
         install(XForwardedHeaders)
         setUpKtorCookieSecurity(webappConfig, dataSource)
@@ -136,41 +110,44 @@ fun main() {
 }
 
 
+// Local suspend functions for coroutine test - no HTTP calls needed
+suspend fun getRandomNumber(): String {
+    val num = (200L..2000L).random()
+    delay(num)
+    return num.toString()
+}
+
+suspend fun reverseText(text: String): String {
+    return text.reversed()
+}
+
+suspend fun pingService(): String {
+    return "pong"
+}
 
 suspend fun handleCoroutineTest(
     dbSess: Session
-) = coroutineScope {
-    val client = HttpClient(CIO)
-
-    val randomNumberRequest = async {
-        client.get("http://localhost:9876/random_number").bodyAsText()
+): TextWebResponse {
+    // Call local functions instead of making HTTP calls
+    val randomNumber = getRandomNumber()
+    val reversed = reverseText(randomNumber)
+    
+    val pingResult = pingService()
+    
+    val queryResult = withContext(Dispatchers.IO) {
+        dbSess.single(
+            queryOf(
+                "SELECT count(*) count from user_t WHERE email != ?",
+                pingResult
+            ),
+            ::mapFromRow
+        )
     }
-
-    val reverseRequest = async {
-        client.post("http://localhost:9876/reverse") {
-            setBody(randomNumberRequest.await())
-        }.bodyAsText()
-    }
-
-    val queryOperation = async {
-        val pingPong = client.get("http://localhost:9876/ping").bodyAsText()
-
-        withContext(Dispatchers.IO)
-        {
-            dbSess.single(
-                queryOf(
-                    "SELECT count(*) count from user_t WHERE email != ?",
-                    pingPong
-                ),
-                ::mapFromRow
-            )
-        }
-    }
-    TextWebResponse("""
-        Random number: ${randomNumberRequest.await()}
-        Reversed: ${reverseRequest.await()}
-        Query: ${queryOperation.await()}
-    """)
+    
+    return TextWebResponse("""
+        Random number: $randomNumber
+        Reversed: $reversed
+        Query: $queryResult
+    """.trimIndent())
 }
-
 

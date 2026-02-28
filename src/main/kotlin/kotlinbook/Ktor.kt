@@ -40,6 +40,7 @@ import kotlinbook.web.validation.validateEmail
 import kotlinbook.web.validation.validatePassword
 import kotlinbook.web.webResponse
 import kotlinbook.web.webResponseDb
+import kotlinx.coroutines.delay
 import kotlinx.html.ButtonType
 import kotlinx.html.FormMethod
 import kotlinx.html.InputType
@@ -76,6 +77,21 @@ fun Application.createKtorApplication(webappConfig: WebappConfig, dataSource: Da
     }
 
     routing {
+        // Test endpoints - moved from separate server in Main.kt
+        get("/random_number", webResponse {
+            val num = (200L..2000L).random()
+            delay(num)
+            TextWebResponse(num.toString())
+        })
+
+        get("/ping", webResponse {
+            TextWebResponse("pong")
+        })
+
+        post("/reverse", webResponse {
+            TextWebResponse(call.receiveText().reversed())
+        })
+
         get("/", webResponse {TextWebResponse("Hello, World!")})
 
         get("/param_test", webResponse {
