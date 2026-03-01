@@ -108,11 +108,13 @@ Run tests with verbose output:
 src/
 ├── main/
 │   ├── kotlin/kotlinbook/
-│   │   ├── Main.kt              # Application entry point
-│   │   ├── MainSpringSecurity.kt # Spring Security integration
+│   │   ├── MainSpringSecurity.kt # Primary entry point (mainClass) — starts embedded Jetty, registers BootstrapWebApp
+│   │   ├── BootstrapWebApp.kt   # Servlet listener — bootstraps Ktor (as a servlet) and Spring Security
+│   │   ├── WebappSecurityConfig.kt # Spring Security filter chain and auth provider
+│   │   ├── Main.kt              # Standalone alternative entry point (Ktor/Netty only, no Spring Security)
+│   │   ├── MainSpringContext.kt  # Standalone alternative entry point using a Spring ApplicationContext
 │   │   ├── Ktor.kt              # Routes and handlers
 │   │   ├── Auth.kt              # Authentication logic
-│   │   ├── BootstrapWebApp.kt   # App bootstrap
 │   │   ├── WebappConfig.kt      # Configuration
 │   │   ├── db/                  # Database utilities
 │   │   ├── domain/              # Domain models
@@ -128,13 +130,34 @@ src/
 
 ## Routes
 
+### Main Application (port 4207)
+
+| Method | Path | Auth Required | Description |
+|--------|------|:-------------:|-------------|
+| GET | `/` | No | Hello World response |
+| GET | `/param_test` | No | Echo the `foo` query parameter |
+| GET | `/json_test` | No | Returns a sample JSON response |
+| GET | `/json_test_with_header` | No | Returns sample JSON with a custom response header |
+| GET | `/db_test` | No | Runs a test query against the database |
+| GET | `/coroutine_test` | No | Tests coroutine behaviour via a proxied internal request |
+| GET | `/html_test` | No | Renders a basic HTML test page |
+| GET | `/html_webresponse_test` | No | Renders an HTML page using the app layout |
+| GET | `/login` | No | Renders the login form |
+| POST | `/login` | No | Submits login credentials; redirects to `/secret` on success |
+| POST | `/test_json` | No | Validates a JSON body and returns the parsed user or a validation error |
+| GET | `/secret` | ✓ | Protected page showing logged-in user details |
+| GET | `/logout` | ✓ | Clears the session and redirects to `/login` |
+| GET | `/*` | No | Single Page Application — serves static files from `/public`, falling back to `index.html` |
+
+### Internal Server (port 9876)
+
+> These routes are only accessible within the server environment and are not exposed publicly.
+
 | Method | Path | Description |
 |--------|------|-------------|
-| GET | `/` | Hello World |
-| GET | `/login` | Login page |
-| POST | `/login` | Submit login |
-| GET | `/secret` | Protected route (requires auth) |
-| GET | `/logout` | Logout |
+| GET | `/random_number` | Returns a random number after a random delay (200–2000 ms) |
+| GET | `/ping` | Health check — returns `pong` |
+| POST | `/reverse` | Reverses the text body of the request |
 
 ## Database Migrations
 
