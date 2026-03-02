@@ -56,6 +56,48 @@ tasks.test {
     useJUnitPlatform()
 }
 
+val frontendDir = layout.projectDirectory.dir("frontend")
+val frontendPackageJson = frontendDir.file("package.json")
+val frontendDistDir = frontendDir.dir("dist")
+val publicAssetsDir = layout.projectDirectory.dir("src/main/resources/public")
+
+val frontendInstall by tasks.registering(Exec::class) {
+    workingDir(frontendDir)
+    commandLine("npm", "install")
+    inputs.file(frontendPackageJson)
+    outputs.dir(frontendDir.dir("node_modules"))
+    onlyIf { frontendPackageJson.asFile.exists() }
+}
+
+val frontendBuild by tasks.registering(Exec::class) {
+    dependsOn(frontendInstall)
+    workingDir(frontendDir)
+    commandLine("npm", "run", "build")
+    inputs.file(frontendPackageJson)
+    inputs.file(frontendDir.file("vite.config.js"))
+    inputs.file(frontendDir.file("index.html"))
+    inputs.dir(frontendDir.dir("src"))
+    outputs.dir(frontendDistDir)
+    onlyIf { frontendPackageJson.asFile.exists() }
+}
+
+val buildFrontend by tasks.registering(Copy::class) {
+    dependsOn(frontendBuild)
+    from(frontendDistDir)
+    into(publicAssetsDir)
+    doFirst {
+        delete(
+            publicAssetsDir.file("index.html"),
+            publicAssetsDir.dir("assets")
+        )
+    }
+    onlyIf { frontendPackageJson.asFile.exists() }
+}
+
+tasks.named("processResources") {
+    dependsOn(buildFrontend)
+}
+
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
     mergeServiceFiles()
 }

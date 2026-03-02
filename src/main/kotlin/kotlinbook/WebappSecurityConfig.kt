@@ -78,18 +78,21 @@ open class WebappSecurityConfig {
                 authentication ==
                         UsernamePasswordAuthenticationToken::class.java
         })
+            .csrf { csrf ->
+                csrf.ignoringAntMatchers("/api/**")
+            }
             .authorizeRequests()
             .expressionHandler(
                 DefaultWebSecurityExpressionHandler().apply {
                     setRoleHierarchy(roleHierarchy)
                 }
             )
-            .antMatchers("/login").permitAll()
-            .antMatchers("/coroutine_test").permitAll()
             .antMatchers("/admin/**").hasRole("ADMIN")
-            .antMatchers("/**").hasRole("USER")
-            .anyRequest().authenticated()
-            .and().formLogin()
+            .anyRequest().permitAll()
+            .and()
+            .formLogin()
+            .loginPage("/legacy-login")
+            .loginProcessingUrl("/login")
             .and()
             .rememberMe()
             .key(rememberMeKey)

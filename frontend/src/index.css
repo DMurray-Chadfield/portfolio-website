@@ -1,0 +1,294 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap");
+
+:root {
+  --bg: #f4efe7;
+  --bg-accent: #e7ddce;
+  --text: #14110f;
+  --muted: #594c42;
+  --primary: #0f7c67;
+  --primary-dark: #0b4f43;
+  --card: #fffaf3;
+  --line: #d7cabb;
+  --error: #b22134;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 15% 10%, #f2ceb8 0%, transparent 30%),
+    radial-gradient(circle at 90% 15%, #cfebdc 0%, transparent 35%),
+    linear-gradient(160deg, var(--bg), var(--bg-accent));
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  width: min(1080px, calc(100vw - 2.5rem));
+  margin: 2rem auto 3rem;
+  animation: fade-up 400ms ease;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--bg) 75%, white 25%);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header-inner {
+  width: min(1080px, calc(100vw - 2.5rem));
+  margin: 0 auto;
+  min-height: 4.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-brand {
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+  font-size: 1.15rem;
+  font-family: "Fraunces", "Georgia", serif;
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 999px;
+  background: linear-gradient(130deg, var(--primary), var(--primary-dark));
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--primary) 35%, transparent);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.site-nav a,
+.site-nav button {
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+}
+
+.site-nav a:hover,
+.site-nav button:hover {
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+.landing-page,
+.login-page,
+.profile-page,
+.status-page {
+  animation: fade-up 350ms ease;
+}
+
+.landing-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1.4rem;
+}
+
+.landing-copy,
+.landing-card,
+.login-panel,
+.profile-card {
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--card) 92%, white 8%);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 14px 28px color-mix(in srgb, var(--text) 10%, transparent);
+}
+
+.landing-copy h1,
+.login-panel h1,
+.profile-hero h1 {
+  font-family: "Fraunces", "Georgia", serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.08;
+  margin: 0.6rem 0 0.8rem;
+}
+
+.landing-copy p,
+.login-panel p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.landing-card h2,
+.profile-card h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.landing-card ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+}
+
+.primary-action,
+.secondary-action {
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.72rem 1.1rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.primary-action {
+  background: linear-gradient(130deg, var(--primary), var(--primary-dark));
+  color: white;
+}
+
+.secondary-action {
+  color: var(--text);
+  border-color: var(--line);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.login-page {
+  display: grid;
+  place-items: center;
+}
+
+.login-panel {
+  width: min(460px, 100%);
+}
+
+.login-form {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.login-form label {
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.login-form input {
+  width: 100%;
+  padding: 0.72rem 0.8rem;
+  border-radius: 0.7rem;
+  border: 1px solid var(--line);
+  font: inherit;
+  background: white;
+}
+
+.login-form button {
+  margin-top: 0.7rem;
+  border: 0;
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  font: inherit;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  background: linear-gradient(130deg, var(--primary), var(--primary-dark));
+}
+
+.login-form button:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.form-error {
+  color: var(--error);
+  margin: 0.4rem 0 0;
+  font-size: 0.95rem;
+}
+
+.profile-page {
+  display: grid;
+  gap: 1rem;
+}
+
+.profile-hero {
+  padding: 0.4rem 0;
+}
+
+.profile-hero h1 {
+  margin-bottom: 0;
+}
+
+.profile-card dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.6rem 0.8rem;
+}
+
+.profile-card dt {
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.profile-card dd {
+  margin: 0;
+}
+
+.status-page {
+  padding: 2rem 0;
+}
+
+@media (max-width: 900px) {
+  .landing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app-main,
+  .site-header-inner {
+    width: min(1080px, calc(100vw - 1.5rem));
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
