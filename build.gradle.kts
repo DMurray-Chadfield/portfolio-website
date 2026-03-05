@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.danmc"
-version = "1.0-SNAPSHOT"
+version = (findProperty("releaseVersion") as String?) ?: "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
