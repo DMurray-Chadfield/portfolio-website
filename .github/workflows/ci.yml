@@ -4,7 +4,6 @@ on:
   workflow_run:
     workflows: ["Release On Merge"]
     types: [completed]
-    branches: [master]
   workflow_dispatch:
 
 permissions:
