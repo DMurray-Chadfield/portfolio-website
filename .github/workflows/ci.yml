@@ -53,19 +53,19 @@ jobs:
 
           if [ -z "$version_tag" ]; then
             echo "release_version=" >> "$GITHUB_OUTPUT"
-            cat <<EOF >> "$GITHUB_OUTPUT"
-image_tags<<TAGS
-ghcr.io/${{ steps.owner.outputs.repo_owner }}/portfolio-website:latest
-TAGS
-EOF
+            {
+              echo "image_tags<<TAGS"
+              echo "ghcr.io/${{ steps.owner.outputs.repo_owner }}/portfolio-website:latest"
+              echo "TAGS"
+            } >> "$GITHUB_OUTPUT"
           else
             echo "release_version=$release_version" >> "$GITHUB_OUTPUT"
-            cat <<EOF >> "$GITHUB_OUTPUT"
-image_tags<<TAGS
-ghcr.io/${{ steps.owner.outputs.repo_owner }}/portfolio-website:latest
-ghcr.io/${{ steps.owner.outputs.repo_owner }}/portfolio-website:${version_tag}
-TAGS
-EOF
+            {
+              echo "image_tags<<TAGS"
+              echo "ghcr.io/${{ steps.owner.outputs.repo_owner }}/portfolio-website:latest"
+              echo "ghcr.io/${{ steps.owner.outputs.repo_owner }}/portfolio-website:${version_tag}"
+              echo "TAGS"
+            } >> "$GITHUB_OUTPUT"
           fi
 
       - name: Run checks
