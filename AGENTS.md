@@ -6,6 +6,7 @@ This document provides guidance for agentic coding agents operating in this repo
 
 This is a Kotlin web application using:
 - **Framework**: Ktor 2.1.2 with Spring Security 5.7.3
+- **Frontend**: React 18 + React Router 6 + Vite 4 (`frontend/`)
 - **Build System**: Gradle with Kotlin DSL
 - **Database**: PostgreSQL (production) / H2 (development)
 - **Testing**: JUnit 5 with Kotlin Test
@@ -15,6 +16,9 @@ This is a Kotlin web application using:
 ```bash
 # Build and run the application
 ./gradlew run
+
+# Build frontend only (installs deps, builds, copies dist to /public)
+./gradlew buildFrontend
 
 # Build production JAR (shadowJar)
 ./gradlew shadowJar
@@ -39,7 +43,19 @@ docker build -f Dockerfile -t kotlinbook:latest .
 
 # Clean build
 ./gradlew clean
+
+# Frontend dev server (run alongside ./gradlew run)
+cd frontend && npm install && npm run dev
 ```
+
+## Frontend Build Integration
+
+- Gradle task chain:
+  - `frontendInstall` -> runs `npm install` in `frontend/`
+  - `frontendBuild` -> runs `npm run build`
+  - `buildFrontend` -> copies `frontend/dist/*` to `src/main/resources/public/`
+- `processResources` depends on `buildFrontend`, so `test`, `build`, and `shadowJar` include fresh frontend assets automatically.
+- `frontend/node_modules/` and `frontend/dist/` are ignored in git.
 
 ## Environment Configuration
 
@@ -136,7 +152,13 @@ Use helper functions in `kotlinbook.web` package:
 
 - Passwords are hashed using **BCrypt** (`at.favre.lib:bcrypt`)
 - Sessions use **encrypted cookies** with `SessionTransportTransformerEncrypt`
-- Use `webResponseDb` for handlers requiring authentication
+- SPA auth endpoints:
+  - `POST /api/login` sets session cookie on success
+  - `GET /api/me` reads current session and returns user profile JSON
+  - `POST /api/logout` clears session
+- Legacy server-rendered login page moved to `GET /legacy-login`
+- Legacy form submit remains `POST /login` and redirects to `/secret` on success
+- Spring Security protects `/admin/**` with `ROLE_ADMIN`; other routes are permitted and app-level auth is handled via Ktor sessions/routes.
 
 ### Formatting
 
@@ -155,6 +177,14 @@ Use helper functions in `kotlinbook.web` package:
 ## Project Structure
 
 ```
+frontend/
+├── src/
+│   ├── components/      # Navbar, ProtectedRoute
+│   ├── context/         # AuthContext
+│   └── pages/           # LandingPage, LoginPage, ProfilePage
+├── package.json
+└── vite.config.js
+
 src/
 ├── main/
 │   ├── kotlin/kotlinbook/

@@ -24,6 +24,7 @@ import io.ktor.server.sessions.SessionTransportTransformerEncrypt
 import io.ktor.server.sessions.Sessions
 import io.ktor.server.sessions.clear
 import io.ktor.server.sessions.cookie
+import io.ktor.server.sessions.get
 import io.ktor.server.sessions.maxAge
 import io.ktor.server.sessions.sessions
 import io.ktor.server.sessions.set
@@ -63,6 +64,11 @@ import kotlin.time.Duration
 
 private val log = LoggerFactory.getLogger("kotlinbook.KtorKt")
 
+private data class LoginApiBody(
+    val email: String? = null,
+    val password: String? = null
+)
+
 fun Application.createKtorApplication(webappConfig: WebappConfig, dataSource: DataSource) {
     install(StatusPages) {
         exception<Throwable> { call, cause ->
@@ -76,8 +82,6 @@ fun Application.createKtorApplication(webappConfig: WebappConfig, dataSource: Da
     }
 
     routing {
-        get("/", webResponse {TextWebResponse("Hello, World!")})
-
         get("/param_test", webResponse {
             TextWebResponse(
                 "The param is ${call.request.queryParameters["foo"]}"
@@ -126,7 +130,7 @@ fun Application.createKtorApplication(webappConfig: WebappConfig, dataSource: Da
             })
         })
 
-        get("/login", webResponse {
+        get("/legacy-login", webResponse {
             HtmlWebResponse(AppLayout("Log in").apply {
                 pageBody {
                     form(method = FormMethod.post, action = "/login") {
@@ -162,10 +166,103 @@ fun Application.createKtorApplication(webappConfig: WebappConfig, dataSource: Da
                     )
                 },
                 { user ->
-                    // do something with User
                     JsonWebResponse(mapOf("success" to true))
                 }
             )
+        })
+
+        post("/api/login", webResponseDb(dataSource) { dbSess ->
+            val input = runCatching {
+                Gson().fromJson(
+                    call.receiveText(),
+                    LoginApiBody::class.java
+                )
+            }.getOrNull()
+            if (input == null) {
+                return@webResponseDb JsonWebResponse(
+                    mapOf(
+                        "success" to false,
+                        "error" to "Invalid request payload"
+                    ),
+                    statusCode = 400
+                )
+            }
+            val email = input.email?.trim()
+            val password = input.password
+
+            if (email.isNullOrBlank() || password.isNullOrBlank()) {
+                JsonWebResponse(
+                    mapOf(
+                        "success" to false,
+                        "error" to "Email and password are required"
+                    ),
+                    statusCode = 400
+                )
+            } else {
+                val userId = authenticateUser(
+                    dbSess,
+                    email,
+                    password
+                )
+
+                if (userId == null) {
+                    JsonWebResponse(
+                        mapOf(
+                            "success" to false,
+                            "error" to "Invalid credentials"
+                        ),
+                        statusCode = 401
+                    )
+                } else {
+                    call.sessions.set(UserSession(userId = userId))
+                    JsonWebResponse(
+                        mapOf(
+                            "success" to true,
+                            "userId" to userId
+                        )
+                    )
+                }
+            }
+        })
+
+        get("/api/me", webResponseDb(dataSource) { dbSess ->
+            val userSession = call.sessions.get<UserSession>()
+            if (userSession == null) {
+                JsonWebResponse(
+                    mapOf(
+                        "success" to false,
+                        "error" to "Unauthorized"
+                    ),
+                    statusCode = 401
+                )
+            } else {
+                val user = getUser(dbSess, userSession.userId)
+                if (user == null) {
+                    call.sessions.clear<UserSession>()
+                    JsonWebResponse(
+                        mapOf(
+                            "success" to false,
+                            "error" to "Unauthorized"
+                        ),
+                        statusCode = 401
+                    )
+                } else {
+                    JsonWebResponse(
+                        mapOf(
+                            "success" to true,
+                            "user" to mapOf(
+                                "email" to user.email,
+                                "name" to user.name
+                            )
+                        )
+                    )
+                }
+            }
+        })
+
+        post("/api/logout", webResponse {
+            call.sessions.clear<UserSession>()
+            JsonWebResponse(mapOf("success" to true))
         })
 
         singlePageApplication {
@@ -206,7 +303,7 @@ fun Application.setUpKtorCookieSecurity(
                 session
             }
             challenge {
-                call.respondRedirect("/login")
+                call.respondRedirect("/legacy-login")
             }
         }
     }
@@ -222,7 +319,7 @@ fun Application.setUpKtorCookieSecurity(
                 )
 
                 if (userId == null) {
-                    call.respondRedirect("/login")
+                    call.respondRedirect("/legacy-login")
                 } else {
                     call.sessions.set(UserSession(userId = userId))
                     call.respondRedirect("/secret")
@@ -254,7 +351,7 @@ fun Application.setUpKtorCookieSecurity(
         authenticate("auth-session") {
             get("/logout") {
                 call.sessions.clear<UserSession>()
-                call.respondRedirect("/login")
+                call.respondRedirect("/legacy-login")
             }
         }
     }

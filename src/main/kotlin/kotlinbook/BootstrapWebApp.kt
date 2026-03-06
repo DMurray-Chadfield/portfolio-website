@@ -70,6 +70,7 @@ class BootstrapWebApp : ServletContextListener {
         log.debug("Setting up Ktor servlet environment")
         val appEngineEnvironment = applicationEngineEnvironment {
             module {
+                setUpKtorCookieSecurity(appConfig, dataSource)
                 createKtorApplication(appConfig, dataSource)
             }
         }
