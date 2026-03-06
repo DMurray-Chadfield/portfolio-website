@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 
 const AuthContext = createContext(null)
 
@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
       const nextUser = payload.user ?? null
       setUser(nextUser)
       return nextUser
-    } catch (_error) {
+    } catch {
       setUser(null)
       return null
     } finally {
@@ -41,7 +41,7 @@ export function AuthProvider({ children }) {
       const payload = (() => {
         try {
           return JSON.parse(rawBody)
-        } catch (_error) {
+        } catch {
           return {}
         }
       })()
@@ -53,7 +53,7 @@ export function AuthProvider({ children }) {
       }
       await refreshSession()
       return { success: true }
-    } catch (_error) {
+    } catch {
       return { success: false, error: "Network error" }
     }
   }
@@ -74,16 +74,13 @@ export function AuthProvider({ children }) {
     refreshSession()
   }, [])
 
-  const value = useMemo(
-    () => ({
-      user,
-      isLoading,
-      refreshSession,
-      login,
-      logout
-    }),
-    [user, isLoading]
-  )
+  const value = {
+    user,
+    isLoading,
+    refreshSession,
+    login,
+    logout
+  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
