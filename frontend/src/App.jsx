@@ -1,9 +1,11 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 import Navbar from "./components/Navbar"
 import ProtectedRoute from "./components/ProtectedRoute"
+import { GurpsCharacterProvider } from "./context/GurpsCharacterContext"
 import LandingPage from "./pages/LandingPage"
 import LoginPage from "./pages/LoginPage"
 import ProfilePage from "./pages/ProfilePage"
+import GurpsCreatorPage from "./pages/gurps/GurpsCreatorPage"
 
 function App() {
   return (
@@ -19,6 +21,14 @@ function App() {
               <ProtectedRoute>
                 <ProfilePage />
               </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gurps"
+            element={
+              <GurpsCharacterProvider>
+                <GurpsCreatorPage />
+              </GurpsCharacterProvider>
             }
           />
           <Route path="*" element={<Navigate to="/" replace />} />

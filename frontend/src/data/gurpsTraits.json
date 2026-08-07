@@ -1,0 +1,1288 @@
+{
+    "advantages": [
+        {
+            "name": "360\u00b0 Vision",
+            "point_cost": "25",
+            "category": "Physical, Exotic",
+            "description": "Full field of vision. No penalties from rear/side attacks; +5 to spot shadowing."
+        },
+        {
+            "name": "Absolute Direction",
+            "point_cost": "5 or 10",
+            "category": "Mental",
+            "description": "Knows north at all times; +3 to Navigation. 3D Spatial Sense [10] adds 3D navigation and Piloting/Free Fall bonuses."
+        },
+        {
+            "name": "Absolute Timing",
+            "point_cost": "2 or 5",
+            "category": "Mental",
+            "description": "Precise internal clock. Chronolocation [5] grants exact temporal awareness across time travel."
+        },
+        {
+            "name": "Acute Senses",
+            "point_cost": "2/level",
+            "category": "Physical",
+            "description": "+1 per level to Sense rolls for a specific sense (Hearing, Sight, Touch, Taste/Smell)."
+        },
+        {
+            "name": "Affliction",
+            "point_cost": "10/level",
+            "category": "Physical, Exotic, Supernatural",
+            "description": "Ranged attack that inflicts conditions (stunning, agony, paralysis, attribute penalties) instead of physical damage."
+        },
+        {
+            "name": "Allies",
+            "point_cost": "Variable",
+            "category": "Social",
+            "description": "Loyal NPC companions. Cost varies based on power level (25% to 150%+ of PC points) and frequency of appearance (x1/2 to x4)."
+        },
+        {
+            "name": "Altered Time Rate",
+            "point_cost": "100/level",
+            "category": "Physical, Exotic",
+            "description": "Subjective time speedup. Grants one extra combat maneuver/action per turn per level."
+        },
+        {
+            "name": "Alternate Identity",
+            "point_cost": "5 or 15",
+            "category": "Social",
+            "description": "Documentation and biometric registration under a false identity. Legal = 5 pts; Illegal = 15 pts."
+        },
+        {
+            "name": "Ambidexterity",
+            "point_cost": "5",
+            "category": "Physical",
+            "description": "Eliminates the -4 DX penalty for using the off hand."
+        },
+        {
+            "name": "Amphibious",
+            "point_cost": "10",
+            "category": "Physical, Exotic",
+            "description": "Normal movement speed in water; no skill penalties underwater."
+        },
+        {
+            "name": "Animal Empathy",
+            "point_cost": "5",
+            "category": "Mental",
+            "description": "Reads animal motivations and emotions via IQ roll; allows Influence skills on beasts."
+        },
+        {
+            "name": "Arm DX",
+            "point_cost": "12 or 16/level",
+            "category": "Physical, Exotic",
+            "description": "Extra DX applying specifically to fine manual tasks with one (12 pts) or two (16 pts) arms."
+        },
+        {
+            "name": "Arm ST",
+            "point_cost": "3, 5, or 8/level",
+            "category": "Physical, Exotic",
+            "description": "Extra Strength applying specifically to arm lifting and attacks (1 arm = 3 pts; 2 arms = 5 pts; 3 arms = 8 pts)."
+        },
+        {
+            "name": "Binding",
+            "point_cost": "2/level",
+            "category": "Physical, Exotic, Supernatural",
+            "description": "Ranged attack that grapples and roots targets in place with a ST equal to Binding level."
+        },
+        {
+            "name": "Blessed",
+            "point_cost": "10+",
+            "category": "Mental, Supernatural",
+            "description": "Divine attunement. Blessed [10] grants wisdom/omens from a deity; Heroic Feats [10] adds +1d to ST, DX, or HT temporarily once per session."
+        },
+        {
+            "name": "Brachiator",
+            "point_cost": "5",
+            "category": "Physical, Exotic",
+            "description": "+2 to Climbing; moves at half Basic Move swinging through trees/ropes."
+        },
+        {
+            "name": "Breath-Holding",
+            "point_cost": "2/level",
+            "category": "Physical",
+            "description": "Doubles breath-holding duration per level."
+        },
+        {
+            "name": "Catfall",
+            "point_cost": "10",
+            "category": "Physical",
+            "description": "Automatically subtracts 5 yards from fall distance; DX roll halves remaining fall damage."
+        },
+        {
+            "name": "Chameleon",
+            "point_cost": "5/level",
+            "category": "Physical, Exotic",
+            "description": "Color-matching skin. +2 per level to Stealth when motionless (+1 per level when moving)."
+        },
+        {
+            "name": "Channeling",
+            "point_cost": "10",
+            "category": "Mental, Supernatural",
+            "description": "Enters a trance to allow spirits to communicate through the character's body."
+        },
+        {
+            "name": "Charisma",
+            "point_cost": "5/level",
+            "category": "Mental",
+            "description": "Natural magnetic personality. +1 per level to reaction rolls and social Influence skills."
+        },
+        {
+            "name": "Claim to Hospitality",
+            "point_cost": "1 to 10",
+            "category": "Social",
+            "description": "Right to lodging and basic aid from a social group, guild, or extended family network."
+        },
+        {
+            "name": "Clairsentience",
+            "point_cost": "50",
+            "category": "Mental, Supernatural",
+            "description": "Displaces senses to a viewpoint up to 10 yards away."
+        },
+        {
+            "name": "Claws",
+            "point_cost": "3 to 11",
+            "category": "Physical, Exotic",
+            "description": "Natural weapons. Blunt Claws [3] (+1 punch/kick dmg); Hooves [3] (+1 kick dmg); Sharp Claws [5] (Cutting dmg); Talons [8] (Cutting/Impaling); Long Talons [11] (+1 dmg/die Cutting/Impaling)."
+        },
+        {
+            "name": "Clerical Investment",
+            "point_cost": "5",
+            "category": "Social",
+            "description": "Ordained religious status. Grants Religious Rank 0 and +1 reaction bonus from believers."
+        },
+        {
+            "name": "Clinging",
+            "point_cost": "20",
+            "category": "Physical, Exotic",
+            "description": "Ability to walk on vertical walls and ceilings at half Basic Move."
+        },
+        {
+            "name": "Combat Reflexes",
+            "point_cost": "15",
+            "category": "Mental",
+            "description": "+1 to active defenses (Block, Dodge, Parry), +1 to Fast-Draw, +2 to Fright Checks; immune to surprise freezing; +6 to recover from mental stun."
+        },
+        {
+            "name": "Common Sense",
+            "point_cost": "10",
+            "category": "Mental",
+            "description": "GM rolls against IQ to warn the player before doing something foolish."
+        },
+        {
+            "name": "Compartmentalized Mind",
+            "point_cost": "50/level",
+            "category": "Mental, Supernatural",
+            "description": "Multiple independent mental compartments, enabling simultaneous mental maneuvers and spellcasting."
+        },
+        {
+            "name": "Constriction Attack",
+            "point_cost": "15",
+            "category": "Physical, Exotic",
+            "description": "Crushes grappled targets via a Quick Contest of ST vs. victim's ST or HT."
+        },
+        {
+            "name": "Contacts / Contact Group",
+            "point_cost": "Variable",
+            "category": "Social",
+            "description": "Associates providing specialized information or minor favors. Cost based on effective skill (12 to 21), frequency, and reliability."
+        },
+        {
+            "name": "Cultural Adaptability",
+            "point_cost": "10 or 20",
+            "category": "Mental",
+            "description": "Completely eliminates cultural unfamiliarity penalties for human cultures [10] or all alien cultures [20]."
+        },
+        {
+            "name": "Damage Resistance (DR)",
+            "point_cost": "5/level",
+            "category": "Physical, Exotic",
+            "description": "Natural armor subtracting directly from incoming attack damage."
+        },
+        {
+            "name": "Danger Sense",
+            "point_cost": "15",
+            "category": "Mental",
+            "description": "GM secretly rolls Per to grant advance warning of impending traps, ambushes, or danger."
+        },
+        {
+            "name": "Daredevil",
+            "point_cost": "15",
+            "category": "Mental",
+            "description": "+1 to all skill rolls and rerolls critical failures when taking extreme, high-risk actions."
+        },
+        {
+            "name": "Dark Vision",
+            "point_cost": "25",
+            "category": "Physical, Exotic",
+            "description": "Complete vision in absolute darkness without penalties (monochrome)."
+        },
+        {
+            "name": "Destiny",
+            "point_cost": "5 to 15",
+            "category": "Mental, Supernatural",
+            "description": "Preordained positive fate guiding the character's life (Minor = 5 pts; Major = 10 pts; Great = 15 pts)."
+        },
+        {
+            "name": "Detect",
+            "point_cost": "5 to 30",
+            "category": "Mental, Exotic, Supernatural",
+            "description": "Sensory ability to detect specific substances, energy, or phenomena."
+        },
+        {
+            "name": "Digital Mind",
+            "point_cost": "5",
+            "category": "Mental, Exotic",
+            "description": "Computer program consciousness; immune to telepathy and biological mind-control, but vulnerable to viruses and hacking."
+        },
+        {
+            "name": "Discriminatory Hearing",
+            "point_cost": "15",
+            "category": "Physical, Exotic",
+            "description": "Voice and sound signature identification; +4 to hearing tasks and shadowing noisy targets."
+        },
+        {
+            "name": "Discriminatory Smell",
+            "point_cost": "15",
+            "category": "Physical, Exotic",
+            "description": "Recognizes distinct scent profiles; +4 to smell tasks and Tracking."
+        },
+        {
+            "name": "Discriminatory Taste",
+            "point_cost": "10",
+            "category": "Physical, Exotic",
+            "description": "Detailed chemical analysis of ingested substances via taste."
+        },
+        {
+            "name": "Doesn't Breathe",
+            "point_cost": "20",
+            "category": "Physical, Exotic",
+            "description": "Complete oxygen independence; immune to suffocation, choking, and gas toxins."
+        },
+        {
+            "name": "Doesn't Eat or Drink",
+            "point_cost": "10",
+            "category": "Physical, Exotic",
+            "description": "Does not require food or water for survival."
+        },
+        {
+            "name": "Doesn't Sleep",
+            "point_cost": "20",
+            "category": "Physical, Exotic",
+            "description": "Fully operational 24/7 without needing rest."
+        },
+        {
+            "name": "Dominance",
+            "point_cost": "20",
+            "category": "Physical, Exotic, Supernatural",
+            "description": "Infects targets with a supernatural condition (vampirism/lycanthropy) to turn them into loyal subordinates."
+        },
+        {
+            "name": "Duplication",
+            "point_cost": "35/copy",
+            "category": "Physical, Exotic, Supernatural",
+            "description": "Splits into multiple identical physical copies sharing HP/FP reserves."
+        },
+        {
+            "name": "Eidetic Memory",
+            "point_cost": "5 or 10",
+            "category": "Mental",
+            "description": "Superior recall. Eidetic [5] remembers general facts; Photographic [10] grants exact visual/auditory recall."
+        },
+        {
+            "name": "Elastic Skin",
+            "point_cost": "20",
+            "category": "Physical, Exotic",
+            "description": "Alters facial features and skin texture; +4 to Disguise rolls."
+        },
+        {
+            "name": "Empathy",
+            "point_cost": "5 or 15",
+            "category": "Mental",
+            "description": "Detects emotional states and lies. Sensitive [5] (IQ-3 roll); Empathy [15] (full IQ roll, +3 to Detect Lies)."
+        },
+        {
+            "name": "Enhanced Defenses",
+            "point_cost": "5 to 15",
+            "category": "Physical",
+            "description": "+1 bonus to active defenses: Enhanced Block [5], Enhanced Parry [5 or 10], Enhanced Dodge [15]."
+        },
+        {
+            "name": "Enhanced Move",
+            "point_cost": "20/level",
+            "category": "Physical, Exotic",
+            "description": "Doubles top movement speed in a specific environment (Air, Ground, Water, Space) per level."
+        },
+        {
+            "name": "Enhanced Time Sense",
+            "point_cost": "45",
+            "category": "Mental, Exotic",
+            "description": "High-speed mental perception; includes Combat Reflexes and initiative priority."
+        },
+        {
+            "name": "Enhanced Tracking",
+            "point_cost": "5/level",
+            "category": "Physical, Exotic",
+            "description": "Enables Aim/Evaluate maneuvers on multiple targets simultaneously."
+        },
+        {
+            "name": "Extended Lifespan",
+            "point_cost": "2/level",
+            "category": "Physical",
+            "description": "Doubles the age threshold for aging rolls per level."
+        },
+        {
+            "name": "Extra Arms",
+            "point_cost": "10/arm",
+            "category": "Physical, Exotic",
+            "description": "Additional functional manipulative limbs."
+        },
+        {
+            "name": "Extra Attack",
+            "point_cost": "25/attack",
+            "category": "Physical, Exotic",
+            "description": "Grants an additional attack maneuver per turn in combat."
+        },
+        {
+            "name": "Extra Head",
+            "point_cost": "15/head",
+            "category": "Physical, Exotic",
+            "description": "Additional head with extra eyes/ears, backup brain, and Extra Mouth."
+        },
+        {
+            "name": "Extra Legs",
+            "point_cost": "5 to 15",
+            "category": "Physical, Exotic",
+            "description": "Additional non-manipulative legs (3\u20134 legs = 5 pts; 5\u20136 legs = 10 pts; 7+ legs = 15 pts)."
+        },
+        {
+            "name": "Extra Life",
+            "point_cost": "25/life",
+            "category": "Mental, Physical, Supernatural",
+            "description": "Allows a character to survive death through luck, divine intervention, or backup restoration."
+        },
+        {
+            "name": "Extra Mouth",
+            "point_cost": "5/mouth",
+            "category": "Physical, Exotic",
+            "description": "Additional functional mouth for eating, biting, or speaking."
+        },
+        {
+            "name": "Fearlessness",
+            "point_cost": "2/level",
+            "category": "Mental",
+            "description": "+1 per level to Will rolls against Fright Checks and Intimidation."
+        },
+        {
+            "name": "Filter Lungs",
+            "point_cost": "5",
+            "category": "Physical, Exotic",
+            "description": "Filters environmental smoke, dust, and non-contact gas toxins."
+        },
+        {
+            "name": "Fit / Very Fit",
+            "point_cost": "5 or 15",
+            "category": "Physical",
+            "description": "Superior cardiovascular health. Fit [5] (+1 HT rolls, 2x FP recovery); Very Fit [15] (+2 HT rolls, half FP loss)."
+        },
+        {
+            "name": "Flexibility / Double-Jointed",
+            "point_cost": "5 or 15",
+            "category": "Physical",
+            "description": "Exceptional body flexibility. +3 [5] or +5 [15] to Climbing, Escape, and grapple recovery."
+        },
+        {
+            "name": "Flight",
+            "point_cost": "40",
+            "category": "Physical, Exotic",
+            "description": "Self-powered atmospheric flight at Basic Speed x 2."
+        },
+        {
+            "name": "Gadgeteer",
+            "point_cost": "25 or 50",
+            "category": "Mental",
+            "description": "Inventive genius. Standard [25] creates advanced gear; Quick Gadgeteer [50] builds working inventions in minutes."
+        },
+        {
+            "name": "G-Experience",
+            "point_cost": "1 to 10",
+            "category": "Mental",
+            "description": "Eliminates DX penalties in specific non-native gravity fields (1 pt/field or 10 pts for All)."
+        },
+        {
+            "name": "Gizmos",
+            "point_cost": "5/gizmo",
+            "category": "Mental",
+            "description": "Pulls out a small, previously unspecified piece of required gear on the spot (max 3/session)."
+        },
+        {
+            "name": "Growth",
+            "point_cost": "10/level",
+            "category": "Physical, Exotic",
+            "description": "Increases Size Modifier by +1 per level, expanding height and scale."
+        },
+        {
+            "name": "Gunslinger",
+            "point_cost": "25",
+            "category": "Mental",
+            "description": "Cinematic firearm mastery; grants instant Acc bonuses and eliminates stunt/movement penalties."
+        },
+        {
+            "name": "Hard to Kill",
+            "point_cost": "2/level",
+            "category": "Physical",
+            "description": "+1 per level to HT survival rolls at negative Hit Points."
+        },
+        {
+            "name": "Hard to Subdue",
+            "point_cost": "2/level",
+            "category": "Physical",
+            "description": "+1 per level to HT rolls to avoid unconsciousness or knockout."
+        },
+        {
+            "name": "Healing",
+            "point_cost": "30",
+            "category": "Mental, Supernatural",
+            "description": "Restores HP (1 FP per 2 HP healed) or cures diseases in others via physical contact and an IQ roll."
+        },
+        {
+            "name": "Hermaphromorph",
+            "point_cost": "5",
+            "category": "Physical, Exotic",
+            "description": "Switches physical gender between male, female, and neuter forms."
+        },
+        {
+            "name": "High Manual Dexterity",
+            "point_cost": "5/level",
+            "category": "Physical",
+            "description": "+1 per level to fine motor DX skills (Lockpicking, Pickpocket, Surgery, etc.)."
+        },
+        {
+            "name": "High Pain Threshold",
+            "point_cost": "10",
+            "category": "Physical",
+            "description": "Completely ignores shock penalties from injuries; +3 to resist torture, stunning, and knockdown."
+        },
+        {
+            "name": "Higher Purpose",
+            "point_cost": "5",
+            "category": "Mental",
+            "description": "+1 to all rolls directly pursuing a specific, noble cause or moral duty."
+        },
+        {
+            "name": "Hyperspectral Vision",
+            "point_cost": "25",
+            "category": "Physical, Exotic",
+            "description": "Full-spectrum vision (Infrared, Visible, Ultraviolet); grants perfect night vision and +3 Vision rolls."
+        },
+        {
+            "name": "Illuminated",
+            "point_cost": "15",
+            "category": "Mental, Supernatural",
+            "description": "Intuitive awareness of secret global conspiracies and supernatural puppet masters."
+        },
+        {
+            "name": "Improved G-Tolerance",
+            "point_cost": "5 to 25",
+            "category": "Physical",
+            "description": "Increases the gravity threshold bracket before suffering physical penalties."
+        },
+        {
+            "name": "Indomitable",
+            "point_cost": "15",
+            "category": "Mental",
+            "description": "Immune to ordinary social Influence skills unless the attacker has specialized Empathy traits."
+        },
+        {
+            "name": "Infravision",
+            "point_cost": "0 or 10",
+            "category": "Physical, Exotic",
+            "description": "Sees heat signatures in darkness; +2 to spot living targets (0 pts if permanent/only vision, 10 pts if switchable)."
+        },
+        {
+            "name": "Injury Tolerance",
+            "point_cost": "Variable",
+            "category": "Physical, Exotic",
+            "description": "Physiological resilience. Includes No Blood [5], No Brain [5], No Eyes [5], No Neck [5], No Vitals [5], Unliving [20], Homogenous [40], and Diffuse [100]."
+        },
+        {
+            "name": "Innate Attack",
+            "point_cost": "Variable",
+            "category": "Physical, Exotic, Supernatural",
+            "description": "Built-in physical, elemental, or energy attack doing custom damage (Burning = 5/die, Crushing = 5/die, Cutting = 7/die, Impaling = 8/die, Toxic = 4/die, Corrosion = 10/die, Fatigue = 10/die)."
+        },
+        {
+            "name": "Insubstantiality",
+            "point_cost": "80",
+            "category": "Physical, Exotic, Supernatural",
+            "description": "Intangible ghost-like state; moves through solid walls and ignores physical attacks."
+        },
+        {
+            "name": "Intuition",
+            "point_cost": "15",
+            "category": "Mental",
+            "description": "GM rolls IQ to guide the character toward correct choices when facing blind decisions."
+        },
+        {
+            "name": "Invisibility",
+            "point_cost": "40",
+            "category": "Physical, Exotic, Supernatural",
+            "description": "Unseen by light/visual spectrums; grants +9 to Stealth against visual detection."
+        },
+        {
+            "name": "Jumper",
+            "point_cost": "100",
+            "category": "Mental, Exotic, Supernatural",
+            "description": "Teleports across time (Time) or between parallel dimensions (World) via an IQ roll."
+        },
+        {
+            "name": "Language Talent",
+            "point_cost": "10",
+            "category": "Mental",
+            "description": "Reduces character point costs for acquiring foreign language fluency."
+        },
+        {
+            "name": "Legal Enforcement Powers",
+            "point_cost": "5 to 15",
+            "category": "Social",
+            "description": "Law enforcement arrest, search, and lethal force authority."
+        },
+        {
+            "name": "Legal Immunity",
+            "point_cost": "5 to 20",
+            "category": "Social",
+            "description": "Exemption from local laws and prosecution (e.g., Diplomatic Immunity = 20 pts)."
+        },
+        {
+            "name": "Less Sleep",
+            "point_cost": "2/level",
+            "category": "Physical",
+            "description": "Reduces daily required sleep time by 1 hour per level (max 4 levels)."
+        },
+        {
+            "name": "Lifting ST",
+            "point_cost": "3/level",
+            "category": "Physical, Exotic",
+            "description": "Increases lifting capacity and grappling strength without altering base Hit Points or melee damage."
+        },
+        {
+            "name": "Lightning Calculator",
+            "point_cost": "2 or 5",
+            "category": "Mental",
+            "description": "Instant mental math calculations. Intuitive Mathematician [5] solves complex astrophysics/engineering equations mentally."
+        },
+        {
+            "name": "Longevity",
+            "point_cost": "2",
+            "category": "Physical",
+            "description": "Automatically succeeds on aging rolls except on a critical failure (17 or 18)."
+        },
+        {
+            "name": "Luck",
+            "point_cost": "15, 30, or 60",
+            "category": "Mental",
+            "description": "Rerolls bad dice rolls twice and takes the best result once per hour [15], 30 min [30], or 10 min [60]."
+        },
+        {
+            "name": "Magery",
+            "point_cost": "5 for M0 + 10/level",
+            "category": "Mental, Supernatural",
+            "description": "Magical attunement. Magery 0 [5] senses magical items; higher levels add directly to IQ when casting/learning spells."
+        },
+        {
+            "name": "Magic Resistance",
+            "point_cost": "2/level",
+            "category": "Physical, Supernatural",
+            "description": "Subtracts level from hostile spell rolls and adds to resistance rolls against magic. Prevents spellcasting."
+        },
+        {
+            "name": "Mana Damper",
+            "point_cost": "10/level",
+            "category": "Physical, Exotic, Supernatural",
+            "description": "Reduces local magical energy level in the character's immediate vicinity."
+        },
+        {
+            "name": "Mana Enhancer",
+            "point_cost": "50/level",
+            "category": "Physical, Exotic, Supernatural",
+            "description": "Radiates an aura that increases local mana density by one step per level."
+        },
+        {
+            "name": "Medium",
+            "point_cost": "10",
+            "category": "Mental, Supernatural",
+            "description": "Perceives and communicates with spirits of the deceased."
+        },
+        {
+            "name": "Metabolism Control",
+            "point_cost": "5/level",
+            "category": "Physical",
+            "description": "Controls bodily processes; +1/level to bleeding/poison rolls and enters feigned death trances."
+        },
+        {
+            "name": "Microscopic Vision",
+            "point_cost": "5/level",
+            "category": "Physical, Exotic",
+            "description": "Magnifies objects within 1 foot by 10x per level (10x, 100x, 1,000x, etc.)."
+        },
+        {
+            "name": "Mimicry",
+            "point_cost": "10",
+            "category": "Physical",
+            "description": "Imitates voices, animal calls, and environmental sounds after hearing them."
+        },
+        {
+            "name": "Mind Control",
+            "point_cost": "50",
+            "category": "Mental, Supernatural",
+            "description": "Dominate another's mind via a Quick Contest of IQ vs. subject's Will."
+        },
+        {
+            "name": "Mind Probe",
+            "point_cost": "20",
+            "category": "Mental, Supernatural",
+            "description": "Deep mental interrogation; extracts secret memories and precise answers to questions."
+        },
+        {
+            "name": "Mind Reading",
+            "point_cost": "30",
+            "category": "Mental, Supernatural",
+            "description": "Reads surface thoughts and sensory inputs via a Quick Contest of IQ vs. Will."
+        },
+        {
+            "name": "Mind Shield",
+            "point_cost": "4/level",
+            "category": "Mental, Supernatural",
+            "description": "Mental defense against telepathy, mind control, and intrusion spells."
+        },
+        {
+            "name": "Mindlink",
+            "point_cost": "5 to 30+",
+            "category": "Mental, Supernatural",
+            "description": "Permanent, effortless telepathic link with specified individuals."
+        },
+        {
+            "name": "Modular Abilities",
+            "point_cost": "Variable",
+            "category": "Mental, Exotic, Supernatural",
+            "description": "Reallocatable point pool to swap mental abilities, skills, or spells on the fly."
+        },
+        {
+            "name": "Neutralize",
+            "point_cost": "50",
+            "category": "Mental, Supernatural",
+            "description": "Nullifies an opponent's psionic or exotic powers through physical contact."
+        },
+        {
+            "name": "Nictitating Membrane",
+            "point_cost": "1/level",
+            "category": "Physical, Exotic",
+            "description": "Transparent inner eyelid providing eye DR 1 per level and protection from eye irritants."
+        },
+        {
+            "name": "Night Vision",
+            "point_cost": "1/level",
+            "category": "Physical",
+            "description": "Eliminates -1 in darkness penalties per level (up to -9)."
+        },
+        {
+            "name": "Obscure",
+            "point_cost": "2/level",
+            "category": "Physical, Exotic, Supernatural",
+            "description": "Actively jams or blocks a specific sense within a 2-yard radius by -1 per level."
+        },
+        {
+            "name": "Oracle",
+            "point_cost": "15",
+            "category": "Mental, Supernatural",
+            "description": "Interprets natural omens and signs to discern future events."
+        },
+        {
+            "name": "Parabolic Hearing",
+            "point_cost": "4/level",
+            "category": "Physical, Exotic",
+            "description": "Doubles hearing distance for targeted sounds per level."
+        },
+        {
+            "name": "Patrons",
+            "point_cost": "10 to 30",
+            "category": "Social",
+            "description": "Powerful NPC mentor, noble lord, corporation, or government providing backing and assistance."
+        },
+        {
+            "name": "Payload",
+            "point_cost": "1/level",
+            "category": "Physical, Exotic",
+            "description": "Internal body storage capacity for cargo or passengers (BL / 10 lbs per level)."
+        },
+        {
+            "name": "Penetrating Vision",
+            "point_cost": "10/level",
+            "category": "Physical, Exotic",
+            "description": "X-ray vision; sees through up to 6 inches of solid matter per level."
+        },
+        {
+            "name": "Perfect Balance",
+            "point_cost": "15",
+            "category": "Physical",
+            "description": "Complete stability; automatically walks ledges/tightropes; +1 Acrobatics/Climbing, +4 vs. knockdowns."
+        },
+        {
+            "name": "Peripheral Vision",
+            "point_cost": "15",
+            "category": "Physical",
+            "description": "Expands visual arc to 240\u00b0; defends against rear attacks at only -2."
+        },
+        {
+            "name": "Permeation",
+            "point_cost": "5 to 40",
+            "category": "Physical, Exotic, Supernatural",
+            "description": "Passes through solid matter (earth, stone, metal, wood) as if it were air."
+        }
+    ],
+    "perks": [
+        {
+            "name": "Alcohol Tolerance",
+            "point_cost": "1",
+            "category": "Physical",
+            "description": "+2 on HT rolls to resist drunkenness."
+        },
+        {
+            "name": "Autofocus",
+            "point_cost": "1",
+            "category": "Physical, Exotic",
+            "description": "Built-in optical adjustment for rapid focus."
+        },
+        {
+            "name": "Deep Sleeper",
+            "point_cost": "1",
+            "category": "Physical",
+            "description": "Falls asleep easily anywhere; ignores noise penalties when sleeping."
+        },
+        {
+            "name": "Honest Face",
+            "point_cost": "1",
+            "category": "Physical",
+            "description": "Looks naturally innocent; +1 to Acting to claim innocence."
+        },
+        {
+            "name": "No Hangover",
+            "point_cost": "1",
+            "category": "Physical",
+            "description": "Never suffers negative side effects from drinking."
+        },
+        {
+            "name": "Penetrating Voice",
+            "point_cost": "1",
+            "category": "Physical",
+            "description": "+2 to be heard over loud noise or crowds."
+        },
+        {
+            "name": "High-Limb Status",
+            "point_cost": "1",
+            "category": "Physical, Exotic",
+            "description": "Minor anatomical adaptations (e.g., prehensile tail tip)."
+        }
+    ],
+    "disadvantages": [
+        {
+            "name": "Absent-Mindedness",
+            "point_cost": "-15",
+            "category": "Mental",
+            "description": "Severe distraction; -5 to IQ rolls for everyday tasks and short-term memory recall."
+        },
+        {
+            "name": "Acrophobia (Heights)",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Irrational terror of high places; requires Fright Check when elevated."
+        },
+        {
+            "name": "Addiction",
+            "point_cost": "-5 to -20",
+            "category": "Physical, Social",
+            "description": "Compulsory substance dependence. Value depends on cost, legality, and physical effect."
+        },
+        {
+            "name": "Alcoholism",
+            "point_cost": "-15 or -20",
+            "category": "Physical",
+            "description": "Severe addiction to alcohol; requires daily self-control rolls to avoid drinking."
+        },
+        {
+            "name": "Amnesia",
+            "point_cost": "-10 or -25",
+            "category": "Mental",
+            "description": "Partial [-10] or total [-25] memory loss. Total amnesia hides the character sheet from the player."
+        },
+        {
+            "name": "Appearance (Below Average)",
+            "point_cost": "-4 to -24",
+            "category": "Physical",
+            "description": "Unattractive (-4, -1 reaction); Ugly (-8, -2 reaction); Hideous (-16, -4 reaction); Monstrous (-20, -5 reaction); Horrific (-24, -6 reaction)."
+        },
+        {
+            "name": "Aquaphobia (Water)",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Panic and inability to act voluntarily around deep water."
+        },
+        {
+            "name": "Bad Back",
+            "point_cost": "-15 or -25",
+            "category": "Physical",
+            "description": "Fragile spine; severe pain and knockdowns on heavy exertion or throwing."
+        },
+        {
+            "name": "Bad Bite",
+            "point_cost": "-5",
+            "category": "Physical",
+            "description": "Misaligned jaw; cannot deliver biting damage or use certain oral abilities."
+        },
+        {
+            "name": "Bad Sight",
+            "point_cost": "-25",
+            "category": "Physical",
+            "description": "Nearsighted or Farsighted. -6 to vision rolls without glasses; correctable via glasses (worth -10 pts if uncorrectable)."
+        },
+        {
+            "name": "Bad Temper",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Must roll self-control (CR 12) whenever insulted or frustrated, or fly into a rage."
+        },
+        {
+            "name": "Berserk",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "In combat or severe stress, loses all self-control, attacking nearest targets relentlessly without active defenses."
+        },
+        {
+            "name": "Bleeder",
+            "point_cost": "-20",
+            "category": "Physical",
+            "description": "Hemophilia; wound bleeding does not stop naturally and inflicts double injury over time."
+        },
+        {
+            "name": "Blindness",
+            "point_cost": "-50",
+            "category": "Physical",
+            "description": "Complete loss of vision; -10 to combat actions and reliance on non-visual senses."
+        },
+        {
+            "name": "Bloodlust",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Must attempt to kill every defeated enemy; requires self-control roll to accept surrenders or take prisoners."
+        },
+        {
+            "name": "Callous",
+            "point_cost": "-5",
+            "category": "Mental",
+            "description": "Lacks empathy; -2 to Teaching, Psychology, and social interaction skills requiring emotion."
+        },
+        {
+            "name": "Charity",
+            "point_cost": "-15",
+            "category": "Mental",
+            "description": "Compulsive need to give away money and aid to anyone in need."
+        },
+        {
+            "name": "Chivalry (Code of Honor)",
+            "point_cost": "-15",
+            "category": "Mental",
+            "description": "Moral obligation to protect women, never attack an unarmed foe, and honor promises."
+        },
+        {
+            "name": "Chronic Pain",
+            "point_cost": "-5 to -30",
+            "category": "Physical",
+            "description": "Periodic crippling pain inflicting severe skill penalties."
+        },
+        {
+            "name": "Clueless",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Completely fails to understand social nuances; -4 to Savoir-Faire, Fast-Talk, and Streetwise."
+        },
+        {
+            "name": "Code of Honor",
+            "point_cost": "-5 to -15",
+            "category": "Mental",
+            "description": "Self-imposed binding rules of conduct (Pirate's = -5, Gentleman's = -10, Chivalry = -15, Soldier's = -10)."
+        },
+        {
+            "name": "Combative",
+            "point_cost": "-5",
+            "category": "Mental",
+            "description": "Eager to pick fights and settle disagreements through physical force."
+        },
+        {
+            "name": "Compulsive Carousing",
+            "point_cost": "-5",
+            "category": "Mental",
+            "description": "Cannot resist social drinking, partying, and nightlife whenever available."
+        },
+        {
+            "name": "Compulsive Gambling",
+            "point_cost": "-5",
+            "category": "Mental",
+            "description": "Compulsive urge to gamble money on any chance event."
+        },
+        {
+            "name": "Compulsive Generosity",
+            "point_cost": "-5",
+            "category": "Mental",
+            "description": "Uncontrolled urge to give gifts and financial support."
+        },
+        {
+            "name": "Compulsive Lying",
+            "point_cost": "-15",
+            "category": "Mental",
+            "description": "Cannot tell the truth even when lying is foolish or harmful."
+        },
+        {
+            "name": "Compulsive Spending",
+            "point_cost": "-5 to -15",
+            "category": "Mental",
+            "description": "Uncontrolled urge to buy unnecessary items regardless of financial standing."
+        },
+        {
+            "name": "Compulsive Vow",
+            "point_cost": "-5 to -15",
+            "category": "Mental",
+            "description": "Fanatical commitment to a specific quest or self-imposed duty."
+        },
+        {
+            "name": "Confused",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Difficulty making decisions under stress; -2 to IQ rolls in high-pressure situations."
+        },
+        {
+            "name": "Cowardice",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Terrified of personal physical danger; requires self-control roll to face combat or risk."
+        },
+        {
+            "name": "Curious",
+            "point_cost": "-5",
+            "category": "Mental",
+            "description": "Cannot resist investigating unusual mysteries, closed doors, or strange phenomena."
+        },
+        {
+            "name": "Deafness",
+            "point_cost": "-20",
+            "category": "Physical",
+            "description": "Complete inability to hear; immune to sound attacks, but relies on sign language or lip reading."
+        },
+        {
+            "name": "Delusions",
+            "point_cost": "-5 to -15",
+            "category": "Mental",
+            "description": "False beliefs about reality (Minor = -5, Major = -10, Severe = -15)."
+        },
+        {
+            "name": "Dependents",
+            "point_cost": "Variable",
+            "category": "Social",
+            "description": "Non-combatant loved ones or children who require protection (cost varies by power level and appearance)."
+        },
+        {
+            "name": "Duty",
+            "point_cost": "-2 to -20",
+            "category": "Social",
+            "description": "Mandatory service obligation to an employer, military order, or government."
+        },
+        {
+            "name": "Dwarfism",
+            "point_cost": "-15",
+            "category": "Physical",
+            "description": "Abnormally short stature (-1 Size Modifier); -1 Basic Move and reduced combat reach."
+        },
+        {
+            "name": "Dyslexia",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Inability to read or interpret written symbols."
+        },
+        {
+            "name": "Easy to Read",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Facial expressions reveal true thoughts; +4 to others' Detect Lies and Psychology rolls against the character."
+        },
+        {
+            "name": "Enemies",
+            "point_cost": "Variable",
+            "category": "Social",
+            "description": "Hostile individuals or organizations actively trying to harm or kill the character."
+        },
+        {
+            "name": "Fanaticism",
+            "point_cost": "-15",
+            "category": "Mental",
+            "description": "Total devotion to a cause, nation, or religion above all personal safety and morals."
+        },
+        {
+            "name": "Fat",
+            "point_cost": "-3",
+            "category": "Physical",
+            "description": "Weight is 150% of normal; -2 to Disguise/Shadowing; +3 Swimming, +2 vs. knockback."
+        },
+        {
+            "name": "Flashbacks",
+            "point_cost": "-5 to -20",
+            "category": "Mental",
+            "description": "Traumatic past memories triggered under stress, causing temporary disorientation."
+        },
+        {
+            "name": "Gullible",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Believes almost anything told; -3 to resist Fast-Talk, Lies, and deception."
+        },
+        {
+            "name": "Hard of Hearing",
+            "point_cost": "-10",
+            "category": "Physical",
+            "description": "-4 to all Hearing rolls."
+        },
+        {
+            "name": "Hemophobia (Blood)",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Panic and nausea upon seeing blood or severe injuries."
+        },
+        {
+            "name": "Honesty",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Must obey local laws strictly, even inconvenient ones, unless resisting via self-control roll."
+        },
+        {
+            "name": "Impulsiveness",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Acts before thinking; cannot sit passively and plan when action is possible."
+        },
+        {
+            "name": "Incurious",
+            "point_cost": "-5",
+            "category": "Mental",
+            "description": "Completely lacks interest in new things or surrounding events."
+        },
+        {
+            "name": "Indecisive",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Paralyzed by choices in crisis situations; requires self-control roll to take initiative."
+        },
+        {
+            "name": "Intolerance",
+            "point_cost": "-5 to -10",
+            "category": "Mental",
+            "description": "Unreasonable prejudice against a specific group (-5) or all foreign groups (-10)."
+        },
+        {
+            "name": "Jealousy",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Resents anyone smarter, richer, or more successful."
+        },
+        {
+            "name": "Killjoy",
+            "point_cost": "-15",
+            "category": "Mental",
+            "description": "Inability to experience joy or pleasure; immune to carousing and social allurements."
+        },
+        {
+            "name": "Lame",
+            "point_cost": "-10 to -35",
+            "category": "Physical",
+            "description": "Crippled limbs or mobility impairment (Crippled Leg = -10, One Leg = -20, Legless = -30)."
+        },
+        {
+            "name": "Laziness",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Avoids physical or mental effort; -58% to job performance and study effort."
+        },
+        {
+            "name": "Lecherousness",
+            "point_cost": "-15",
+            "category": "Mental",
+            "description": "Compulsive attraction to attractive members of the opposite sex."
+        },
+        {
+            "name": "Low TL",
+            "point_cost": "-5/TL",
+            "category": "Social",
+            "description": "Familiarity with a tech level below campaign average."
+        },
+        {
+            "name": "Miserliness",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Hoards money; refuses to spend cash on anything non-essential."
+        },
+        {
+            "name": "Mute",
+            "point_cost": "-25",
+            "category": "Physical",
+            "description": "Complete inability to produce vocal speech."
+        },
+        {
+            "name": "Night Blindness",
+            "point_cost": "-10",
+            "category": "Physical",
+            "description": "Double vision penalties in dim light or darkness."
+        },
+        {
+            "name": "Oblivious",
+            "point_cost": "-5",
+            "category": "Mental",
+            "description": "Completely unaware of social cues; -2 to social skills."
+        },
+        {
+            "name": "Odious Personal Habits (OPH)",
+            "point_cost": "-5, -10, or -15",
+            "category": "Social",
+            "description": "Repugnant behavior giving -1, -2, or -3 on social reaction rolls."
+        },
+        {
+            "name": "One Arm",
+            "point_cost": "-20",
+            "category": "Physical",
+            "description": "Missing one functional arm/hand."
+        },
+        {
+            "name": "One Eye",
+            "point_cost": "-15",
+            "category": "Physical",
+            "description": "Missing one eye; -1 to DX combat rolls and -3 to ranged attacks."
+        },
+        {
+            "name": "Overconfidence",
+            "point_cost": "-5",
+            "category": "Mental",
+            "description": "Overestimates personal capabilities; believes they can handle any challenge easily."
+        },
+        {
+            "name": "Overweight",
+            "point_cost": "-1",
+            "category": "Physical",
+            "description": "Weight is 130% of normal; -1 to Disguise; +1 Swimming, +1 vs. knockback."
+        },
+        {
+            "name": "Pacifism",
+            "point_cost": "-5 to -30",
+            "category": "Mental",
+            "description": "Moral opposition to violence (Reluctant Killer = -5, Self-Defense Only = -15, Cannot Kill = -15, Total Nonviolence = -30)."
+        },
+        {
+            "name": "Paranoia",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "Constant distrust of everyone; believes everyone is plotting against them."
+        },
+        {
+            "name": "Phobias",
+            "point_cost": "-5 to -15",
+            "category": "Mental",
+            "description": "Irrational terror of specific objects, creatures, or situations (e.g., Spiders, Darkness, Enclosed Spaces)."
+        },
+        {
+            "name": "Pyromania",
+            "point_cost": "-5",
+            "category": "Mental",
+            "description": "Compulsive urge to set fires."
+        },
+        {
+            "name": "Secret",
+            "point_cost": "-5 to -30",
+            "category": "Social",
+            "description": "Hidden past crime or identity that would ruin or kill the character if revealed."
+        },
+        {
+            "name": "Sense of Duty",
+            "point_cost": "-5 to -20",
+            "category": "Mental",
+            "description": "Selfless devotion to protect specific groups (Companions = -5, Nation = -10, Humanity = -20)."
+        },
+        {
+            "name": "Skinny",
+            "point_cost": "-5",
+            "category": "Physical",
+            "description": "Weight is 2/3 average; -2 to ST knockback resistance and -2 to Disguise."
+        },
+        {
+            "name": "Social Stigma",
+            "point_cost": "-5 to -20",
+            "category": "Social",
+            "description": "Second-class legal or social status (Minor = -5, Criminal Record = -5, Subjugated = -20)."
+        },
+        {
+            "name": "Stuttering",
+            "point_cost": "-10",
+            "category": "Physical",
+            "description": "Speech impediment; -2 to speech-dependent skills and communication."
+        },
+        {
+            "name": "Truthfulness",
+            "point_cost": "-5",
+            "category": "Mental",
+            "description": "Dislikes lying; must make self-control roll to tell a lie."
+        },
+        {
+            "name": "Unlucky",
+            "point_cost": "-10",
+            "category": "Mental",
+            "description": "GM periodically inflicts bad luck or catastrophic timing once per session."
+        },
+        {
+            "name": "Very Fat",
+            "point_cost": "-5",
+            "category": "Physical",
+            "description": "Weight is 200% of normal; -3 Disguise; +5 Swimming, +3 vs. knockback; max HT 13."
+        },
+        {
+            "name": "Workaholic",
+            "point_cost": "-5",
+            "category": "Mental",
+            "description": "Compulsively works constantly; suffers stress and agitation when idle."
+        }
+    ],
+    "quirks": [
+        {
+            "name": "Attitude Quirk",
+            "point_cost": "-1",
+            "category": "Mental",
+            "description": "Minor bias or personal dislike (e.g., 'Dislikes dogs')."
+        },
+        {
+            "name": "Habitual Quirk",
+            "point_cost": "-1",
+            "category": "Mental / Physical",
+            "description": "Minor unconscious habit (e.g., 'Always hums while working')."
+        },
+        {
+            "name": "Preference Quirk",
+            "point_cost": "-1",
+            "category": "Mental",
+            "description": "Distinctive cosmetic choice (e.g., 'Always wears black clothes')."
+        },
+        {
+            "name": "Belief Quirk",
+            "point_cost": "-1",
+            "category": "Mental",
+            "description": "Trivial non-game-affecting belief (e.g., 'Believes full moons bring good luck')."
+        },
+        {
+            "name": "Physical Quirk",
+            "point_cost": "-1",
+            "category": "Physical",
+            "description": "Trivial cosmetic feature (e.g., 'Unusual bright green eyes')."
+        }
+    ]
+}

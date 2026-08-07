@@ -39,6 +39,20 @@ function LandingPage() {
           </ul>
         </div>
       </div>
+
+      <div className="tools-section">
+        <h2 className="tools-title">Tools</h2>
+        <Link to="/gurps" className="tool-card">
+          <div className="tool-card-copy">
+            <h3>GURPS Character Creator</h3>
+            <p>
+              Build a GURPS 4th Edition character step by step, with a live point budget,
+              attributes, traits, and a printable summary sheet.
+            </p>
+          </div>
+          <span className="tool-card-link">Open tool</span>
+        </Link>
+      </div>
     </section>
   )
 }
