@@ -31,10 +31,11 @@ export const SKILL_DIFFICULTIES = [
   { value: "E", label: "Easy (E)" },
   { value: "A", label: "Average (A)" },
   { value: "H", label: "Hard (H)" },
-  { value: "VH", label: "Very Hard (VH)" }
+  { value: "VH", label: "Very Hard (VH)" },
+  { value: "Varies", label: "Varies" }
 ]
 
-export const SKILL_ATTRIBUTES = ["ST", "DX", "IQ", "HT"]
+export const SKILL_ATTRIBUTES = ["ST", "DX", "IQ", "HT", "Will", "Per", "DX or IQ"]
 
 const SKILL_TABLE = {
   E: { 0: 1, 1: 2, 2: 4, 3: 8 },
@@ -254,7 +255,10 @@ export function totalPoints(state) {
   const perks = state.perks.reduce((s, t) => s + t.cost, 0)
   const disadvantages = state.disadvantages.reduce((s, t) => s + t.cost, 0)
   const quirks = state.quirks.reduce((s, t) => s + t.cost, 0)
-  const skills = state.skills.reduce((s, t) => s + t.cost, 0)
+  const skills = state.skills.reduce(
+    (s, t) => s + (skillCost(t.difficulty, t.relativeLevel) ?? 0),
+    0
+  )
   const spent = attributes + secondary + social + advantages + perks + skills
   const gained = -(disadvantages + quirks)
   const total = state.startingPoints + gained

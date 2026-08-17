@@ -6,6 +6,14 @@ import {
   skillCost,
   uid
 } from "../../../lib/gurps/points"
+import skillsData from "../../../data/gurpsSkills.json"
+import SkillPicker from "../components/SkillPicker"
+
+const SKILLS = skillsData.map((s) => ({
+  name: s.name,
+  attribute: s["Controlling attribute"],
+  difficulty: s["Difficulty"]
+}))
 
 function SkillsStep() {
   const { state, dispatch, totals } = useGurps()
@@ -16,12 +24,20 @@ function SkillsStep() {
       skill: { id: uid(), name: "", attribute: "DX", difficulty: "A", relativeLevel: 0 }
     })
 
+  const addFromList = (skill) =>
+    dispatch({
+      type: "ADD_SKILL",
+      skill: { name: skill.name, attribute: skill.attribute, difficulty: skill.difficulty, relativeLevel: 0 }
+    })
+
   return (
     <section className="step-panel">
       <p className="step-intro">
-        Skills represent trained expertise. Pick an attribute, a difficulty, and a target level
-        relative to that attribute; the cost comes from the skill cost table.
+        Skills represent trained expertise. Pick a skill from the list, or add your own, then set a
+        target level relative to its attribute; the cost comes from the skill cost table.
       </p>
+
+      <SkillPicker skills={SKILLS} added={state.skills} onAdd={addFromList} />
 
       {state.skills.length > 0 && (
         <ul className="skill-list">

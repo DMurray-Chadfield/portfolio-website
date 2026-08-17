@@ -1,0 +1,1317 @@
+[
+    {
+        "name": "Accounting",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Acrobatics",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Acting",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Administration",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Alchemy/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "VH"
+    },
+    {
+        "name": "Animal Handling",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Anthropology",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Archaeology",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Architecture/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Area Knowledge",
+        "Controlling attribute": "IQ",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Armoury/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Artillery/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Artist",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Astronomy/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Autohypnosis",
+        "Controlling attribute": "Will",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Beam Weapons/TL",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Bicycling",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Bioengineering/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Biology/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "VH"
+    },
+    {
+        "name": "Blind Fighting",
+        "Controlling attribute": "Per",
+        "Difficulty": "VH"
+    },
+    {
+        "name": "Blowpipe",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Boating/TL",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Body Control",
+        "Controlling attribute": "HT",
+        "Difficulty": "VH"
+    },
+    {
+        "name": "Body Language",
+        "Controlling attribute": "Per",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Body Sense",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Bolas",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Bow",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Boxing",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Brainwashing/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Brawling",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Breaking Blow",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Breath Control",
+        "Controlling attribute": "HT",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Camouflage",
+        "Controlling attribute": "IQ",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Carousing",
+        "Controlling attribute": "HT",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Carpentry",
+        "Controlling attribute": "IQ",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Cartography/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Chemistry/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Climbing",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Cloak",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Combat Art or Sport",
+        "Controlling attribute": "DX",
+        "Difficulty": "Varies"
+    },
+    {
+        "name": "Computer Hacking/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "VH"
+    },
+    {
+        "name": "Computer Operation/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Computer Programming/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Connoisseur",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Cooking",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Counterfeiting/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Crewman/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Criminology/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Crossbow",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Cryptography/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Current Affairs/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Dancing",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Detect Lies",
+        "Controlling attribute": "Per",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Diagnosis/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Diplomacy",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Disguise/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Dreaming",
+        "Controlling attribute": "Will",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Driving/TL",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Dropping",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Economics",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Electrician/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Electronics Operation/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Electronics Repair/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Engineer/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Enthrallment",
+        "Controlling attribute": "Will",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Environment Suit/TL",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Erotic Art",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Escape",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Esoteric Medicine",
+        "Controlling attribute": "Per",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Exorcism",
+        "Controlling attribute": "Will",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Expert Skill",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Explosives/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Falconry",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Farming/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Fast-Draw",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Fast-Talk",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Filch",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Finance",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Fire Eating",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "First Aid/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Fishing",
+        "Controlling attribute": "Per",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Flight",
+        "Controlling attribute": "HT",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Flying Leap",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Forced Entry",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Forensics/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Forgery/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Fortune-Telling",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Forward Observer/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Free Fall",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Freight Handling/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Gambling",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Games",
+        "Controlling attribute": "IQ",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Gardening",
+        "Controlling attribute": "IQ",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Garrote",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Geography/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Geology/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Gesture",
+        "Controlling attribute": "IQ",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Group Performance",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Gunner/TL",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Guns/TL",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Hazardous Materials/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Heraldry",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Herb Lore/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "VH"
+    },
+    {
+        "name": "Hidden Lore",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Hiking",
+        "Controlling attribute": "HT",
+        "Difficulty": "A"
+    },
+    {
+        "name": "History",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Hobby Skill",
+        "Controlling attribute": "DX or IQ",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Holdout",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Housekeeping",
+        "Controlling attribute": "IQ",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Hypnotism",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Immovable Stance",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Innate Attack",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Intelligence Analysis/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Interrogation",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Intimidation",
+        "Controlling attribute": "Will",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Invisibility Art",
+        "Controlling attribute": "IQ",
+        "Difficulty": "VH"
+    },
+    {
+        "name": "Jeweler/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Judo",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Jumping",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Karate",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Kiai",
+        "Controlling attribute": "HT",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Knot-Tying",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Lance",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Lasso",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Law",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Leadership",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Leatherworking",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Lifting",
+        "Controlling attribute": "HT",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Light Walk",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Linguistics",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Lip Reading",
+        "Controlling attribute": "Per",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Liquid Projector/TL",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Literature",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Lockpicking/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Machinist/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Makeup/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Market Analysis",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Masonry",
+        "Controlling attribute": "IQ",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Mathematics/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Mechanic/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Meditation",
+        "Controlling attribute": "Will",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Melee Weapon",
+        "Controlling attribute": "DX",
+        "Difficulty": "Varies"
+    },
+    {
+        "name": "Mental Strength",
+        "Controlling attribute": "Will",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Merchant",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Metallurgy/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Meteorology/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Mimicry",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Mind Block",
+        "Controlling attribute": "Will",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Mount",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Musical Composition",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Musical Influence",
+        "Controlling attribute": "IQ",
+        "Difficulty": "VH"
+    },
+    {
+        "name": "Musical Instrument",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Naturalist",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Navigation/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Net",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Observation",
+        "Controlling attribute": "Per",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Occultism",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Packing",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Paleontology/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Panhandling",
+        "Controlling attribute": "IQ",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Parachuting/TL",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Parry Missile Weapons",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Performance",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Pharmacy/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Philosophy",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Photography/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Physician/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Physics/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "VH"
+    },
+    {
+        "name": "Physiology/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Pickpocket",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Piloting/TL",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Poetry",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Poisons/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Politics",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Power Blow",
+        "Controlling attribute": "Will",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Pressure Points",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Pressure Secrets",
+        "Controlling attribute": "IQ",
+        "Difficulty": "VH"
+    },
+    {
+        "name": "Professional Skill",
+        "Controlling attribute": "DX or IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Propaganda/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Prospecting/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Psychology",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Public Speaking",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Push",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Religious Ritual",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Research/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Riding",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Ritual Magic",
+        "Controlling attribute": "IQ",
+        "Difficulty": "VH"
+    },
+    {
+        "name": "Running",
+        "Controlling attribute": "HT",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Savoir-Faire",
+        "Controlling attribute": "IQ",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Scrounging",
+        "Controlling attribute": "Per",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Scuba/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Search",
+        "Controlling attribute": "Per",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Sewing/TL",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Sex Appeal",
+        "Controlling attribute": "HT",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Shadowing",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Shield",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Shiphandling/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Singing",
+        "Controlling attribute": "HT",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Skating",
+        "Controlling attribute": "HT",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Skiing",
+        "Controlling attribute": "HT",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Sleight of Hand",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Sling",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Smith/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Smuggling",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Sociology",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Soldier/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Spear Thrower",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Speed-Reading",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Sports",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Stage Combat",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Stealth",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Strategy",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Streetwise",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Submarine/TL",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Sumo Wrestling",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Surgery/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "VH"
+    },
+    {
+        "name": "Survival",
+        "Controlling attribute": "Per",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Swimming",
+        "Controlling attribute": "HT",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Symbol Drawing",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Tactics",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Teaching",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Teamster",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Thaumatology",
+        "Controlling attribute": "IQ",
+        "Difficulty": "VH"
+    },
+    {
+        "name": "Theology",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Throwing",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Throwing Art",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Thrown Weapon",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Tracking",
+        "Controlling attribute": "Per",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Traps/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Typing",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Urban Survival",
+        "Controlling attribute": "Per",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Ventriloquism",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Veterinary/TL",
+        "Controlling attribute": "IQ",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Weird Science",
+        "Controlling attribute": "IQ",
+        "Difficulty": "VH"
+    },
+    {
+        "name": "Wrestling",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Writing",
+        "Controlling attribute": "IQ",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Zen Archery",
+        "Controlling attribute": "IQ",
+        "Difficulty": "VH"
+    },
+    {
+        "name": "Captivate",
+        "Controlling attribute": "Will",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Persuade",
+        "Controlling attribute": "Will",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Suggest",
+        "Controlling attribute": "Will",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Sway Emotions",
+        "Controlling attribute": "Will",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Axe/Mace",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Broadsword",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Flail",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Force Sword",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Force Whip",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Jitte/Sai",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Knife",
+        "Controlling attribute": "DX",
+        "Difficulty": "E"
+    },
+    {
+        "name": "Kusari",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Main-Gauche",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Monowire Whip",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Polearm",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Rapier",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Saber",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Shortsword",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Smallsword",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Spear",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Staff",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Tonfa",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Two-Handed Axe/Mace",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Two-Handed Flail",
+        "Controlling attribute": "DX",
+        "Difficulty": "H"
+    },
+    {
+        "name": "Two-Handed Sword",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    },
+    {
+        "name": "Whip",
+        "Controlling attribute": "DX",
+        "Difficulty": "A"
+    }
+]
