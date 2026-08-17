@@ -180,8 +180,11 @@ Use helper functions in `kotlinbook.web` package:
 frontend/
 ├── src/
 │   ├── components/      # Navbar, ProtectedRoute
-│   ├── context/         # AuthContext
-│   └── pages/           # LandingPage, LoginPage, ProfilePage
+│   ├── context/         # AuthContext, GurpsCharacterContext
+│   ├── data/            # gurpsTraits.json (copy of repo-root gurps_traits.json)
+│   ├── lib/gurps/       # points.js (GURPS point math + cost-string parser)
+│   ├── pages/           # LandingPage, LoginPage, ProfilePage
+│   └── pages/gurps/     # Character creator wizard (steps/, components/)
 ├── package.json
 └── vite.config.js
 
