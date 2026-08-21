@@ -1,5 +1,5 @@
 import { useGurps } from "../../../context/GurpsCharacterContext"
-import { deriveSecondary, LANGUAGE_LEVELS, WEALTH_LEVELS } from "../../../lib/gurps/points"
+import { deriveSecondary, LANGUAGE_LEVELS, WEALTH_LEVELS, skillCost } from "../../../lib/gurps/points"
 
 function TraitList({ title, items }) {
   if (items.length === 0) return null
@@ -158,16 +158,19 @@ function SummaryStep() {
         <div className="summary-section">
           <h4>Skills</h4>
           <ul className="summary-list">
-            {state.skills.map((skill) => (
-              <li key={skill.id}>
-                <span>
-                  {skill.name.trim() || "Unnamed skill"} - {skill.attribute}/{skill.difficulty}{" "}
-                  (relative {skill.relativeLevel >= 0 ? "+" : ""}
-                  {skill.relativeLevel})
-                </span>
-                <span className="summary-cost">[{skill.cost}]</span>
-              </li>
-            ))}
+            {state.skills.map((skill) => {
+              const cost = skillCost(skill.difficulty, skill.relativeLevel) ?? 0
+              return (
+                <li key={skill.id}>
+                  <span>
+                    {skill.name.trim() || "Unnamed skill"} - {skill.attribute}/{skill.difficulty}{" "}
+                    (relative {skill.relativeLevel >= 0 ? "+" : ""}
+                    {skill.relativeLevel})
+                  </span>
+                  <span className="summary-cost">[{cost}]</span>
+                </li>
+              )
+            })}
           </ul>
         </div>
       )}
