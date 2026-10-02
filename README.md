@@ -70,6 +70,47 @@ Set the `KOTLINBOOK_ENV` environment variable:
 | `local` (default) | Development with H2 in-memory database |
 | `production` | Production with PostgreSQL |
 
+The `production` setting reads its values from environment variables (see
+`src/main/resources/app-production.conf`).
+
+#### Environment File
+
+An example environment file is provided at [`.env.example`](.env.example). Copy
+it and fill in your own values:
+
+```bash
+cp .env.example .env
+```
+
+`.env` is git-ignored, so your secrets are never committed. The example file is
+safe to commit because it only contains placeholders.
+
+| Variable | Required | Description |
+|----------|:--------:|-------------|
+| `KOTLINBOOK_ENV` | Yes | Set to `production` to load `app-production.conf`. Defaults to `local`. |
+| `KOTLINBOOK_HTTP_PORT` | Yes | Port the HTTP server listens on (default `4207`). |
+| `KOTLINBOOK_DB_URL` | Yes | JDBC URL, e.g. `jdbc:postgresql://localhost:5432/portfolio_website`. |
+| `KOTLINBOOK_DB_USER` | Yes | PostgreSQL username. |
+| `KOTLINBOOK_DB_PASSWORD` | Yes | PostgreSQL password. |
+| `KOTLINBOOK_COOKIE_ENCRYPTION_KEY` | Yes | Hex-encoded session cookie encryption key (16 bytes). |
+| `KOTLINBOOK_COOKIE_SIGNING_KEY` | Yes | Hex-encoded session cookie signing key (32 bytes). |
+| `KOTLINBOOK_REMEMBER_ME_KEY` | Yes | Hex-encoded remember-me key. |
+
+Generate secure random values for the secrets with:
+
+```bash
+openssl rand -hex 16   # KOTLINBOOK_COOKIE_ENCRYPTION_KEY
+openssl rand -hex 32   # KOTLINBOOK_COOKIE_SIGNING_KEY
+openssl rand -hex 32   # KOTLINBOOK_REMEMBER_ME_KEY
+```
+
+The file can be passed to Docker and the helper scripts:
+
+```bash
+./create_db.sh .env          # create the PostgreSQL user/database
+./run_docker.sh .env         # run the container
+```
+
 ### Building
 
 Build the production JAR:
@@ -97,9 +138,10 @@ Run the container:
 docker run -p 4207:4207 -d --name kotlinbook kotlinbook:latest
 ```
 
-If you need to pass environment variables (e.g., for production database), use an environment file:
+If you need to pass environment variables (e.g., for production database), use an environment file. Start by copying the example file and filling it in (see [Environment File](#environment-file)):
 
 ```bash
+cp .env.example .env
 docker run -p 4207:4207 -d --env-file .env --name kotlinbook kotlinbook:latest
 ```
 
