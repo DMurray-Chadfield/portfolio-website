@@ -8,4 +8,5 @@ then
 fi
 
 docker pull ghcr.io/dmurray-chadfield/portfolio-website:latest
-docker run -p 4207:4207 -d --env-file "$env_file" --name portfolio-website ghcr.io/dmurray-chadfield/portfolio-website:latest
+docker rm -f portfolio-website 2>/dev/null || true
+docker run --network host -d --env-file "$env_file" --name portfolio-website ghcr.io/dmurray-chadfield/portfolio-website:latest

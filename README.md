@@ -197,15 +197,20 @@ docker build -f Dockerfile -t kotlinbook:latest .
 Run the container:
 
 ```bash
-docker run -p 4207:4207 -d --name kotlinbook kotlinbook:latest
+docker run --network host -d --name kotlinbook kotlinbook:latest
 ```
 
 If you need to pass environment variables (e.g., for production database), use an environment file. Start by copying the example file and filling it in (see [Environment File](#environment-file)):
 
 ```bash
 cp .env.example .env
-docker run -p 4207:4207 -d --env-file .env --name kotlinbook kotlinbook:latest
+docker run --network host -d --env-file .env --name kotlinbook kotlinbook:latest
 ```
+
+The container uses the host's network namespace (`--network host`), so the app
+listens directly on the host's port 4207 (`KOTLINBOOK_HTTP_PORT`) with no
+published ports required. This also means `localhost` in `KOTLINBOOK_DB_URL`
+works as-is: the container reaches the host's PostgreSQL over loopback.
 
 Alternatively, you can use the provided helper script:
 
