@@ -107,9 +107,71 @@ openssl rand -hex 32   # KOTLINBOOK_REMEMBER_ME_KEY
 The file can be passed to Docker and the helper scripts:
 
 ```bash
-./create_db.sh .env          # create the PostgreSQL user/database
+./create_db.sh .env          # create the PostgreSQL user/database (see Database Setup)
 ./run_docker.sh .env         # run the container
 ```
+
+### Database Setup
+
+The PostgreSQL user and database are created by [`create_db.sh`](create_db.sh).
+It reads `KOTLINBOOK_DB_URL`, `KOTLINBOOK_DB_USER`, and `KOTLINBOOK_DB_PASSWORD`
+from the environment file and performs four steps:
+
+1. Brings up PostgreSQL (Docker mode only) and waits until it accepts connections
+2. Creates the user from `KOTLINBOOK_DB_USER`
+3. Creates the database named in `KOTLINBOOK_DB_URL` (e.g. `portfolio_website`)
+4. Grants the user full privileges on that database and its `public` schema
+
+Two modes are available:
+
+```bash
+./create_db.sh --docker .env    # start PostgreSQL in a Docker container (default)
+./create_db.sh --service .env   # use an already running PostgreSQL service
+```
+
+The flag can be omitted (`./create_db.sh .env` runs in Docker mode). Run the
+script with `--help` to see its usage message.
+
+#### Docker Mode (default)
+
+Starts a container named `postgres` from the `postgres:latest` image, exposing
+port `5432` with the superuser `postgres` / `password`. Data is stored in the
+`kotlinbook_pgdata` Docker volume, so it survives container restarts. Any
+existing container with that name is removed and replaced (the volume is kept).
+Requires `docker` on PATH.
+
+#### Service Mode
+
+Connects to an already running PostgreSQL service instead of starting a
+container. Requires `psql` on PATH (the script errors out if it is missing).
+The host and port are taken from `KOTLINBOOK_DB_URL`, defaulting to
+`localhost:5432`.
+
+Before using this mode, set a password on the admin superuser — a freshly
+installed PostgreSQL service has none. Run this once after bringing the
+service up:
+
+```bash
+sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'password';"
+```
+
+Replace `'password'` with your admin password, if you set one. The script
+authenticates with these (optional) variables, overridable in the environment
+file or the shell:
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `KOTLINBOOK_DB_ADMIN_USER` | `postgres` | Admin user used to create the app user and database |
+| `KOTLINBOOK_DB_ADMIN_PASSWORD` | `password` | Admin user's password |
+
+#### Re-running the Script
+
+`CREATE USER` and `CREATE DATABASE` fail if the user or database already
+exists, so the script is intended for first-time setup. To start over, drop
+the user and database (or, in Docker mode, delete the container and the
+`kotlinbook_pgdata` volume with `docker volume rm kotlinbook_pgdata`) and run
+the script again. Flyway migrations are applied automatically when the
+application starts.
 
 ### Building
 

@@ -9,6 +9,12 @@ usage() {
   echo "In --service mode, the admin credentials used to create the user and"
   echo "database come from KOTLINBOOK_DB_ADMIN_USER and KOTLINBOOK_DB_ADMIN_PASSWORD"
   echo "(falling back to postgres / password)."
+  echo ""
+  echo "Before using --service, set a password on the admin superuser of the running"
+  echo "PostgreSQL service (fresh installs have none). Run this once after bringing"
+  echo "the service up:"
+  echo "  sudo -u postgres psql -c \"ALTER USER postgres WITH PASSWORD 'password';\""
+  echo "Replace 'password' with your KOTLINBOOK_DB_ADMIN_PASSWORD, if you set one."
   exit 1
 }
 
@@ -77,6 +83,11 @@ ADMIN_USER="${KOTLINBOOK_DB_ADMIN_USER:-postgres}"
 ADMIN_PASSWORD="${KOTLINBOOK_DB_ADMIN_PASSWORD:-password}"
 
 if [ "$MODE" = "service" ]; then
+  # Before this script can connect, the admin superuser needs a password set
+  # (fresh installs have none). Run once after bringing up the service:
+  #   sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'password';"
+  # Replace 'password' with your KOTLINBOOK_DB_ADMIN_PASSWORD, if you set one.
+
   # Extract host and port from KOTLINBOOK_DB_URL, defaulting like JDBC would
   DB_HOST=$(echo "$KOTLINBOOK_DB_URL" | sed -n 's|.*://\([^:/]*\).*|\1|p')
   DB_PORT=$(echo "$KOTLINBOOK_DB_URL" | sed -n 's|.*:\([0-9][0-9]*\)/.*|\1|p')
