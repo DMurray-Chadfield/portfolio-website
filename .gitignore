@@ -49,3 +49,6 @@ bin/
 
 frontend/node_modules/
 frontend/dist/
+
+### Superpowers ###
+.superpowers/
