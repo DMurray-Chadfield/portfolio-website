@@ -1,0 +1,16 @@
+{
+  "people": [
+    { "id": "aethelwulf", "name": "Aethelwulf", "kind": "monarch", "sex": "male", "generation": 2 },
+    { "id": "aethelbald", "name": "Aethelbald", "kind": "monarch", "sex": "male", "generation": 3 },
+    { "id": "alfred", "name": "Alfred the Great", "kind": "monarch", "sex": "male", "generation": 3 },
+    { "id": "emma", "name": "Emma of Normandy", "kind": "connector", "sex": "female", "generation": 7 },
+    { "id": "aethelred2", "name": "Aethelred II", "kind": "monarch", "sex": "male", "generation": 7 },
+    { "id": "edmund2", "name": "Edmund II Ironside", "kind": "monarch", "sex": "male", "generation": 8 },
+    { "id": "edward-confessor", "name": "Edward the Confessor", "kind": "monarch", "sex": "male", "generation": 8 }
+  ],
+  "families": [
+    { "id": "f-aethelwulf", "husbandId": "aethelwulf", "wifeId": null, "childIds": ["aethelbald", "alfred"] },
+    { "id": "f-aethelred2-first", "husbandId": "aethelred2", "wifeId": null, "childIds": ["edmund2"] },
+    { "id": "f-aethelred2-emma", "husbandId": "aethelred2", "wifeId": "emma", "childIds": ["edward-confessor"] }
+  ]
+}
