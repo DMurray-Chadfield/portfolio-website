@@ -1,3 +1,5 @@
+import { buildGraph } from "./graph.js"
+
 export const NODE_W = 140
 export const NODE_H = 44
 export const CARD_W = 340
@@ -195,4 +197,72 @@ export function placeNodes(graph, { expandedId = null } = {}) {
     width: Math.max(...nodes.map((node) => node.x + node.w)) + MARGIN,
     height: Math.max(...nodes.map((node) => node.y + node.h)) + MARGIN
   }
+}
+
+export function buildEdges(graph, nodes) {
+  const nodeById = new Map(nodes.map((node) => [node.id, node]))
+  const rowBottomByY = new Map()
+  for (const node of nodes) rowBottomByY.set(node.y, Math.max(rowBottomByY.get(node.y) ?? 0, node.y + node.h))
+
+  const parentsByFamily = new Map()
+  for (const node of nodes) {
+    for (const familyId of graph.familyIdsOf(node.id)) {
+      if (!parentsByFamily.has(familyId)) parentsByFamily.set(familyId, [])
+      parentsByFamily.get(familyId).push(node)
+    }
+  }
+
+  const centreX = (node) => node.x + node.w / 2
+  const rowCentreY = (node) => (node.y + rowBottomByY.get(node.y)) / 2
+  const edges = []
+  for (const [familyId, parents] of parentsByFamily) {
+    const [left, right] = [...parents].sort((a, b) => a.x - b.x)
+    const childIds = graph.childrenOfFamily(familyId)
+    const children = childIds.map((id) => nodeById.get(id)).filter((node) => node != null)
+
+    if (parents.length === 2) {
+      const y = (rowCentreY(left) + rowCentreY(right)) / 2
+      const a = { x: left.x + left.w, y }
+      const b = { x: right.x, y }
+      const dot = childIds.length > 0 ? { x: (a.x + b.x) / 2, y } : null
+      edges.push({ id: `marriage:${familyId}`, kind: "marriage", familyId, a, b, dot })
+    }
+
+    if (children.length > 0) {
+      const stemTop = parents.length === 2
+        ? { x: (centreX(left) + centreX(right)) / 2, y: (left.y + left.h + right.y + right.h) / 2 }
+        : { x: centreX(parents[0]), y: parents[0].y + parents[0].h }
+      const parentsBottom = Math.max(...parents.map((parent) => rowBottomByY.get(parent.y)))
+      const childrenTop = Math.min(...children.map((child) => child.y))
+      const barY = (parentsBottom + childrenTop) / 2
+      const childXs = children.map(centreX)
+      edges.push({
+        id: `blood:${familyId}`,
+        kind: "blood",
+        familyId,
+        stemTop,
+        barY,
+        barLeft: Math.min(...childXs),
+        barRight: Math.max(...childXs),
+        drops: children.map((child) => ({ x: centreX(child), y1: barY, y2: child.y }))
+      })
+    }
+  }
+  return edges
+}
+
+export function edgeToPath(edge) {
+  if (edge.kind === "marriage") return `M${edge.a.x} ${edge.a.y} H${edge.b.x}`
+  const parts = [
+    `M${edge.stemTop.x} ${edge.stemTop.y} V${edge.barY}`,
+    `M${edge.barLeft} ${edge.barY} H${edge.barRight}`
+  ]
+  for (const drop of edge.drops) parts.push(`M${drop.x} ${drop.y1} V${drop.y2}`)
+  return parts.join(" ")
+}
+
+export function computeLayout(data, { expandedId = null } = {}) {
+  const graph = buildGraph(data)
+  const { nodes, width, height } = placeNodes(graph, { expandedId })
+  return { nodes, edges: buildEdges(graph, nodes), width, height }
 }

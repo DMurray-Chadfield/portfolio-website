@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest"
 import { buildGraph } from "./graph.js"
-import { placeNodes, orderRow, NODE_W, NODE_H, CARD_W, CARD_H } from "./layout.js"
+import { placeNodes, orderRow, buildEdges, edgeToPath, computeLayout, NODE_W, NODE_H, CARD_W, CARD_H } from "./layout.js"
 
 const fixture = {
   people: [
@@ -81,5 +81,62 @@ describe("orderRow", () => {
     const graph = buildGraph(consortFixture)
     expect(orderRow(graph, graph.idsInGeneration(2))).toEqual(["rival", "queen", "consort"])
     expect(orderRow(graph, graph.idsInGeneration(3))).toEqual(["cousin", "heir"])
+  })
+})
+
+describe("buildEdges", () => {
+  const graph = buildGraph(fixture)
+  const { nodes } = placeNodes(graph)
+  const edges = buildEdges(graph, nodes)
+  const byId = new Map(edges.map((e) => [e.id, e]))
+  const nodeById = new Map(nodes.map((n) => [n.id, n]))
+
+  it("makes one blood edge per family with drawn children", () => {
+    expect(byId.has("blood:f-aethelwulf")).toBe(true)
+    expect(byId.has("blood:f-aethelred2-first")).toBe(true)
+    expect(byId.has("blood:f-aethelred2-emma")).toBe(true)
+    expect(byId.has("blood:f-aethelred2")).toBe(false)
+  })
+
+  it("spans the sibling bar across the children's centres", () => {
+    const e = byId.get("blood:f-aethelwulf")
+    const bal = nodeById.get("aethelbald")
+    const alf = nodeById.get("alfred")
+    expect(e.barLeft).toBeCloseTo(bal.x + bal.w / 2)
+    expect(e.barRight).toBeCloseTo(alf.x + alf.w / 2)
+    expect(e.drops).toHaveLength(2)
+  })
+
+  it("drops a single-parent family from that parent's centre", () => {
+    const e = byId.get("blood:f-aethelred2-first")
+    const p = nodeById.get("aethelred2")
+    expect(e.stemTop.x).toBeCloseTo(p.x + p.w / 2)
+    expect(e.drops[0].x).toBeCloseTo(nodeById.get("edmund2").x + nodeById.get("edmund2").w / 2)
+  })
+
+  it("stems a couple's children from between the spouses and dots the marriage", () => {
+    const e = byId.get("blood:f-aethelred2-emma")
+    const m = byId.get("marriage:f-aethelred2-emma")
+    const a = nodeById.get("aethelred2")
+    const b = nodeById.get("emma")
+    expect(e.stemTop.x).toBeCloseTo((a.x + a.w / 2 + b.x + b.w / 2) / 2)
+    expect(m.dot).not.toBeNull()
+    expect(m.a.x).toBeCloseTo(a.x + a.w)
+    expect(m.b.x).toBeCloseTo(b.x)
+  })
+
+  it("renders geometry to an SVG path", () => {
+    expect(edgeToPath(byId.get("blood:f-aethelwulf"))).toMatch(/^M[\d.]+ [\d.]+/)
+    expect(edgeToPath(byId.get("marriage:f-aethelred2-emma"))).toMatch(/^M[\d.]+ [\d.]+ H[\d.]+/)
+  })
+})
+
+describe("computeLayout", () => {
+  it("composes graph, placement and edges", () => {
+    const layout = computeLayout(fixture, { expandedId: "emma" })
+    expect(layout.nodes.some((n) => n.id === "emma" && n.w === 340)).toBe(true)
+    expect(layout.edges.length).toBeGreaterThan(0)
+    expect(layout.width).toBeGreaterThan(0)
+    expect(layout.height).toBeGreaterThan(0)
   })
 })
