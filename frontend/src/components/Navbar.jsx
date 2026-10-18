@@ -18,6 +18,7 @@ function Navbar() {
         </Link>
         <nav className="site-nav" aria-label="Main">
           <Link to="/">Home</Link>
+          <Link to="/family-tree">Family Tree</Link>
           {user === null ? (
             <Link to="/login">Login</Link>
           ) : (

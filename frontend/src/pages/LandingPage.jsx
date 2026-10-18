@@ -52,6 +52,16 @@ function LandingPage() {
           </div>
           <span className="tool-card-link">Open tool</span>
         </Link>
+        <Link to="/family-tree" className="tool-card">
+          <div className="tool-card-copy">
+            <h3>Royal Family Tree</h3>
+            <p>
+              Explore a zoomable pedigree of the English royal line from Ealhmund of
+              Kent to Charles III, with clickable facts for every monarch.
+            </p>
+          </div>
+          <span className="tool-card-link">Open tool</span>
+        </Link>
       </div>
     </section>
   )

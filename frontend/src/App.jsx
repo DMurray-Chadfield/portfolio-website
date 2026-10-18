@@ -5,6 +5,7 @@ import { GurpsCharacterProvider } from "./context/GurpsCharacterContext"
 import LandingPage from "./pages/LandingPage"
 import LoginPage from "./pages/LoginPage"
 import ProfilePage from "./pages/ProfilePage"
+import RoyalTreePage from "./pages/royalTree/RoyalTreePage"
 import GurpsCreatorPage from "./pages/gurps/GurpsCreatorPage"
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
               </GurpsCharacterProvider>
             }
           />
+          <Route path="/family-tree" element={<RoyalTreePage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
