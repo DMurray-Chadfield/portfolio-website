@@ -7,6 +7,13 @@ export const SIBLING_GAP = 24
 export const ROW_GAP = 72
 export const MARGIN = 48
 
+function keepsWalk(graph, id, rootSpouseIds) {
+  const coupleIds = [id, ...rootSpouseIds]
+  const monarchIds = coupleIds.filter((other) => graph.personById.get(other).kind === "monarch")
+  if (monarchIds.length === 1) return graph.personById.get(id).kind === "monarch"
+  return graph.personById.get(id).sex !== "female"
+}
+
 function deferredRoots(graph) {
   const rootIds = new Set(graph.roots().map((person) => person.id))
   const deferred = new Set()
@@ -14,8 +21,8 @@ function deferredRoots(graph) {
     const spouseIds = graph.spouseIdsOf(id)
     if (spouseIds.length === 0) continue
     if (spouseIds.some((spouseId) => deferred.has(spouseId))) continue
-    const coupleOfRoots = spouseIds.some((spouseId) => rootIds.has(spouseId))
-    if (coupleOfRoots && graph.personById.get(id).sex !== "female") continue
+    const rootSpouseIds = spouseIds.filter((spouseId) => rootIds.has(spouseId))
+    if (rootSpouseIds.length > 0 && keepsWalk(graph, id, rootSpouseIds)) continue
     deferred.add(id)
   }
   return deferred

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest"
 import { buildGraph } from "./graph.js"
-import { placeNodes, NODE_W, NODE_H, CARD_W, CARD_H } from "./layout.js"
+import { placeNodes, orderRow, NODE_W, NODE_H, CARD_W, CARD_H } from "./layout.js"
 
 const fixture = {
   people: [
@@ -16,6 +16,20 @@ const fixture = {
     { id: "f-aethelwulf", husbandId: "aethelwulf", wifeId: null, childIds: ["aethelbald", "alfred"] },
     { id: "f-aethelred2-first", husbandId: "aethelred2", wifeId: null, childIds: ["edmund2"] },
     { id: "f-aethelred2-emma", husbandId: "aethelred2", wifeId: "emma", childIds: ["edward-confessor"] }
+  ]
+}
+
+const consortFixture = {
+  people: [
+    { id: "consort", name: "Consort", kind: "connector", sex: "male", generation: 2 },
+    { id: "rival", name: "Rival", kind: "monarch", sex: "male", generation: 2 },
+    { id: "queen", name: "Queen", kind: "monarch", sex: "female", generation: 2 },
+    { id: "cousin", name: "Cousin", kind: "monarch", sex: "male", generation: 3 },
+    { id: "heir", name: "Heir", kind: "monarch", sex: "male", generation: 3 }
+  ],
+  families: [
+    { id: "f-rival", husbandId: "rival", wifeId: null, childIds: ["cousin"] },
+    { id: "f-queen-consort", husbandId: "consort", wifeId: "queen", childIds: ["heir"] }
   ]
 }
 
@@ -59,5 +73,13 @@ describe("placeNodes", () => {
     expect(open.get("alfred").y).toBeGreaterThan(base.get("alfred").y)
     expect(base.get("aethelwulf").w).toBe(NODE_W)
     expect(base.get("aethelwulf").h).toBe(NODE_H)
+  })
+})
+
+describe("orderRow", () => {
+  it("lets the monarch of a monarch-consort root couple keep the walk", () => {
+    const graph = buildGraph(consortFixture)
+    expect(orderRow(graph, graph.idsInGeneration(2))).toEqual(["rival", "queen", "consort"])
+    expect(orderRow(graph, graph.idsInGeneration(3))).toEqual(["cousin", "heir"])
   })
 })
