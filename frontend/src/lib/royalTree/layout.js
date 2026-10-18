@@ -81,20 +81,20 @@ function couplesIn(graph, ids) {
   return couples
 }
 
-function spouseAndPartner(graph, seq, x, y) {
-  const ownX = seq.has(x)
-  const ownY = seq.has(y)
-  if (ownX !== ownY) return ownX ? [y, x] : [x, y]
-  return graph.personById.get(x).sex === "female" ? [x, y] : [y, x]
+function spouseAndPartner(graph, seq, a, b) {
+  const ownA = seq.has(a)
+  const ownB = seq.has(b)
+  if (ownA !== ownB) return ownA ? [b, a] : [a, b]
+  return graph.personById.get(a).sex === "female" ? [a, b] : [b, a]
 }
 
 export function orderRow(graph, ids) {
   const seq = sequenceNumbers(graph)
   const seqOf = makeSeqOf(graph, seq)
-  const ordered = [...ids].sort((a, b) => seqOf(a) - seqOf(b))
+  let ordered = [...ids].sort((a, b) => seqOf(a) - seqOf(b))
 
-  for (const [x, y] of couplesIn(graph, ordered)) {
-    const [spouse, partner] = spouseAndPartner(graph, seq, x, y)
+  for (const [a, b] of couplesIn(graph, ordered)) {
+    const [spouse, partner] = spouseAndPartner(graph, seq, a, b)
     const shared = sharedChildrenOf(graph, partner, spouse)
     let side = "right"
     if (shared.length > 0) {
@@ -104,7 +104,7 @@ export function orderRow(graph, ids) {
     const without = ordered.filter((id) => id !== spouse)
     const at = without.indexOf(partner)
     without.splice(side === "right" ? at + 1 : at, 0, spouse)
-    ordered.splice(0, ordered.length, ...without)
+    ordered = without
   }
 
   return ordered
@@ -149,12 +149,7 @@ export function placeNodes(graph, { expandedId = null } = {}) {
     }
   }
 
-  const relatedTo = {
-    up: (id) => graph.childIdsOf(id),
-    down: (id) => graph.parentIdsOf(id)
-  }
-  for (const direction of ["up", "down", "up", "down"]) {
-    const related = relatedTo[direction]
+  for (const related of [graph.childIdsOf, graph.parentIdsOf, graph.childIdsOf, graph.parentIdsOf]) {
     const targets = new Map(
       ids.map((id) => {
         const relatedIds = related(id).filter((other) => xById.has(other))
