@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { computeLayout, edgeToPath } from "../../lib/royalTree/layout.js"
 import { fitView, identityView, panBy, zoomAt } from "../../lib/royalTree/panZoom.js"
+import { beginDrag, dragDelta, isPrimaryButton } from "../../lib/royalTree/pointerDrag.js"
 import TreeNode from "./TreeNode.jsx"
 
 const ZOOM_STEP = 1.1
 
 function TreeCanvas({ data, expandedId, onSelect }) {
   const viewportRef = useRef(null)
-  const dragRef = useRef(null)
+  const stopDragRef = useRef(null)
   const fittedRef = useRef(false)
   const [view, setView] = useState(() => identityView())
 
@@ -37,6 +38,12 @@ function TreeCanvas({ data, expandedId, onSelect }) {
     return () => viewport.removeEventListener("wheel", blockPageScroll)
   }, [])
 
+  useEffect(() => {
+    return () => {
+      if (stopDragRef.current != null) stopDragRef.current()
+    }
+  }, [])
+
   const handleWheel = (event) => {
     event.preventDefault()
     const viewport = viewportRef.current
@@ -47,27 +54,43 @@ function TreeCanvas({ data, expandedId, onSelect }) {
     setView((current) => zoomAt(current, anchor, factor))
   }
 
+  const stopDrag = () => {
+    if (stopDragRef.current == null) return
+    stopDragRef.current()
+    stopDragRef.current = null
+  }
+
   const handlePointerDown = (event) => {
-    dragRef.current = { pointerId: event.pointerId, x: event.clientX, y: event.clientY }
-    event.currentTarget.setPointerCapture(event.pointerId)
-  }
+    if (!isPrimaryButton(event.button) || stopDragRef.current != null) return
 
-  const handlePointerMove = (event) => {
-    const drag = dragRef.current
-    if (drag == null || drag.pointerId !== event.pointerId) return
-    const dx = event.clientX - drag.x
-    const dy = event.clientY - drag.y
-    dragRef.current = { ...drag, x: event.clientX, y: event.clientY }
-    setView((current) => panBy(current, dx, dy))
-  }
+    let drag = beginDrag(event)
 
-  const handlePointerEnd = (event) => {
-    const drag = dragRef.current
-    if (drag == null || drag.pointerId !== event.pointerId) return
-    dragRef.current = null
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId)
+    const handleMove = (moveEvent) => {
+      const delta = dragDelta(drag, moveEvent)
+      if (delta == null) return
+      if (moveEvent.buttons === 0) {
+        stopDrag()
+        return
+      }
+      drag = beginDrag(moveEvent)
+      setView((current) => panBy(current, delta.dx, delta.dy))
     }
+
+    const handleEnd = (endEvent) => {
+      if (endEvent.pointerId !== drag.pointerId) return
+      stopDrag()
+    }
+
+    const cleanup = () => {
+      window.removeEventListener("pointermove", handleMove)
+      window.removeEventListener("pointerup", handleEnd)
+      window.removeEventListener("pointercancel", handleEnd)
+    }
+
+    stopDragRef.current = cleanup
+    window.addEventListener("pointermove", handleMove)
+    window.addEventListener("pointerup", handleEnd)
+    window.addEventListener("pointercancel", handleEnd)
   }
 
   const zoomBy = (factor) => {
@@ -86,9 +109,6 @@ function TreeCanvas({ data, expandedId, onSelect }) {
       className="royal-tree-canvas"
       onWheel={handleWheel}
       onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerEnd}
-      onPointerCancel={handlePointerEnd}
     >
       <div
         className="royal-tree-controls"
