@@ -37,6 +37,7 @@ function FactCard({ person, onClose }) {
         </div>
       </dl>
       {person.summary ? <p className="royal-tree-summary">{person.summary}</p> : null}
+      {person.portraitCredit ? <p className="royal-tree-credit">{person.portraitCredit}</p> : null}
     </div>
   )
 }

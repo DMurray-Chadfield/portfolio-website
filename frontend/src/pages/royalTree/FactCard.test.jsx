@@ -45,4 +45,15 @@ describe("FactCard", () => {
     const html = renderToStaticMarkup(<FactCard person={noPortrait} onClose={() => {}} />)
     expect(html).toContain("royal-tree-monogram")
   })
+
+  it("shows the portrait credit verbatim when present and omits it when absent", () => {
+    const credit = "Workshop of Hans Holbein the Younger, portrait of Henry VIII, public domain (via Wikimedia Commons)"
+    const withCredit = { ...person, portrait: "william1.jpg", portraitCredit: credit }
+    const html = renderToStaticMarkup(<FactCard person={withCredit} onClose={() => {}} />)
+    expect(html).toContain(credit)
+    expect(html).toContain("royal-tree-credit")
+    const without = renderToStaticMarkup(<FactCard person={person} onClose={() => {}} />)
+    expect(without).not.toContain(credit)
+    expect(without).not.toContain("royal-tree-credit")
+  })
 })
