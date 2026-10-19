@@ -147,9 +147,8 @@ export function placeNodes(graph, { expandedId = null } = {}) {
   const ids = rows.flat()
   const respaced = (targets) => {
     for (const row of rows) {
-      const sorted = [...row].sort((a, b) => targets.get(a) - targets.get(b))
       let prev = null
-      for (const id of sorted) {
+      for (const id of row) {
         const gap = prev != null && areSpouses(graph, prev, id) ? SPOUSE_GAP : SIBLING_GAP
         const min = prev == null ? -Infinity : xById.get(prev) + widthOf(prev) + gap
         xById.set(id, Math.max(targets.get(id), min))

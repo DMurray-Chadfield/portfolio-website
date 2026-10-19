@@ -33,6 +33,22 @@ const consortFixture = {
   ]
 }
 
+const marriedInFixture = {
+  people: [
+    { id: "james2", name: "James II", kind: "monarch", sex: "male", generation: 0 },
+    { id: "mary2", name: "Mary II", kind: "monarch", sex: "female", generation: 1 },
+    { id: "anne", name: "Anne", kind: "monarch", sex: "female", generation: 1 },
+    { id: "william3", name: "William III", kind: "monarch", sex: "male", generation: 1 },
+    { id: "george1", name: "George I", kind: "monarch", sex: "male", generation: 1 },
+    { id: "george2", name: "George II", kind: "monarch", sex: "male", generation: 2 }
+  ],
+  families: [
+    { id: "f-james2", husbandId: "james2", wifeId: null, childIds: ["mary2", "anne"] },
+    { id: "f-william3-mary2", husbandId: "william3", wifeId: "mary2", childIds: [] },
+    { id: "f-george1", husbandId: "george1", wifeId: null, childIds: ["george2"] }
+  ]
+}
+
 const nodesFor = (data, opts) => {
   const { nodes } = placeNodes(buildGraph(data), opts)
   return new Map(nodes.map((n) => [n.id, n]))
@@ -63,6 +79,16 @@ describe("placeNodes", () => {
   it("renders a person in two families as one node", () => {
     const n = nodesFor(fixture)
     expect([...n.keys()].filter((id) => id === "aethelred2")).toHaveLength(1)
+  })
+
+  it("keeps a married-in spouse adjacent to their partner", () => {
+    const n = nodesFor(marriedInFixture)
+    const row = [...n.values()]
+      .filter((p) => p.y === n.get("mary2").y)
+      .sort((a, b) => a.x - b.x)
+      .map((p) => p.id)
+    expect(row).toContain("william3")
+    expect(Math.abs(row.indexOf("mary2") - row.indexOf("william3"))).toBe(1)
   })
 
   it("grows the expanded node and pushes later rows down", () => {
