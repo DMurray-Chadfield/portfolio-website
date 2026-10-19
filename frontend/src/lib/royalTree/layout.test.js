@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest"
 import { buildGraph } from "./graph.js"
 import { placeNodes, orderRow, buildEdges, edgeToPath, computeLayout, NODE_W, NODE_H, CARD_W, CARD_H } from "./layout.js"
+import data from "../../data/royalFamilyTree.json"
 
 const fixture = {
   people: [
@@ -100,6 +101,13 @@ describe("placeNodes", () => {
     expect(base.get("aethelwulf").w).toBe(NODE_W)
     expect(base.get("aethelwulf").h).toBe(NODE_H)
   })
+
+  it("sizes the expanded node to a measured card height", () => {
+    const base = nodesFor(fixture)
+    const open = nodesFor(fixture, { expandedId: "aethelwulf", expandedHeight: 320 })
+    expect(open.get("aethelwulf").h).toBe(320)
+    expect(open.get("alfred").y).toBeGreaterThan(base.get("alfred").y + (CARD_H - NODE_H))
+  })
 })
 
 describe("orderRow", () => {
@@ -121,7 +129,9 @@ describe("buildEdges", () => {
     expect(byId.has("blood:f-aethelwulf")).toBe(true)
     expect(byId.has("blood:f-aethelred2-first")).toBe(true)
     expect(byId.has("blood:f-aethelred2-emma")).toBe(true)
-    expect(byId.has("blood:f-aethelred2")).toBe(false)
+    const bloodFamilyIds = edges.filter((e) => e.kind === "blood").map((e) => e.familyId).sort()
+    expect(bloodFamilyIds).toEqual([...new Set(bloodFamilyIds)].sort())
+    expect(bloodFamilyIds).toHaveLength(fixture.families.filter((f) => f.childIds.length > 0).length)
   })
 
   it("spans the sibling bar across the children's centres", () => {
@@ -147,8 +157,34 @@ describe("buildEdges", () => {
     const b = nodeById.get("emma")
     expect(e.stemTop.x).toBeCloseTo((a.x + a.w / 2 + b.x + b.w / 2) / 2)
     expect(m.dot).not.toBeNull()
+    expect(m.dot.x).toBeCloseTo(e.stemTop.x)
+    expect(m.dot.y).toBeCloseTo(m.a.y)
+    expect(e.stemTop.y).toBeCloseTo(m.a.y)
     expect(m.a.x).toBeCloseTo(a.x + a.w)
     expect(m.b.x).toBeCloseTo(b.x)
+  })
+
+  it("anchors the marriage bar and dot to the couple's chip centres when a card is open in the row", () => {
+    const openGraph = buildGraph(fixture)
+    const open = placeNodes(openGraph, { expandedId: "aethelred2" })
+    const openEdges = buildEdges(openGraph, open.nodes)
+    const m = openEdges.find((edge) => edge.id === "marriage:f-aethelred2-emma")
+    const e = openEdges.find((edge) => edge.id === "blood:f-aethelred2-emma")
+    const emma = open.nodes.find((node) => node.id === "emma")
+    expect(m.a.y).toBe(emma.y + NODE_H / 2)
+    expect(m.dot.y).toBeCloseTo(m.a.y)
+    expect(m.dot.x).toBeCloseTo(e.stemTop.x)
+    expect(m.dot.x).toBeGreaterThan(m.a.x)
+    expect(m.dot.x).toBeLessThan(m.b.x)
+  })
+
+  it("draws a childless couple's marriage without a dot or blood edge", () => {
+    const childlessGraph = buildGraph(marriedInFixture)
+    const { nodes } = placeNodes(childlessGraph)
+    const childlessEdges = buildEdges(childlessGraph, nodes)
+    const m = childlessEdges.find((edge) => edge.id === "marriage:f-william3-mary2")
+    expect(m.dot).toBeNull()
+    expect(childlessEdges.some((edge) => edge.kind === "blood" && edge.familyId === "f-william3-mary2")).toBe(false)
   })
 
   it("renders geometry to an SVG path", () => {
@@ -164,5 +200,15 @@ describe("computeLayout", () => {
     expect(layout.edges.length).toBeGreaterThan(0)
     expect(layout.width).toBeGreaterThan(0)
     expect(layout.height).toBeGreaterThan(0)
+  })
+
+  it("meets every descent stem on its sibling bar in the shipped dataset", () => {
+    const layout = computeLayout(data)
+    const blood = layout.edges.filter((edge) => edge.kind === "blood")
+    expect(blood.length).toBeGreaterThan(0)
+    for (const edge of blood) {
+      expect(edge.barLeft, edge.id).toBeLessThanOrEqual(edge.stemTop.x)
+      expect(edge.barRight, edge.id).toBeGreaterThanOrEqual(edge.stemTop.x)
+    }
   })
 })

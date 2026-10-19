@@ -119,9 +119,9 @@ export function orderRow(graph, ids) {
   return ordered
 }
 
-export function placeNodes(graph, { expandedId = null } = {}) {
+export function placeNodes(graph, { expandedId = null, expandedHeight = null } = {}) {
   const widthOf = (id) => (id === expandedId ? CARD_W : NODE_W)
-  const heightOf = (id) => (id === expandedId ? CARD_H : NODE_H)
+  const heightOf = (id) => (id === expandedId ? expandedHeight ?? CARD_H : NODE_H)
 
   const rows = graph
     .generations()
@@ -212,25 +212,25 @@ export function buildEdges(graph, nodes) {
   }
 
   const centreX = (node) => node.x + node.w / 2
-  const rowCentreY = (node) => (node.y + rowBottomByY.get(node.y)) / 2
+  const chipCentreY = (node) => node.y + NODE_H / 2
   const edges = []
   for (const [familyId, parents] of parentsByFamily) {
     const [left, right] = [...parents].sort((a, b) => a.x - b.x)
     const childIds = graph.childrenOfFamily(familyId)
     const children = childIds.map((id) => nodeById.get(id)).filter((node) => node != null)
 
+    let junction = null
     if (parents.length === 2) {
-      const y = (rowCentreY(left) + rowCentreY(right)) / 2
+      const y = (chipCentreY(left) + chipCentreY(right)) / 2
       const a = { x: left.x + left.w, y }
       const b = { x: right.x, y }
-      const dot = childIds.length > 0 ? { x: (a.x + b.x) / 2, y } : null
+      junction = { x: (a.x + b.x) / 2, y }
+      const dot = childIds.length > 0 ? junction : null
       edges.push({ id: `marriage:${familyId}`, kind: "marriage", familyId, a, b, dot })
     }
 
     if (children.length > 0) {
-      const stemTop = parents.length === 2
-        ? { x: (centreX(left) + centreX(right)) / 2, y: (left.y + left.h + right.y + right.h) / 2 }
-        : { x: centreX(parents[0]), y: parents[0].y + parents[0].h }
+      const stemTop = junction ?? { x: centreX(parents[0]), y: parents[0].y + parents[0].h }
       const parentsBottom = Math.max(...parents.map((parent) => rowBottomByY.get(parent.y)))
       const childrenTop = Math.min(...children.map((child) => child.y))
       const barY = (parentsBottom + childrenTop) / 2
@@ -241,8 +241,8 @@ export function buildEdges(graph, nodes) {
         familyId,
         stemTop,
         barY,
-        barLeft: Math.min(...childXs),
-        barRight: Math.max(...childXs),
+        barLeft: Math.min(...childXs, stemTop.x),
+        barRight: Math.max(...childXs, stemTop.x),
         drops: children.map((child) => ({ x: centreX(child), y1: barY, y2: child.y }))
       })
     }
@@ -260,8 +260,8 @@ export function edgeToPath(edge) {
   return parts.join(" ")
 }
 
-export function computeLayout(data, { expandedId = null } = {}) {
+export function computeLayout(data, { expandedId = null, expandedHeight = null } = {}) {
   const graph = buildGraph(data)
-  const { nodes, width, height } = placeNodes(graph, { expandedId })
+  const { nodes, width, height } = placeNodes(graph, { expandedId, expandedHeight })
   return { nodes, edges: buildEdges(graph, nodes), width, height }
 }
