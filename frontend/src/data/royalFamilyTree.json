@@ -22,7 +22,9 @@
       "reign": "802-839",
       "predecessor": "Beorhtric",
       "successor": "Aethelwulf",
-      "summary": "King of Wessex from 802. He spent years in exile at the Frankish court before taking the throne, and in the 820s he broke Mercian power and brought Kent and the south-east under West Saxon rule. He was the father of Aethelwulf and the grandfather of Alfred the Great."
+      "summary": "King of Wessex from 802. He spent years in exile at the Frankish court before taking the throne, and in the 820s he broke Mercian power and brought Kent and the south-east under West Saxon rule. He was the father of Aethelwulf and the grandfather of Alfred the Great.",
+      "portrait": "ecgberht.jpg",
+      "portraitCredit": "Medieval miniature, British Library Royal MS 14 B V (genealogical roll), unknown artist, public domain (via Wikimedia Commons)"
     },
     {
       "id": "aethelwulf",
@@ -34,7 +36,9 @@
       "reign": "839-858",
       "predecessor": "Ecgberht",
       "successor": "Aethelbald",
-      "summary": "King of Wessex from 839, having held Kent under his father. He made a pilgrimage to Rome in 855, and on his death his sons divided the kingdom between them. The four sons of his who appear on this chart each in turn became king."
+      "summary": "King of Wessex from 839, having held Kent under his father. He made a pilgrimage to Rome in 855, and on his death his sons divided the kingdom between them. The four sons of his who appear on this chart each in turn became king.",
+      "portrait": "aethelwulf.jpg",
+      "portraitCredit": "Medieval miniature, British Library Royal MS 14 B VI (genealogical roll), unknown artist, public domain (via Wikimedia Commons)"
     },
     {
       "id": "aethelbald",
@@ -46,7 +50,9 @@
       "reign": "858-860",
       "predecessor": "Aethelwulf",
       "successor": "Aethelberht",
-      "summary": "King of Wessex from 858. He took Wessex on his father's death while his brother Aethelberht held Kent and the south-east, having earlier rebelled against his father's return from Rome. He died in 860 and was succeeded by Aethelberht."
+      "summary": "King of Wessex from 858. He took Wessex on his father's death while his brother Aethelberht held Kent and the south-east, having earlier rebelled against his father's return from Rome. He died in 860 and was succeeded by Aethelberht.",
+      "portrait": "aethelbald.jpg",
+      "portraitCredit": "Medieval miniature, British Library Royal MS 14 B VI (genealogical roll), unknown artist, public domain (via Wikimedia Commons)"
     },
     {
       "id": "aethelberht",
@@ -58,7 +64,9 @@
       "reign": "860-866",
       "predecessor": "Aethelbald",
       "successor": "Aethelred I",
-      "summary": "King of Wessex from 860, having previously held Kent and the south-east under his father and eldest brother. His reign saw renewed Danish raids on the coast, and the great Danish army landed late in his reign. He died in 866 and was succeeded by his brother Aethelred."
+      "summary": "King of Wessex from 860, having previously held Kent and the south-east under his father and eldest brother. His reign saw renewed Danish raids on the coast, and the great Danish army landed late in his reign. He died in 866 and was succeeded by his brother Aethelred.",
+      "portrait": "aethelberht.jpg",
+      "portraitCredit": "Medieval miniature, British Library Royal MS 14 B VI (genealogical roll), unknown artist, public domain (via Wikimedia Commons)"
     },
     {
       "id": "aethelred1",
@@ -70,7 +78,9 @@
       "reign": "866-871",
       "predecessor": "Aethelberht",
       "successor": "Alfred the Great",
-      "summary": "King of Wessex from 866. His reign was consumed by war with the great Danish army, which overran Northumbria and East Anglia and repeatedly attacked Wessex itself. He died of wounds soon after the battle of Merton in 871 and was succeeded by his brother Alfred."
+      "summary": "King of Wessex from 866. His reign was consumed by war with the great Danish army, which overran Northumbria and East Anglia and repeatedly attacked Wessex itself. He died of wounds soon after the battle of Merton in 871 and was succeeded by his brother Alfred.",
+      "portrait": "aethelred1.jpg",
+      "portraitCredit": "Medieval miniature, British Library Royal MS 14 B VI (genealogical roll), unknown artist, public domain (via Wikimedia Commons)"
     },
     {
       "id": "alfred",
@@ -82,7 +92,9 @@
       "reign": "871-899",
       "predecessor": "Aethelred I",
       "successor": "Edward the Elder",
-      "summary": "King of Wessex from 871 and the only English monarch called the Great. He fought the Danish invasions to a standstill, recovering Wessex after the raid of 878 and settling the Danelaw by treaty, and he promoted learning and law. His grandson Aethelstan became the first king of all England."
+      "summary": "King of Wessex from 871 and the only English monarch called the Great. He fought the Danish invasions to a standstill, recovering Wessex after the raid of 878 and settling the Danelaw by treaty, and he promoted learning and law. His grandson Aethelstan became the first king of all England.",
+      "portrait": "alfred.jpg",
+      "portraitCredit": "Medieval miniature, British Library Royal MS 14 B VI (genealogical roll), unknown artist, public domain (PD-Art) (via Wikimedia Commons)"
     },
     {
       "id": "edward-elder",
@@ -94,7 +106,9 @@
       "reign": "899-924",
       "predecessor": "Alfred the Great",
       "successor": "Aethelstan",
-      "summary": "King of the Anglo-Saxons from 899. With his sister Aethelflaed of Mercia he pressed north and east, taking the Danish boroughs of the Midlands and East Anglia. He was the father of three kings who appear on this chart: Aethelstan, Edmund I and Eadred."
+      "summary": "King of the Anglo-Saxons from 899. With his sister Aethelflaed of Mercia he pressed north and east, taking the Danish boroughs of the Midlands and East Anglia. He was the father of three kings who appear on this chart: Aethelstan, Edmund I and Eadred.",
+      "portrait": "edward-elder.jpg",
+      "portraitCredit": "Medieval miniature, British Library Royal MS 14 B VI (genealogical roll), unknown artist, public domain (via Wikimedia Commons)"
     },
     {
       "id": "aethelstan",
@@ -106,7 +120,9 @@
       "reign": "924-939",
       "predecessor": "Edward the Elder",
       "successor": "Edmund I",
-      "summary": "King from 924 and the first king of all England, uniting Wessex, Mercia and the Danish regions under one crown. In 937 he defeated a great coalition of Scots, Strathclyde and Dublin Norse at the battle of Brunanburh. He never married and was succeeded by his half-brother Edmund."
+      "summary": "King from 924 and the first king of all England, uniting Wessex, Mercia and the Danish regions under one crown. In 937 he defeated a great coalition of Scots, Strathclyde and Dublin Norse at the battle of Brunanburh. He never married and was succeeded by his half-brother Edmund.",
+      "portrait": "aethelstan.jpg",
+      "portraitCredit": "King AEthelstan presenting a book to St Cuthbert, Bede's Life of St Cuthbert, Corpus Christi College Cambridge MS 183 f. 1v, public domain (via Wikimedia Commons)"
     },
     {
       "id": "edmund1",
@@ -118,7 +134,9 @@
       "reign": "939-946",
       "predecessor": "Aethelstan",
       "successor": "Eadred",
-      "summary": "King from 939, taking the throne at about eighteen. He recovered the Midlands and Northumbria from Viking kings and issued laws on the church and public order. He was killed in a brawl at Pucklechurch in 946 and succeeded by his brother Eadred."
+      "summary": "King from 939, taking the throne at about eighteen. He recovered the Midlands and Northumbria from Viking kings and issued laws on the church and public order. He was killed in a brawl at Pucklechurch in 946 and succeeded by his brother Eadred.",
+      "portrait": "edmund1.jpg",
+      "portraitCredit": "Medieval miniature, British Library Royal MS 14 B VI (genealogical roll), unknown artist, public domain (via Wikimedia Commons)"
     },
     {
       "id": "eadred",
@@ -130,7 +148,9 @@
       "reign": "946-955",
       "predecessor": "Edmund I",
       "successor": "Eadwig",
-      "summary": "King from 946. He completed the conquest of Northumbria, driving out the Scandinavian king Eric Bloodaxe, and relied heavily on Dunstan as adviser. He died unmarried in 955 and was succeeded by his nephew Eadwig."
+      "summary": "King from 946. He completed the conquest of Northumbria, driving out the Scandinavian king Eric Bloodaxe, and relied heavily on Dunstan as adviser. He died unmarried in 955 and was succeeded by his nephew Eadwig.",
+      "portrait": "eadred.jpg",
+      "portraitCredit": "Medieval miniature, British Library Royal MS 14 B VI (genealogical roll), unknown artist, public domain (via Wikimedia Commons)"
     },
     {
       "id": "eadwig",
@@ -142,7 +162,9 @@
       "reign": "955-959",
       "predecessor": "Eadred",
       "successor": "Edgar",
-      "summary": "King from 955. His quarrel with Dunstan and the church over his marriage and his grants of land drove Dunstan into exile, and in 957 the kingdom was divided with his brother Edgar recognised in Mercia and Northumbria. He died in 959 and Edgar then ruled all England."
+      "summary": "King from 955. His quarrel with Dunstan and the church over his marriage and his grants of land drove Dunstan into exile, and in 957 the kingdom was divided with his brother Edgar recognised in Mercia and Northumbria. He died in 959 and Edgar then ruled all England.",
+      "portrait": "eadwig.jpg",
+      "portraitCredit": "Medieval miniature, British Library Royal MS 14 B VI (genealogical roll), unknown artist, public domain (via Wikimedia Commons)"
     },
     {
       "id": "edgar",
@@ -154,7 +176,9 @@
       "reign": "959-975",
       "predecessor": "Eadwig",
       "successor": "Edward the Martyr",
-      "summary": "King from 959, called the Peaceful. His reign saw a great revival of the monasteries under Dunstan and a formal coronation at Bath in 973. He left two young sons by different mothers, and his death in 975 opened a struggle between their parties."
+      "summary": "King from 959, called the Peaceful. His reign saw a great revival of the monasteries under Dunstan and a formal coronation at Bath in 973. He left two young sons by different mothers, and his death in 975 opened a struggle between their parties.",
+      "portrait": "edgar.jpg",
+      "portraitCredit": "New Minster Charter, 966: King Edgar presenting the charter, public domain (via Wikimedia Commons)"
     },
     {
       "id": "richard-fearless",
@@ -173,7 +197,9 @@
       "reign": "975-978",
       "predecessor": "Edgar",
       "successor": "Aethelred II the Unready",
-      "summary": "King from 975 at about sixteen, chosen ahead of his younger half-brother with the support of Dunstan and much of the nobility. He was stabbed to death at Corfe in 978 while visiting his stepmother Aelfthryth, and was later regarded as a martyr. His half-brother Aethelred succeeded him."
+      "summary": "King from 975 at about sixteen, chosen ahead of his younger half-brother with the support of Dunstan and much of the nobility. He was stabbed to death at Corfe in 978 while visiting his stepmother Aelfthryth, and was later regarded as a martyr. His half-brother Aethelred succeeded him.",
+      "portrait": "edward-martyr.jpg",
+      "portraitCredit": "Medieval miniature, British Library Royal MS 14 B VI (genealogical roll), unknown artist, public domain (via Wikimedia Commons)"
     },
     {
       "id": "aethelred2",
@@ -185,7 +211,9 @@
       "reign": "978-1016",
       "predecessor": "Edward the Martyr",
       "successor": "Edmund II Ironside",
-      "summary": "King from 978. His long reign was dominated by renewed Danish raids and the tribute known as Danegeld, and his nickname means ill-advised rather than unready. He fled to Normandy in 1013, returning only briefly before his death in 1016. His son Edmund II ruled after him, while a younger son by Emma of Normandy became Edward the Confessor."
+      "summary": "King from 978. His long reign was dominated by renewed Danish raids and the tribute known as Danegeld, and his nickname means ill-advised rather than unready. He fled to Normandy in 1013, returning only briefly before his death in 1016. His son Edmund II ruled after him, while a younger son by Emma of Normandy became Edward the Confessor.",
+      "portrait": "aethelred2.jpg",
+      "portraitCredit": "Illuminated miniature, The Chronicle of Abingdon, c. 1220 (British Library, Cotton MS Claudius B VI f. 87v), public domain (PD-Art) (via Wikimedia Commons)"
     },
     {
       "id": "emma",
@@ -211,7 +239,9 @@
       "reign": "1016",
       "predecessor": "Aethelred II the Unready",
       "successor": "Cnut",
-      "summary": "King in 1016. He fought Cnut through a year of war after his father's death and divided the kingdom with him by treaty. He died in November 1016 and Cnut took all England; Edmund's infant sons were sent abroad, and it was his half-brother Edward the Confessor who regained the throne in 1042."
+      "summary": "King in 1016. He fought Cnut through a year of war after his father's death and divided the kingdom with him by treaty. He died in November 1016 and Cnut took all England; Edmund's infant sons were sent abroad, and it was his half-brother Edward the Confessor who regained the throne in 1042.",
+      "portrait": "edmund2.jpg",
+      "portraitCredit": "Medieval miniature, British Library Royal MS 14 B VI (genealogical roll), unknown artist, public domain (via Wikimedia Commons)"
     },
     {
       "id": "edward-confessor",
@@ -223,7 +253,9 @@
       "reign": "1042-1066",
       "predecessor": "Harthacnut",
       "successor": "Harold II",
-      "summary": "King from 1042. The son of Aethelred II and Emma of Normandy, he spent about thirty years in Norman exile before taking the throne after Harthacnut. His reign is remembered for the building of Westminster Abbey and for the disputed succession that followed his childless death in January 1066."
+      "summary": "King from 1042. The son of Aethelred II and Emma of Normandy, he spent about thirty years in Norman exile before taking the throne after Harthacnut. His reign is remembered for the building of Westminster Abbey and for the disputed succession that followed his childless death in January 1066.",
+      "portrait": "edward-confessor.jpg",
+      "portraitCredit": "Bayeux Tapestry, scene 1: King Edward, public domain (via Wikimedia Commons)"
     },
     {
       "id": "robert-magnificent",
@@ -242,7 +274,9 @@
       "reign": "1066-1087",
       "predecessor": "Harold II",
       "successor": "William II",
-      "summary": "King from 1066, called the Conqueror. Duke of Normandy from 1035, he claimed the English throne on Edward the Confessor's death and defeated Harold II at Hastings. The conquest replaced the English aristocracy and much of the church leadership, and he ordered the Domesday survey. He died in Normandy in 1087."
+      "summary": "King from 1066, called the Conqueror. Duke of Normandy from 1035, he claimed the English throne on Edward the Confessor's death and defeated Harold II at Hastings. The conquest replaced the English aristocracy and much of the church leadership, and he ordered the Domesday survey. He died in Normandy in 1087.",
+      "portrait": "william1.jpg",
+      "portraitCredit": "Bayeux Tapestry, scenes 55-56: Duke William at Hastings, public domain (via Wikimedia Commons)"
     },
     {
       "id": "william2",
@@ -254,7 +288,9 @@
       "reign": "1087-1100",
       "predecessor": "William I",
       "successor": "Henry I",
-      "summary": "King from 1087, called Rufus. He was William I's second son, receiving England while his elder brother Robert held Normandy, and he kept the English church firmly under royal control. He died in a hunting accident in the New Forest in 1100."
+      "summary": "King from 1087, called Rufus. He was William I's second son, receiving England while his elder brother Robert held Normandy, and he kept the English church firmly under royal control. He died in a hunting accident in the New Forest in 1100.",
+      "portrait": "william2.png",
+      "portraitCredit": "Matthew Paris, Historia Anglorum, 13th century, public domain (via Wikimedia Commons)"
     },
     {
       "id": "henry1",
@@ -266,7 +302,9 @@
       "reign": "1100-1135",
       "predecessor": "William II",
       "successor": "Stephen",
-      "summary": "King from 1100, the youngest son of William I. He seized the throne on his brother's death and in 1106 conquered Normandy from Robert. His only legitimate son died in the White Ship disaster of 1120, and when he died in 1135 the crown was contested between his daughter Matilda and his nephew Stephen."
+      "summary": "King from 1100, the youngest son of William I. He seized the throne on his brother's death and in 1106 conquered Normandy from Robert. His only legitimate son died in the White Ship disaster of 1120, and when he died in 1135 the crown was contested between his daughter Matilda and his nephew Stephen.",
+      "portrait": "henry1.png",
+      "portraitCredit": "John of Worcester, Chronicon ex chronicis (Oxford, Corpus Christi College MS 157, Bodleian Libraries digitisation), CC BY 4.0 (via Wikimedia Commons)"
     },
     {
       "id": "adela",
@@ -285,7 +323,9 @@
       "reign": "1135-1154",
       "predecessor": "Henry I",
       "successor": "Henry II",
-      "summary": "King from 1135. A grandson of William I through his mother Adela, he crossed quickly to take the throne ahead of his cousin Matilda, and most of his reign was spent in civil war with her party. By the Treaty of Wallingford in 1153 he recognised Matilda's son Henry as his heir, and he died the following year."
+      "summary": "King from 1135. A grandson of William I through his mother Adela, he crossed quickly to take the throne ahead of his cousin Matilda, and most of his reign was spent in civil war with her party. By the Treaty of Wallingford in 1153 he recognised Matilda's son Henry as his heir, and he died the following year.",
+      "portrait": "stephen.jpg",
+      "portraitCredit": "Henry of Huntingdon, Historia Anglorum, public domain (via Wikimedia Commons)"
     },
     {
       "id": "matilda",
@@ -304,7 +344,9 @@
       "reign": "1154-1189",
       "predecessor": "Stephen",
       "successor": "Richard I",
-      "summary": "King from 1154 and the first Plantagenet. He inherited England and Normandy and added Anjou, Aquitaine and Ireland to a dominion stretching from Scotland to the Pyrenees, and he reformed the royal courts. His quarrel with Thomas Becket ended in the archbishop's murder in 1170, and his later years were spent in war with his own sons."
+      "summary": "King from 1154 and the first Plantagenet. He inherited England and Normandy and added Anjou, Aquitaine and Ireland to a dominion stretching from Scotland to the Pyrenees, and he reformed the royal courts. His quarrel with Thomas Becket ended in the archbishop's murder in 1170, and his later years were spent in war with his own sons.",
+      "portrait": "henry2.jpg",
+      "portraitCredit": "Medieval illumination of Henry II, Gerald of Wales, public domain (via Wikimedia Commons)"
     },
     {
       "id": "richard1",
@@ -316,7 +358,9 @@
       "reign": "1189-1199",
       "predecessor": "Henry II",
       "successor": "John",
-      "summary": "King from 1189, called the Lionheart. He spent most of his reign on crusade, in captivity in Germany, and at war with Philip II of France, visiting England only briefly. He died of a crossbow wound in 1199 and was succeeded by his brother John."
+      "summary": "King from 1189, called the Lionheart. He spent most of his reign on crusade, in captivity in Germany, and at war with Philip II of France, visiting England only briefly. He died of a crossbow wound in 1199 and was succeeded by his brother John.",
+      "portrait": "richard1.jpg",
+      "portraitCredit": "Effigy of Richard I, Fontevraud Abbey, photograph by Adam Bishop, CC BY-SA 3.0 (via Wikimedia Commons)"
     },
     {
       "id": "john",
@@ -328,7 +372,9 @@
       "reign": "1199-1216",
       "predecessor": "Richard I",
       "successor": "Henry III",
-      "summary": "King from 1199. He lost Normandy and most of Anjou to Philip II of France, and his quarrels with the papacy and his barons produced Magna Carta in 1215. He died in 1216 during a barons' war, leaving the crown to his nine-year-old son Henry III."
+      "summary": "King from 1199. He lost Normandy and most of Anjou to Philip II of France, and his quarrels with the papacy and his barons produced Magna Carta in 1215. He died in 1216 during a barons' war, leaving the crown to his nine-year-old son Henry III.",
+      "portrait": "john.jpg",
+      "portraitCredit": "Effigy of King John, Worcester Cathedral, engraving from S. R. Gardiner's History of England, public domain (via Wikimedia Commons)"
     },
     {
       "id": "henry3",
@@ -340,7 +386,9 @@
       "reign": "1216-1272",
       "predecessor": "John",
       "successor": "Edward I",
-      "summary": "King from 1216. He reigned for fifty-six years, rebuilding Westminster Abbey and patronising the church, but his reliance on foreign favourites provoked baronial opposition and civil war under Simon de Montfort. His son Edward was on crusade when he succeeded in 1272."
+      "summary": "King from 1216. He reigned for fifty-six years, rebuilding Westminster Abbey and patronising the church, but his reliance on foreign favourites provoked baronial opposition and civil war under Simon de Montfort. His son Edward was on crusade when he succeeded in 1272.",
+      "portrait": "henry3.jpg",
+      "portraitCredit": "Coronation of Henry III, from Effigies ad Regem Angliae, c. 1280-1300 (British Library, Cotton MS Vitellius A XIII f. 6r), public domain (via Wikimedia Commons)"
     },
     {
       "id": "edward1",
@@ -352,7 +400,9 @@
       "reign": "1272-1307",
       "predecessor": "Henry III",
       "successor": "Edward II",
-      "summary": "King from 1272, called Longshanks. He conquered Wales and settled it with castles and English boroughs, and he spent his later years trying to impose overlordship on Scotland. He summoned the model parliament of 1295 and died in 1307 while marching north once more."
+      "summary": "King from 1272, called Longshanks. He conquered Wales and settled it with castles and English boroughs, and he spent his later years trying to impose overlordship on Scotland. He summoned the model parliament of 1295 and died in 1307 while marching north once more.",
+      "portrait": "edward1.jpg",
+      "portraitCredit": "Sculpted figure of Edward I, Westminster Abbey sedilia, public domain (via Wikimedia Commons)"
     },
     {
       "id": "edward2",
@@ -364,7 +414,9 @@
       "reign": "1307-1327",
       "predecessor": "Edward I",
       "successor": "Edward III",
-      "summary": "King from 1307. His reliance on favourites and his defeat by the Scots at Bannockburn in 1314 lost him the support of his barons. He was deposed in 1327 in favour of his son Edward III and died at Berkeley Castle later that year."
+      "summary": "King from 1307. His reliance on favourites and his defeat by the Scots at Bannockburn in 1314 lost him the support of his barons. He was deposed in 1327 in favour of his son Edward III and died at Berkeley Castle later that year.",
+      "portrait": "edward2.jpg",
+      "portraitCredit": "Tomb effigy of Edward II, Gloucester Cathedral, photograph by Tilman2007, CC BY-SA 4.0 (via Wikimedia Commons)"
     },
     {
       "id": "edward3",
@@ -376,7 +428,9 @@
       "reign": "1327-1377",
       "predecessor": "Edward II",
       "successor": "Richard II",
-      "summary": "King from 1327. He reigned for fifty years, founding the Order of the Garter and opening the Hundred Years' War with a claim to the French throne. His many sons produced the rival houses of Lancaster and York that later fought the Wars of the Roses."
+      "summary": "King from 1327. He reigned for fifty years, founding the Order of the Garter and opening the Hundred Years' War with a claim to the French throne. His many sons produced the rival houses of Lancaster and York that later fought the Wars of the Roses.",
+      "portrait": "edward3.jpg",
+      "portraitCredit": "William Bruges, Garter Book portrait of Edward III, public domain (via Wikimedia Commons)"
     },
     {
       "id": "edward-black-prince",
@@ -409,7 +463,9 @@
       "reign": "1377-1399",
       "predecessor": "Edward III",
       "successor": "Henry IV",
-      "summary": "King from 1377 at ten years old, the son of the Black Prince. He faced the Peasants' Revolt of 1381 and later ruled with increasing autocracy, quarrelling with the nobility and the Lancastrian branch of his family. He was deposed by his cousin Henry Bolingbroke in 1399 and died in captivity."
+      "summary": "King from 1377 at ten years old, the son of the Black Prince. He faced the Peasants' Revolt of 1381 and later ruled with increasing autocracy, quarrelling with the nobility and the Lancastrian branch of his family. He was deposed by his cousin Henry Bolingbroke in 1399 and died in captivity.",
+      "portrait": "richard2.jpg",
+      "portraitCredit": "The Westminster Portrait of Richard II, c. 1390, anonymous, public domain (via Wikimedia Commons)"
     },
     {
       "id": "henry4",
@@ -421,7 +477,9 @@
       "reign": "1399-1413",
       "predecessor": "Richard II",
       "successor": "Henry V",
-      "summary": "King from 1399 and the first Lancastrian. The son of John of Gaunt, he took the crown from his cousin Richard II and spent his reign suppressing rebellions, notably by the Percys and by Owen Glendower in Wales. He died in 1413."
+      "summary": "King from 1399 and the first Lancastrian. The son of John of Gaunt, he took the crown from his cousin Richard II and spent his reign suppressing rebellions, notably by the Percys and by Owen Glendower in Wales. He died in 1413.",
+      "portrait": "henry4.jpg",
+      "portraitCredit": "Illumination of Henry IV, The National Archives UK, public domain (via Wikimedia Commons)"
     },
     {
       "id": "john-beaufort-earl",
@@ -447,7 +505,9 @@
       "reign": "1413-1422",
       "predecessor": "Henry IV",
       "successor": "Henry VI",
-      "summary": "King from 1413. He renewed the Hundred Years' War and won the great victory over the French at Agincourt in 1415. The Treaty of Troyes in 1420 made him heir to France and married him to Katherine of Valois. He died suddenly in 1422 leaving an infant son."
+      "summary": "King from 1413. He renewed the Hundred Years' War and won the great victory over the French at Agincourt in 1415. The Treaty of Troyes in 1420 made him heir to France and married him to Katherine of Valois. He died suddenly in 1422 leaving an infant son.",
+      "portrait": "henry5.png",
+      "portraitCredit": "Jean Galopes, Henry V, Corpus Christi College Cambridge MS 213, public domain (via Wikimedia Commons)"
     },
     {
       "id": "john-beaufort-duke",
@@ -473,7 +533,9 @@
       "reign": "1422-1461, 1470-1471",
       "predecessor": "Henry V",
       "successor": "Edward IV",
-      "summary": "King from 1422 at nine months old. He founded Eton and King's College, Cambridge, but lost France and presided over bankruptcy and faction at home. He was deposed by Edward IV in 1461, restored briefly in 1470, and died in the Tower of London in 1471."
+      "summary": "King from 1422 at nine months old. He founded Eton and King's College, Cambridge, but lost France and presided over bankruptcy and faction at home. He was deposed by Edward IV in 1461, restored briefly in 1470, and died in the Tower of London in 1471.",
+      "portrait": "henry6.jpg",
+      "portraitCredit": "Henry VI, from the Shrewsbury Book, public domain (via Wikimedia Commons)"
     },
     {
       "id": "margaret-beaufort",
@@ -492,7 +554,9 @@
       "reign": "1461-1470, 1471-1483",
       "predecessor": "Henry VI",
       "successor": "Edward V",
-      "summary": "King from 1461. He won the crown for the Yorkists at Towton and, after a brief exile, returned to defeat the Lancastrians at Tewkesbury in 1471. His marriage to Elizabeth Woodville and his sudden death in 1483 left a contested succession."
+      "summary": "King from 1461. He won the crown for the Yorkists at Towton and, after a brief exile, returned to defeat the Lancastrians at Tewkesbury in 1471. His marriage to Elizabeth Woodville and his sudden death in 1483 left a contested succession.",
+      "portrait": "edward4.jpg",
+      "portraitCredit": "Lucas Horenbout, portrait miniature of Edward IV, public domain (via Wikimedia Commons)"
     },
     {
       "id": "richard3",
@@ -504,7 +568,9 @@
       "reign": "1483-1485",
       "predecessor": "Edward V",
       "successor": "Henry VII",
-      "summary": "King from 1483. Edward IV's younger brother, he took the throne after his nephews were declared illegitimate. His only son died in 1484, and he was defeated and killed at Bosworth in 1485 by Henry Tudor, ending the Wars of the Roses."
+      "summary": "King from 1483. Edward IV's younger brother, he took the throne after his nephews were declared illegitimate. His only son died in 1484, and he was defeated and killed at Bosworth in 1485 by Henry Tudor, ending the Wars of the Roses.",
+      "portrait": "richard3.jpg",
+      "portraitCredit": "Portrait of Richard III, late 15th century, public domain (via Wikimedia Commons)"
     },
     {
       "id": "henry7",
@@ -516,7 +582,9 @@
       "reign": "1485-1509",
       "predecessor": "Richard III",
       "successor": "Henry VIII",
-      "summary": "King from 1485 and the first Tudor. His claim came through the Beaufort line of John of Gaunt, and at Bosworth he defeated and killed Richard III. He married Elizabeth of York to unite the rival houses, restored royal finances, and left a secure throne to his son."
+      "summary": "King from 1485 and the first Tudor. His claim came through the Beaufort line of John of Gaunt, and at Bosworth he defeated and killed Richard III. He married Elizabeth of York to unite the rival houses, restored royal finances, and left a secure throne to his son.",
+      "portrait": "henry7.jpg",
+      "portraitCredit": "Anonymous portrait of Henry VII, public domain (via Wikimedia Commons)"
     },
     {
       "id": "edward5",
@@ -528,7 +596,9 @@
       "reign": "1483",
       "predecessor": "Edward IV",
       "successor": "Richard III",
-      "summary": "King in 1483. The elder son of Edward IV, he came to the throne at twelve but was deposed before his coronation after his parents' marriage was declared invalid. He and his younger brother were lodged in the Tower of London and were never seen again."
+      "summary": "King in 1483. The elder son of Edward IV, he came to the throne at twelve but was deposed before his coronation after his parents' marriage was declared invalid. He and his younger brother were lodged in the Tower of London and were never seen again.",
+      "portrait": "edward5.jpg",
+      "portraitCredit": "Stained glass portrait of Edward V, Canterbury Cathedral royal window, public domain (via Wikimedia Commons)"
     },
     {
       "id": "henry8",
@@ -540,7 +610,9 @@
       "reign": "1509-1547",
       "predecessor": "Henry VII",
       "successor": "Edward VI",
-      "summary": "King from 1509. His struggle with Rome over the annulment of his first marriage made him supreme head of the English church, and the dissolution of the monasteries transformed royal wealth. He left three children who each in turn reigned: Edward VI, Mary I and Elizabeth I."
+      "summary": "King from 1509. His struggle with Rome over the annulment of his first marriage made him supreme head of the English church, and the dissolution of the monasteries transformed royal wealth. He left three children who each in turn reigned: Edward VI, Mary I and Elizabeth I.",
+      "portrait": "henry8.jpg",
+      "portraitCredit": "Workshop of Hans Holbein the Younger, portrait of Henry VIII, public domain (via Wikimedia Commons)"
     },
     {
       "id": "margaret-tudor",
@@ -559,7 +631,9 @@
       "reign": "1547-1553",
       "predecessor": "Henry VIII",
       "successor": "Mary I",
-      "summary": "King from 1547 at nine years old. His reign, governed first by the Duke of Somerset and then by Northumberland, carried the English church further towards Protestantism. He died of tuberculosis in 1553 at fifteen, having tried to divert the succession to Lady Jane Grey."
+      "summary": "King from 1547 at nine years old. His reign, governed first by the Duke of Somerset and then by Northumberland, carried the English church further towards Protestantism. He died of tuberculosis in 1553 at fifteen, having tried to divert the succession to Lady Jane Grey.",
+      "portrait": "edward6.jpg",
+      "portraitCredit": "Circle of William Scrots, portrait of Edward VI, public domain (via Wikimedia Commons)"
     },
     {
       "id": "mary1",
@@ -571,7 +645,9 @@
       "reign": "1553-1558",
       "predecessor": "Edward VI",
       "successor": "Elizabeth I",
-      "summary": "Queen from 1553. The daughter of Henry VIII and Catherine of Aragon, she restored Catholicism and revived the heresy laws, burning nearly three hundred Protestants. Her marriage to Philip II of Spain was childless, and she died in 1558."
+      "summary": "Queen from 1553. The daughter of Henry VIII and Catherine of Aragon, she restored Catholicism and revived the heresy laws, burning nearly three hundred Protestants. Her marriage to Philip II of Spain was childless, and she died in 1558.",
+      "portrait": "mary1.jpg",
+      "portraitCredit": "Anthonis Mor, portrait of Mary I, public domain (via Wikimedia Commons)"
     },
     {
       "id": "elizabeth1",
@@ -583,7 +659,9 @@
       "reign": "1558-1603",
       "predecessor": "Mary I",
       "successor": "James I",
-      "summary": "Queen from 1558 and the last Tudor. She settled the English church on a moderate Protestant footing, saw off the Spanish Armada in 1588, and presided over a flourishing of drama and exploration. She never married, and at her death in 1603 the crown passed to James VI of Scotland."
+      "summary": "Queen from 1558 and the last Tudor. She settled the English church on a moderate Protestant footing, saw off the Spanish Armada in 1588, and presided over a flourishing of drama and exploration. She never married, and at her death in 1603 the crown passed to James VI of Scotland.",
+      "portrait": "elizabeth1.jpg",
+      "portraitCredit": "The Darnley Portrait of Elizabeth I, unidentified painter, public domain (via Wikimedia Commons)"
     },
     {
       "id": "james5",
@@ -623,7 +701,9 @@
       "reign": "1603-1625",
       "predecessor": "Elizabeth I",
       "successor": "Charles I",
-      "summary": "King from 1603, already James VI of Scotland since 1567. The union of the crowns brought England and Scotland under one monarch, and his reign saw the gunpowder plot of 1605 and the authorised version of the Bible. He died in 1625."
+      "summary": "King from 1603, already James VI of Scotland since 1567. The union of the crowns brought England and Scotland under one monarch, and his reign saw the gunpowder plot of 1605 and the authorised version of the Bible. He died in 1625.",
+      "portrait": "james1.jpg",
+      "portraitCredit": "Attributed to John de Critz, portrait of James I, public domain (via Wikimedia Commons)"
     },
     {
       "id": "charles1",
@@ -635,7 +715,9 @@
       "reign": "1625-1649",
       "predecessor": "James I",
       "successor": "Charles II",
-      "summary": "King from 1625. His belief in the divine right of kings and his long quarrels with parliament ended in the English Civil War. Defeated and tried, he was executed outside Whitehall in 1649, and the monarchy was abolished until his son's restoration in 1660."
+      "summary": "King from 1625. His belief in the divine right of kings and his long quarrels with parliament ended in the English Civil War. Defeated and tried, he was executed outside Whitehall in 1649, and the monarchy was abolished until his son's restoration in 1660.",
+      "portrait": "charles1.jpg",
+      "portraitCredit": "Workshop of Anthony van Dyck, portrait of Charles I, public domain (via Wikimedia Commons)"
     },
     {
       "id": "elizabeth-stuart",
@@ -654,7 +736,9 @@
       "reign": "1660-1685",
       "predecessor": "Charles I",
       "successor": "James II",
-      "summary": "King from 1660 at the Restoration, though from his father's execution in 1649 he was regarded as king by his supporters. His reign saw the Great Plague, the Fire of London and the emergence of the Whig and Tory parties. He left no legitimate children and was succeeded by his brother James."
+      "summary": "King from 1660 at the Restoration, though from his father's execution in 1649 he was regarded as king by his supporters. His reign saw the Great Plague, the Fire of London and the emergence of the Whig and Tory parties. He left no legitimate children and was succeeded by his brother James.",
+      "portrait": "charles2.jpg",
+      "portraitCredit": "John Michael Wright (or studio), portrait of Charles II, public domain (via Wikimedia Commons)"
     },
     {
       "id": "james2",
@@ -666,7 +750,9 @@
       "reign": "1685-1688",
       "predecessor": "Charles II",
       "successor": "William III and Mary II",
-      "summary": "King from 1685. A convert to Catholicism, he promoted his co-religionists and suspended the laws against them. The birth of a Catholic heir prompted the Glorious Revolution, and he fled to France in 1688, dying in exile in 1701."
+      "summary": "King from 1685. A convert to Catholicism, he promoted his co-religionists and suspended the laws against them. The birth of a Catholic heir prompted the Glorious Revolution, and he fled to France in 1688, dying in exile in 1701.",
+      "portrait": "james2.jpg",
+      "portraitCredit": "School of Peter Lely, portrait of James II, public domain (via Wikimedia Commons)"
     },
     {
       "id": "sophia",
@@ -685,7 +771,9 @@
       "reign": "1689-1694",
       "predecessor": "James II",
       "successor": "Anne",
-      "summary": "Queen from 1689 jointly with her husband William III. The elder daughter of James II, she was offered the crown after her father's flight and left the day-to-day rule to William. She died of smallpox in 1694, and William continued as sole king until 1702."
+      "summary": "Queen from 1689 jointly with her husband William III. The elder daughter of James II, she was offered the crown after her father's flight and left the day-to-day rule to William. She died of smallpox in 1694, and William continued as sole king until 1702.",
+      "portrait": "mary2.jpg",
+      "portraitCredit": "Godfrey Kneller, portrait of Mary II, 1690, public domain (via Wikimedia Commons)"
     },
     {
       "id": "anne",
@@ -697,7 +785,9 @@
       "reign": "1702-1714",
       "predecessor": "William III",
       "successor": "George I",
-      "summary": "Queen from 1702 and the last Stuart. Her reign saw the union of England and Scotland in 1707 and Marlborough's victories in the War of the Spanish Succession. All of her many children died before her, and the Act of Settlement carried the crown to the House of Hanover."
+      "summary": "Queen from 1702 and the last Stuart. Her reign saw the union of England and Scotland in 1707 and Marlborough's victories in the War of the Spanish Succession. All of her many children died before her, and the Act of Settlement carried the crown to the House of Hanover.",
+      "portrait": "anne.jpg",
+      "portraitCredit": "Michael Dahl, portrait of Queen Anne, 1705, public domain (via Wikimedia Commons)"
     },
     {
       "id": "william3",
@@ -709,7 +799,9 @@
       "reign": "1689-1702",
       "predecessor": "James II",
       "successor": "Anne",
-      "summary": "King from 1689 jointly with his wife Mary II. Prince of Orange and a grandson of Charles I through his mother, he was invited to take the throne after James II fled. He ruled alone after Mary's death in 1694 and died in 1702, leaving no surviving children."
+      "summary": "King from 1689 jointly with his wife Mary II. Prince of Orange and a grandson of Charles I through his mother, he was invited to take the throne after James II fled. He ruled alone after Mary's death in 1694 and died in 1702, leaving no surviving children.",
+      "portrait": "william3.jpg",
+      "portraitCredit": "Godfrey Kneller, portrait of William III, public domain (via Wikimedia Commons)"
     },
     {
       "id": "george1",
@@ -721,7 +813,9 @@
       "reign": "1714-1727",
       "predecessor": "Anne",
       "successor": "George II",
-      "summary": "King from 1714. Elector of Hanover and great-grandson of James I through his mother Sophia, he took the throne under the Act of Settlement. He spoke little English and relied heavily on his ministers, and the Jacobite rising of 1715 failed to displace him."
+      "summary": "King from 1714. Elector of Hanover and great-grandson of James I through his mother Sophia, he took the throne under the Act of Settlement. He spoke little English and relied heavily on his ministers, and the Jacobite rising of 1715 failed to displace him.",
+      "portrait": "george1.jpg",
+      "portraitCredit": "Workshop of Godfrey Kneller, portrait of George I, public domain (via Wikimedia Commons)"
     },
     {
       "id": "george2",
@@ -733,7 +827,9 @@
       "reign": "1727-1760",
       "predecessor": "George I",
       "successor": "George III",
-      "summary": "King from 1727 and the last British monarch to lead troops in battle, at Dettingen in 1743. His reign saw the defeat of the final Jacobite rising at Culloden in 1746 and the expansion of British power abroad. His son Frederick died before him, and he was succeeded by his grandson."
+      "summary": "King from 1727 and the last British monarch to lead troops in battle, at Dettingen in 1743. His reign saw the defeat of the final Jacobite rising at Culloden in 1746 and the expansion of British power abroad. His son Frederick died before him, and he was succeeded by his grandson.",
+      "portrait": "george2.jpg",
+      "portraitCredit": "Thomas Hudson, portrait of George II, public domain (via Wikimedia Commons)"
     },
     {
       "id": "frederick",
@@ -752,7 +848,9 @@
       "reign": "1760-1820",
       "predecessor": "George II",
       "successor": "George IV",
-      "summary": "King from 1760. He reigned nearly sixty years, losing the American colonies and leading Britain through the wars with revolutionary and Napoleonic France. Illness brought a regency from 1811, and he died blind and deaf in 1820."
+      "summary": "King from 1760. He reigned nearly sixty years, losing the American colonies and leading Britain through the wars with revolutionary and Napoleonic France. Illness brought a regency from 1811, and he died blind and deaf in 1820.",
+      "portrait": "george3.jpg",
+      "portraitCredit": "Allan Ramsay, King George III in coronation robes, public domain (via Wikimedia Commons)"
     },
     {
       "id": "george4",
@@ -764,7 +862,9 @@
       "reign": "1820-1830",
       "predecessor": "George III",
       "successor": "William IV",
-      "summary": "King from 1820. As prince of Wales he lived extravagantly and secretly married before wedding Caroline of Brunswick, and his attempt to divorce her on accession caused a scandal. He had been regent during his father's illness from 1811, and his taste shaped Regency London and the Brighton Pavilion."
+      "summary": "King from 1820. As prince of Wales he lived extravagantly and secretly married before wedding Caroline of Brunswick, and his attempt to divorce her on accession caused a scandal. He had been regent during his father's illness from 1811, and his taste shaped Regency London and the Brighton Pavilion.",
+      "portrait": "george4.jpg",
+      "portraitCredit": "Thomas Lawrence, portrait of George IV, public domain (via Wikimedia Commons)"
     },
     {
       "id": "william4",
@@ -776,7 +876,9 @@
       "reign": "1830-1837",
       "predecessor": "George IV",
       "successor": "Victoria",
-      "summary": "King from 1830, called the Sailor King for his early naval career. He came to the throne aged sixty-four on his brother's death, and his reign saw the Great Reform Act of 1832 and the abolition of slavery in the empire. He died in 1837 and was succeeded by his niece Victoria."
+      "summary": "King from 1830, called the Sailor King for his early naval career. He came to the throne aged sixty-four on his brother's death, and his reign saw the Great Reform Act of 1832 and the abolition of slavery in the empire. He died in 1837 and was succeeded by his niece Victoria.",
+      "portrait": "william4.jpg",
+      "portraitCredit": "Martin Archer Shee, portrait of William IV, 1833, public domain (via Wikimedia Commons)"
     },
     {
       "id": "edward-kent",
@@ -795,7 +897,9 @@
       "reign": "1837-1901",
       "predecessor": "William IV",
       "successor": "Edward VII",
-      "summary": "Queen from 1837 at eighteen. Her sixty-three year reign gave its name to an age of empire, industry and reform, and her nine children married across Europe's royal houses. She was the last monarch of the House of Hanover and died in 1901."
+      "summary": "Queen from 1837 at eighteen. Her sixty-three year reign gave its name to an age of empire, industry and reform, and her nine children married across Europe's royal houses. She was the last monarch of the House of Hanover and died in 1901.",
+      "portrait": "victoria.jpg",
+      "portraitCredit": "Alexander Bassano, photograph of Queen Victoria, 1882, public domain (via Wikimedia Commons)"
     },
     {
       "id": "edward7",
@@ -807,7 +911,9 @@
       "reign": "1901-1910",
       "predecessor": "Victoria",
       "successor": "George V",
-      "summary": "King from 1901. The eldest son of Victoria, he waited nearly sixty years as heir apparent and gave his name to the Edwardian era. He fostered the entente cordiale with France and died in 1910 after a reign of nine years."
+      "summary": "King from 1901. The eldest son of Victoria, he waited nearly sixty years as heir apparent and gave his name to the Edwardian era. He fostered the entente cordiale with France and died in 1910 after a reign of nine years.",
+      "portrait": "edward7.jpg",
+      "portraitCredit": "W. & D. Downey, photograph of Edward VII, public domain (via Wikimedia Commons)"
     },
     {
       "id": "george5",
@@ -819,7 +925,9 @@
       "reign": "1910-1936",
       "predecessor": "Edward VII",
       "successor": "Edward VIII",
-      "summary": "King from 1910. During the First World War he renamed the royal house Windsor, abandoning its German titles in 1917. His reign saw the rise of the Labour Party and the first Labour government, and he died in 1936."
+      "summary": "King from 1910. During the First World War he renamed the royal house Windsor, abandoning its German titles in 1917. His reign saw the rise of the Labour Party and the first Labour government, and he died in 1936.",
+      "portrait": "george5.jpg",
+      "portraitCredit": "Bassano Ltd, photograph of George V, 1923, public domain (via Wikimedia Commons)"
     },
     {
       "id": "edward8",
@@ -831,7 +939,9 @@
       "reign": "1936",
       "predecessor": "George V",
       "successor": "George VI",
-      "summary": "King in 1936. He acceded in January on his father's death but abdicated in December to marry Wallis Simpson, an American divorcee. He was created Duke of Windsor and lived abroad until his death in 1972."
+      "summary": "King in 1936. He acceded in January on his father's death but abdicated in December to marry Wallis Simpson, an American divorcee. He was created Duke of Windsor and lived abroad until his death in 1972.",
+      "portrait": "edward8.jpg",
+      "portraitCredit": "Freeland Studio, photograph of the Prince of Wales (later Edward VIII), public domain (via Wikimedia Commons)"
     },
     {
       "id": "george6",
@@ -843,7 +953,9 @@
       "reign": "1936-1952",
       "predecessor": "Edward VIII",
       "successor": "Elizabeth II",
-      "summary": "King from 1936 after his brother's abdication. He steadied the monarchy through the Second World War and the transition from empire to Commonwealth. He died in 1952 and was succeeded by his daughter Elizabeth II."
+      "summary": "King from 1936 after his brother's abdication. He steadied the monarchy through the Second World War and the transition from empire to Commonwealth. He died in 1952 and was succeeded by his daughter Elizabeth II.",
+      "portrait": "george6.jpg",
+      "portraitCredit": "Matson Photo Service, photograph of George VI, public domain (via Wikimedia Commons)"
     },
     {
       "id": "elizabeth2",
@@ -855,7 +967,9 @@
       "reign": "1952-2022",
       "predecessor": "George VI",
       "successor": "Charles III",
-      "summary": "Queen from 1952. Her seventy-year reign is the longest in British history, spanning the end of empire, the Troubles in Northern Ireland and the digital age. She died at Balmoral in 2022 and was succeeded by her son Charles III."
+      "summary": "Queen from 1952. Her seventy-year reign is the longest in British history, spanning the end of empire, the Troubles in Northern Ireland and the digital age. She died at Balmoral in 2022 and was succeeded by her son Charles III.",
+      "portrait": "elizabeth2.jpg",
+      "portraitCredit": "Donald McKague, Library and Archives Canada, 1958; Canadian Crown copyright expired (PD-Canada-Crown), retouched version CC BY 2.0 (via Wikimedia Commons)"
     },
     {
       "id": "charles3",
@@ -867,7 +981,9 @@
       "reign": "2022-present",
       "predecessor": "Elizabeth II",
       "successor": null,
-      "summary": "King from 2022. The longest-serving heir apparent in British history, he waited more than seventy years to accede. His reign began with national mourning for Elizabeth II and with his coronation in May 2023."
+      "summary": "King from 2022. The longest-serving heir apparent in British history, he waited more than seventy years to accede. His reign began with national mourning for Elizabeth II and with his coronation in May 2023.",
+      "portrait": "charles3.jpg",
+      "portraitCredit": "Official White House photograph, 10 July 2023, public domain (PD-USGov-POTUS, US federal government work) (via Wikimedia Commons)"
     }
   ],
   "families": [

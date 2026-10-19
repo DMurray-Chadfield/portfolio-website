@@ -39,4 +39,10 @@ describe("FactCard", () => {
     expect(html).toContain('src="/portraits/william1.jpg"')
     expect(html).not.toContain("royal-tree-monogram")
   })
+
+  it("falls back to a monogram when the portrait file is absent from the data", () => {
+    const noPortrait = Object.fromEntries(Object.entries(person).filter(([key]) => key !== "portrait"))
+    const html = renderToStaticMarkup(<FactCard person={noPortrait} onClose={() => {}} />)
+    expect(html).toContain("royal-tree-monogram")
+  })
 })
