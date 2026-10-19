@@ -37,4 +37,27 @@ describe("panZoom", () => {
     expect(v.x).toBeCloseTo((1000 - 400 * v.k) / 2)
     expect(v.y).toBeCloseTo((600 - 200 * v.k) / 2)
   })
+
+  it("fits tall content below the wheel-zoom floor and keeps every edge inside", () => {
+    const content = { width: 1220, height: 4664 }
+    const viewport = { width: 1000, height: 700 }
+    const v = fitView(content, viewport)
+    expect(v.k).toBeLessThan(0.25)
+    expect(v.k).toBeGreaterThanOrEqual(0.05)
+    expect(v.x).toBeGreaterThanOrEqual(0)
+    expect(v.y).toBeGreaterThanOrEqual(0)
+    expect(v.x + content.width * v.k).toBeLessThanOrEqual(viewport.width)
+    expect(v.y + content.height * v.k).toBeLessThanOrEqual(viewport.height)
+  })
+
+  it("does not snap a fitted sub-floor scale up when zooming out", () => {
+    const fitted = fitView({ width: 1220, height: 4664 }, { width: 1000, height: 700 })
+    const after = zoomAt(fitted, { x: 500, y: 350 }, 1 / 1.1)
+    expect(after.k).toBe(fitted.k)
+  })
+
+  it("still keeps the wheel-zoom floor at 0.25 when zooming out from above it", () => {
+    const v = zoomAt({ x: 0, y: 0, k: 0.3 }, { x: 100, y: 100 }, 1 / 10)
+    expect(v.k).toBe(0.25)
+  })
 })

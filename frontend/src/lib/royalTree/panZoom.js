@@ -1,4 +1,5 @@
 const MIN_SCALE = 0.25
+const FIT_MIN_SCALE = 0.05
 const MAX_SCALE = 2.5
 const DEFAULT_PADDING = 48
 
@@ -15,7 +16,8 @@ export function panBy(view, dx, dy) {
 }
 
 export function zoomAt(view, anchor, factor, limits = {}) {
-  const k = clampScale(view.k * factor, limits.min, limits.max)
+  const floor = Math.min(limits.min ?? MIN_SCALE, view.k)
+  const k = clampScale(view.k * factor, floor, limits.max)
   const ratio = k / view.k
   return {
     x: anchor.x - (anchor.x - view.x) * ratio,
@@ -26,7 +28,8 @@ export function zoomAt(view, anchor, factor, limits = {}) {
 
 export function fitView(content, viewport, padding = DEFAULT_PADDING) {
   const k = clampScale(
-    Math.min((viewport.width - 2 * padding) / content.width, (viewport.height - 2 * padding) / content.height)
+    Math.min((viewport.width - 2 * padding) / content.width, (viewport.height - 2 * padding) / content.height),
+    FIT_MIN_SCALE
   )
   return {
     x: (viewport.width - content.width * k) / 2,
