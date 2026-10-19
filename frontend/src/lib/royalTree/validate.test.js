@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest"
-import { validateTree, MONARCH_IDS } from "./validate.js"
+import { validateTree, informationalNotes, MONARCH_IDS } from "./validate.js"
 import data from "../../data/royalFamilyTree.json"
 
 describe("validateTree", () => {
@@ -20,6 +20,16 @@ describe("validateTree", () => {
     expect(validateTree(bad).join(" ")).toContain("generation")
   })
 
+  it("keeps informational notes out of the problems list", () => {
+    const orphan = {
+      people: [{ id: "a", name: "A", kind: "monarch", sex: "male", generation: 0, house: "H", reign: "1-2", summary: "s" }],
+      families: []
+    }
+    expect(validateTree(orphan)).toEqual([])
+    expect(informationalNotes(orphan).join(" ")).toContain("person a")
+    expect(informationalNotes({ people: [], families: [] })).toEqual([])
+  })
+
   it("validates the shipped dataset", () => {
     expect(validateTree(data)).toEqual([])
   })
@@ -33,7 +43,11 @@ describe("validateTree", () => {
 describe("royalFamilyTree dataset", () => {
   it("is one connected component", () => {
     const adjacency = new Map(data.people.map((person) => [person.id, []]))
+    const dangling = []
     const link = (a, b) => {
+      if (!adjacency.has(a)) dangling.push(a)
+      if (!adjacency.has(b)) dangling.push(b)
+      if (!adjacency.has(a) || !adjacency.has(b)) return
       adjacency.get(a).push(b)
       adjacency.get(b).push(a)
     }
@@ -41,6 +55,7 @@ describe("royalFamilyTree dataset", () => {
       const members = [family.husbandId, family.wifeId, ...(family.childIds ?? [])].filter((id) => id != null)
       for (let i = 1; i < members.length; i++) link(members[0], members[i])
     }
+    expect(dangling).toEqual([])
     const components = []
     const seen = new Set()
     for (const person of data.people) {

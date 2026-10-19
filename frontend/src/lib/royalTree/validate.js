@@ -60,6 +60,29 @@ export const MONARCH_IDS = [
   "william4"
 ]
 
+function familyMemberIds(families) {
+  const memberIds = new Set()
+  for (const family of families) {
+    if (family.husbandId != null) memberIds.add(family.husbandId)
+    if (family.wifeId != null) memberIds.add(family.wifeId)
+    for (const childId of family.childIds ?? []) memberIds.add(childId)
+  }
+  return memberIds
+}
+
+export function informationalNotes(data) {
+  const people = data?.people ?? []
+  const families = data?.families ?? []
+  const notes = []
+  const inAnyFamily = familyMemberIds(families)
+  for (const person of people) {
+    if (!inAnyFamily.has(person.id)) {
+      notes.push(`person ${person.id} is absent from every family (informational)`)
+    }
+  }
+  return notes
+}
+
 export function validateTree(data) {
   const problems = []
   const people = data?.people ?? []
@@ -82,15 +105,11 @@ export function validateTree(data) {
     if (!personIds.has(id)) problems.push(`family ${family.id} ${field} ${id} does not match any person`)
   }
 
-  const inAnyFamily = new Set()
   for (const family of families) {
     resolve(family, "husbandId", family.husbandId)
     resolve(family, "wifeId", family.wifeId)
-    if (family.husbandId != null) inAnyFamily.add(family.husbandId)
-    if (family.wifeId != null) inAnyFamily.add(family.wifeId)
     for (const childId of family.childIds ?? []) {
       resolve(family, "childId", childId)
-      inAnyFamily.add(childId)
     }
   }
 
@@ -104,9 +123,6 @@ export function validateTree(data) {
           problems.push(`person ${person.id} has no ${field}`)
         }
       }
-    }
-    if (!inAnyFamily.has(person.id)) {
-      problems.push(`person ${person.id} is absent from every family (orphan check, informational)`)
     }
   }
 
