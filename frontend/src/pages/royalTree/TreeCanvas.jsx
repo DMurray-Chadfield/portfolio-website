@@ -1,18 +1,35 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { computeLayout, edgeToPath } from "../../lib/royalTree/layout.js"
 import { fitView, identityView, panBy, zoomAt } from "../../lib/royalTree/panZoom.js"
-import { beginDrag, dragDelta, isPrimaryButton } from "../../lib/royalTree/pointerDrag.js"
+import { beginDrag, dragDelta, hasDragged, isPrimaryButton } from "../../lib/royalTree/pointerDrag.js"
+import { TWEEN_MS, easeInOut, tweenLayout } from "../../lib/royalTree/tween.js"
 import TreeNode from "./TreeNode.jsx"
 
 const ZOOM_STEP = 1.1
+
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
+}
 
 function TreeCanvas({ data, expandedId, onSelect }) {
   const viewportRef = useRef(null)
   const stopDragRef = useRef(null)
   const fittedRef = useRef(false)
+  const cardRef = useRef(null)
+  const downPosRef = useRef(null)
+  const displayRef = useRef(null)
+  const rafRef = useRef(null)
   const [view, setView] = useState(() => identityView())
+  const [cardHeights, setCardHeights] = useState({})
 
-  const layout = useMemo(() => computeLayout(data, { expandedId }), [data, expandedId])
+  const layout = useMemo(
+    () => computeLayout(data, { expandedId, expandedHeight: cardHeights[expandedId] }),
+    [data, expandedId, cardHeights]
+  )
+
+  const [display, setDisplay] = useState(() => layout)
+  const [animating, setAnimating] = useState(false)
+  displayRef.current = display
 
   const measureViewport = () => {
     const viewport = viewportRef.current
@@ -28,6 +45,47 @@ function TreeCanvas({ data, expandedId, onSelect }) {
     if (viewport.width <= 0 || viewport.height <= 0) return
     setView(fitView(layout, viewport))
     fittedRef.current = true
+  }, [layout])
+
+  useLayoutEffect(() => {
+    const card = cardRef.current
+    if (card == null) return
+    const height = card.offsetHeight
+    if (height <= 0) return
+    setCardHeights((current) => (current[expandedId] === height ? current : { ...current, [expandedId]: height }))
+  }, [expandedId])
+
+  useEffect(() => {
+    const target = layout
+    const previous = displayRef.current
+    if (previous === target) return undefined
+    if (prefersReducedMotion()) {
+      displayRef.current = target
+      setDisplay(target)
+      setAnimating(false)
+      return undefined
+    }
+    const start = performance.now()
+    setAnimating(true)
+    const step = () => {
+      const t = Math.min((performance.now() - start) / TWEEN_MS, 1)
+      const next = tweenLayout(previous, target, easeInOut(t))
+      displayRef.current = next
+      setDisplay(next)
+      if (t < 1) {
+        rafRef.current = requestAnimationFrame(step)
+      } else {
+        rafRef.current = null
+        setAnimating(false)
+      }
+    }
+    rafRef.current = requestAnimationFrame(step)
+    return () => {
+      if (rafRef.current != null) {
+        cancelAnimationFrame(rafRef.current)
+        rafRef.current = null
+      }
+    }
   }, [layout])
 
   useEffect(() => {
@@ -63,6 +121,7 @@ function TreeCanvas({ data, expandedId, onSelect }) {
   const handlePointerDown = (event) => {
     if (!isPrimaryButton(event.button) || stopDragRef.current != null) return
 
+    downPosRef.current = { x: event.clientX, y: event.clientY }
     let drag = beginDrag(event)
 
     const handleMove = (moveEvent) => {
@@ -93,6 +152,15 @@ function TreeCanvas({ data, expandedId, onSelect }) {
     window.addEventListener("pointercancel", handleEnd)
   }
 
+  const handleClick = (event) => {
+    const down = downPosRef.current
+    downPosRef.current = null
+    if (down == null) return
+    if (hasDragged(down, { x: event.clientX, y: event.clientY })) return
+    if (event.target.closest(".royal-tree-node, .royal-tree-controls") != null) return
+    if (expandedId != null) onSelect(null)
+  }
+
   const zoomBy = (factor) => {
     const viewport = measureViewport()
     const anchor = { x: viewport.width / 2, y: viewport.height / 2 }
@@ -109,6 +177,7 @@ function TreeCanvas({ data, expandedId, onSelect }) {
       className="royal-tree-canvas"
       onWheel={handleWheel}
       onPointerDown={handlePointerDown}
+      onClick={handleClick}
     >
       <div
         className="royal-tree-controls"
@@ -128,31 +197,44 @@ function TreeCanvas({ data, expandedId, onSelect }) {
       <div
         className="royal-tree-layer"
         style={{
-          width: layout.width,
-          height: layout.height,
+          width: display.width,
+          height: display.height,
           transform: `translate(${view.x}px, ${view.y}px) scale(${view.k})`
         }}
       >
         <svg
           className="royal-tree-edges"
-          width={layout.width}
-          height={layout.height}
+          width={display.width}
+          height={display.height}
           aria-hidden="true"
         >
-          {layout.edges.map((edge) => (
+          {display.edges.map((edge) => (
             <path
               key={edge.id}
               className={`royal-tree-edge royal-tree-edge-${edge.kind}`}
               d={edgeToPath(edge)}
             />
           ))}
+          {display.edges.map((edge) => (
+            edge.dot == null ? null : (
+              <circle
+                key={`dot:${edge.id}`}
+                className="royal-tree-dot"
+                cx={edge.dot.x}
+                cy={edge.dot.y}
+                r={4}
+              />
+            )
+          ))}
         </svg>
-        {layout.nodes.map((node) => (
+        {display.nodes.map((node) => (
           <TreeNode
             key={node.id}
             node={node}
             expanded={node.id === expandedId}
             onSelect={onSelect}
+            animating={animating}
+            cardRef={node.id === expandedId ? cardRef : null}
           />
         ))}
       </div>

@@ -8,9 +8,9 @@ function initialsOf(name) {
     .toUpperCase()
 }
 
-function FactCard({ person, onClose }) {
+function FactCard({ person, onClose, cardRef = null }) {
   return (
-    <div className="royal-tree-card">
+    <div className="royal-tree-card" ref={cardRef}>
       <div className="royal-tree-card-head">
         {person.portrait ? (
           <img className="royal-tree-portrait" src={`/portraits/${person.portrait}`} alt={person.name} />

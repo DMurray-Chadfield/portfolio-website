@@ -9,6 +9,8 @@ describe("TreeCanvas", () => {
     expect(html).toContain("Aethelwulf")
     expect(html).toContain("Emma of Normandy")
     expect(html).toContain("<path")
+    expect(html).toContain("royal-tree-dot")
+    expect(html).toContain("<circle")
   })
 
   it("renders the expanded node's card", () => {

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest"
-import { beginDrag, dragDelta, isPrimaryButton } from "./pointerDrag.js"
+import { beginDrag, dragDelta, hasDragged, isPrimaryButton } from "./pointerDrag.js"
 
 describe("pointerDrag", () => {
   it("accepts only the primary mouse button", () => {
@@ -21,5 +21,12 @@ describe("pointerDrag", () => {
     const drag = beginDrag({ pointerId: 7, clientX: 10, clientY: 20 })
     expect(dragDelta(drag, { pointerId: 8, clientX: 14, clientY: 12 })).toBeNull()
     expect(dragDelta(null, { pointerId: 7, clientX: 14, clientY: 12 })).toBeNull()
+  })
+
+  it("tells a click from a drag by the movement threshold", () => {
+    expect(hasDragged({ x: 10, y: 20 }, { x: 12, y: 18 })).toBe(false)
+    expect(hasDragged({ x: 10, y: 20 }, { x: 10, y: 25 })).toBe(false)
+    expect(hasDragged({ x: 10, y: 20 }, { x: 16, y: 20 })).toBe(true)
+    expect(hasDragged({ x: 10, y: 20 }, { x: 10, y: 26 }, 6)).toBe(false)
   })
 })
