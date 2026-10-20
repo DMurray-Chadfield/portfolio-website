@@ -76,6 +76,37 @@ const nodesFor = (data, opts) => {
   return new Map(nodes.map((n) => [n.id, n]))
 }
 
+const familyById = new Map(data.families.map((family) => [family.id, family]))
+
+const parentIdsOfFamily = (familyId) => {
+  const family = familyById.get(familyId)
+  return [family.husbandId, family.wifeId].filter((id) => id != null)
+}
+
+const shareAParent = (a, b) => {
+  const parentsA = parentIdsOfFamily(a.familyId)
+  const parentsB = parentIdsOfFamily(b.familyId)
+  return parentsA.some((id) => parentsB.includes(id))
+}
+
+const centreOf = (node) => node.x + node.w / 2
+
+const familyCountByParent = new Map()
+for (const family of data.families) {
+  for (const id of [family.husbandId, family.wifeId]) {
+    if (id == null) continue
+    familyCountByParent.set(id, (familyCountByParent.get(id) ?? 0) + 1)
+  }
+}
+
+const soleFamilyForParents = (familyId) =>
+  parentIdsOfFamily(familyId).every((id) => familyCountByParent.get(id) === 1)
+
+const expectBarsApart = (a, b) => {
+  const apart = a.barY !== b.barY || a.barRight < b.barLeft || b.barRight < a.barLeft
+  expect(apart, `${a.id} vs ${b.id}`).toBe(true)
+}
+
 describe("placeNodes", () => {
   it("stacks generations top to bottom with no blank band", () => {
     const n = nodesFor(fixture)
@@ -264,32 +295,6 @@ describe("computeLayout", () => {
 })
 
 describe("shipped tree geometry invariants", () => {
-  const familyById = new Map(data.families.map((family) => [family.id, family]))
-
-  const parentIdsOfFamily = (familyId) => {
-    const family = familyById.get(familyId)
-    return [family.husbandId, family.wifeId].filter((id) => id != null)
-  }
-
-  const shareAParent = (a, b) => {
-    const parentsA = parentIdsOfFamily(a.familyId)
-    const parentsB = parentIdsOfFamily(b.familyId)
-    return parentsA.some((id) => parentsB.includes(id))
-  }
-
-  const centreOf = (node) => node.x + node.w / 2
-
-  const familyCountByParent = new Map()
-  for (const family of data.families) {
-    for (const id of [family.husbandId, family.wifeId]) {
-      if (id == null) continue
-      familyCountByParent.set(id, (familyCountByParent.get(id) ?? 0) + 1)
-    }
-  }
-
-  const soleFamilyForParents = (familyId) =>
-    parentIdsOfFamily(familyId).every((id) => familyCountByParent.get(id) === 1)
-
   it("keeps unrelated families' sibling bars apart in a shared gutter", () => {
     const blood = computeLayout(data).edges.filter((edge) => edge.kind === "blood")
     for (let i = 0; i < blood.length; i++) {
@@ -363,5 +368,66 @@ describe("shipped tree geometry invariants", () => {
       const spanCentre = (Math.min(...homeChildCentres) + Math.max(...homeChildCentres)) / 2
       expect(Math.abs(anchorOf(parentClusterId) - spanCentre), family.id).toBeLessThanOrEqual(1)
     }
+  })
+})
+
+describe("reported crossing cases", () => {
+  const layout = computeLayout(data)
+  const bloodOf = (familyId) => layout.edges.find((edge) => edge.id === `blood:${familyId}`)
+
+  it("separates Henry I's and Adela of Blois's children", () => {
+    expectBarsApart(bloodOf("f-henry1"), bloodOf("f-adela"))
+  })
+
+  it("separates the Wars of the Roses descent bars", () => {
+    expectBarsApart(bloodOf("f-john-beaufort-duke"), bloodOf("f-richard-york"))
+  })
+
+  it("separates Henry VIII's and Margaret Tudor's children", () => {
+    for (const henryFamily of ["f-henry8-jane", "f-henry8-catherine", "f-henry8-anne"]) {
+      for (const margaretFamily of ["f-margaret-tudor-james4", "f-margaret-tudor-douglas"]) {
+        expectBarsApart(bloodOf(henryFamily), bloodOf(margaretFamily))
+      }
+    }
+  })
+
+  it("separates Charles I's and Elizabeth Stuart's children", () => {
+    expectBarsApart(bloodOf("f-charles1"), bloodOf("f-elizabeth-stuart"))
+  })
+
+  it("separates James II's and Sophia of Hanover's children", () => {
+    expectBarsApart(bloodOf("f-james2"), bloodOf("f-sophia"))
+  })
+
+  it("keeps siblings in succession order inside their band", () => {
+    const graph = buildGraph(data)
+    const { clusterById, clusterIdOfPerson } = buildClusters(graph)
+    const nodeById = new Map(layout.nodes.map((node) => [node.id, node]))
+    for (const family of data.families) {
+      const parentClusterId = clusterIdOfPerson.get(parentIdsOfFamily(family.id)[0])
+      const homeChildIds = family.childIds.filter(
+        (id) => clusterById.get(clusterIdOfPerson.get(id))?.birthClusterId === parentClusterId
+      )
+      if (homeChildIds.length < 2) continue
+      const xs = homeChildIds.map((id) => nodeById.get(id).x)
+      for (let i = 1; i < xs.length; i += 1) expect(xs[i], family.id).toBeGreaterThan(xs[i - 1])
+    }
+  })
+
+  it("keeps bars apart and children centred with a card open", () => {
+    const openLayout = computeLayout(data, { expandedId: "henry1" })
+    const openBlood = openLayout.edges.filter((edge) => edge.kind === "blood")
+    for (let i = 0; i < openBlood.length; i += 1) {
+      for (let j = i + 1; j < openBlood.length; j += 1) {
+        const a = openBlood[i]
+        const b = openBlood[j]
+        if (a.barY !== b.barY || shareAParent(a, b)) continue
+        expect(a.barRight < b.barLeft || b.barRight < a.barLeft, `${a.id} vs ${b.id}`).toBe(true)
+      }
+    }
+    const nodeById = new Map(openLayout.nodes.map((node) => [node.id, node]))
+    const childCentres = ["aethelbald", "aethelberht", "aethelred1", "alfred"].map((id) => centreOf(nodeById.get(id)))
+    const spanCentre = (Math.min(...childCentres) + Math.max(...childCentres)) / 2
+    expect(centreOf(nodeById.get("aethelwulf"))).toBeCloseTo(spanCentre, 0)
   })
 })
