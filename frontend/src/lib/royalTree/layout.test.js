@@ -212,3 +212,87 @@ describe("computeLayout", () => {
     }
   })
 })
+
+describe("shipped tree geometry invariants", () => {
+  const familyById = new Map(data.families.map((family) => [family.id, family]))
+
+  const parentIdsOfFamily = (familyId) => {
+    const family = familyById.get(familyId)
+    return [family.husbandId, family.wifeId].filter((id) => id != null)
+  }
+
+  const shareAParent = (a, b) => {
+    const parentsA = parentIdsOfFamily(a.familyId)
+    const parentsB = parentIdsOfFamily(b.familyId)
+    return parentsA.some((id) => parentsB.includes(id))
+  }
+
+  const centreOf = (node) => node.x + node.w / 2
+
+  const parentCentre = (familyId, nodeById) => {
+    const centres = parentIdsOfFamily(familyId)
+      .filter((id) => nodeById.has(id))
+      .map((id) => centreOf(nodeById.get(id)))
+    return centres.reduce((sum, centre) => sum + centre, 0) / centres.length
+  }
+
+  const familyCountByParent = new Map()
+  for (const family of data.families) {
+    for (const id of [family.husbandId, family.wifeId]) {
+      if (id == null) continue
+      familyCountByParent.set(id, (familyCountByParent.get(id) ?? 0) + 1)
+    }
+  }
+
+  const soleFamilyForParents = (familyId) =>
+    parentIdsOfFamily(familyId).every((id) => familyCountByParent.get(id) === 1)
+
+  it("keeps unrelated families' sibling bars apart in a shared gutter", () => {
+    const blood = computeLayout(data).edges.filter((edge) => edge.kind === "blood")
+    for (let i = 0; i < blood.length; i++) {
+      for (let j = i + 1; j < blood.length; j++) {
+        const a = blood[i]
+        const b = blood[j]
+        if (a.barY !== b.barY || shareAParent(a, b)) continue
+        expect(a.barRight < b.barLeft || b.barRight < a.barLeft, `${a.id} vs ${b.id}`).toBe(true)
+      }
+    }
+  })
+
+  it("never drops a child through another family's bar", () => {
+    const blood = computeLayout(data).edges.filter((edge) => edge.kind === "blood")
+    for (const edge of blood) {
+      for (const drop of edge.drops) {
+        for (const other of blood) {
+          if (other === edge || shareAParent(edge, other)) continue
+          const crossesBar = other.barY > drop.y1 && other.barY < drop.y2
+          const withinBar = other.barLeft <= drop.x && drop.x <= other.barRight
+          expect(crossesBar && withinBar, `${edge.id} drop vs ${other.id}`).toBe(false)
+        }
+      }
+    }
+  })
+
+  it("centres a sole family's parent over a single child", () => {
+    const layout = computeLayout(data)
+    const nodeById = new Map(layout.nodes.map((node) => [node.id, node]))
+    for (const family of data.families) {
+      const children = family.childIds.filter((id) => nodeById.has(id))
+      if (children.length !== 1 || !soleFamilyForParents(family.id)) continue
+      const childCentre = centreOf(nodeById.get(children[0]))
+      expect(Math.abs(parentCentre(family.id, nodeById) - childCentre), family.id).toBeLessThanOrEqual(1)
+    }
+  })
+
+  it("centres sole parents over their children's span", () => {
+    const layout = computeLayout(data)
+    const nodeById = new Map(layout.nodes.map((node) => [node.id, node]))
+    for (const family of data.families) {
+      const children = family.childIds.filter((id) => nodeById.has(id))
+      if (children.length < 2 || !soleFamilyForParents(family.id)) continue
+      const centres = children.map((id) => centreOf(nodeById.get(id)))
+      const spanCentre = (Math.min(...centres) + Math.max(...centres)) / 2
+      expect(Math.abs(parentCentre(family.id, nodeById) - spanCentre), family.id).toBeLessThanOrEqual(1)
+    }
+  })
+})
