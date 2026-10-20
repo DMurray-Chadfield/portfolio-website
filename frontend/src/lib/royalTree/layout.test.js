@@ -321,6 +321,18 @@ describe("shipped tree geometry invariants", () => {
     }
   })
 
+  it("never runs a descent stem through another family's bar", () => {
+    const blood = computeLayout(data).edges.filter((edge) => edge.kind === "blood")
+    for (const edge of blood) {
+      for (const other of blood) {
+        if (other === edge || shareAParent(edge, other)) continue
+        const crossesStem = other.barY > edge.stemTop.y && other.barY < edge.barY
+        const withinBar = other.barLeft <= edge.stemTop.x && edge.stemTop.x <= other.barRight
+        expect(crossesStem && withinBar, `${edge.id} stem vs ${other.id}`).toBe(false)
+      }
+    }
+  })
+
   it("centres a sole family's parent over its single home child", () => {
     const graph = buildGraph(data)
     const { clusterById, clusterIdOfPerson } = buildClusters(graph)

@@ -76,5 +76,38 @@ export function buildClusters(graph) {
     .sort((a, b) => peopleIndex.get(a.memberIds[0]) - peopleIndex.get(b.memberIds[0]))
     .map((cluster) => cluster.id)
 
+  const childClustersOf = (cluster) => {
+    const childClusterIds = []
+    for (const childId of cluster.childIds) {
+      const childCluster = clusterById.get(clusterIdOfPerson.get(childId))
+      if (childCluster?.birthClusterId !== cluster.id || childClusterIds.includes(childCluster.id)) continue
+      childClusterIds.push(childCluster.id)
+    }
+    return childClusterIds
+  }
+
+  const preOrder = new Map()
+  let nextIndex = 0
+  const visit = (clusterId) => {
+    if (preOrder.has(clusterId)) return
+    preOrder.set(clusterId, nextIndex++)
+    for (const childClusterId of childClustersOf(clusterById.get(clusterId))) visit(childClusterId)
+  }
+  for (const rootClusterId of rootClusterIds) visit(rootClusterId)
+
+  for (const cluster of clusterById.values()) {
+    if (cluster.memberIds.length !== 2 || cluster.birthClusterId == null) continue
+    const crossMemberId = cluster.memberIds.find((memberId) => {
+      const parentIds = graph.parentIdsOf(memberId)
+      return parentIds.length > 0 && find(parentIds[0]) !== cluster.birthClusterId
+    })
+    if (crossMemberId == null) continue
+    const crossClusterId = find(graph.parentIdsOf(crossMemberId)[0])
+    const otherMemberId = cluster.memberIds.find((memberId) => memberId !== crossMemberId)
+    cluster.memberIds = preOrder.get(crossClusterId) < preOrder.get(cluster.birthClusterId)
+      ? [crossMemberId, otherMemberId]
+      : [otherMemberId, crossMemberId]
+  }
+
   return { clusterById, clusterIdOfPerson, rootClusterIds }
 }
