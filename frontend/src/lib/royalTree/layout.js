@@ -1,4 +1,5 @@
 import { buildGraph } from "./graph.js"
+import { buildClusters } from "./clusters.js"
 
 export const NODE_W = 140
 export const NODE_H = 44
@@ -7,169 +8,88 @@ export const CARD_H = 240
 export const SPOUSE_GAP = 24
 export const SIBLING_GAP = 24
 export const ROW_GAP = 72
+export const LANE_GAP = 12
 export const MARGIN = 48
 
-function keepsWalk(graph, id, rootSpouseIds) {
-  const coupleIds = [id, ...rootSpouseIds]
-  const monarchIds = coupleIds.filter((other) => graph.personById.get(other).kind === "monarch")
-  if (monarchIds.length === 1) return graph.personById.get(id).kind === "monarch"
-  return graph.personById.get(id).sex !== "female"
-}
+function placeClusters(graph, { expandedId = null } = {}) {
+  const widthOf = (id) => (id === expandedId ? CARD_W : NODE_W)
+  const { clusterById, clusterIdOfPerson, rootClusterIds } = buildClusters(graph)
 
-function deferredRoots(graph) {
-  const rootIds = new Set(graph.roots().map((person) => person.id))
-  const deferred = new Set()
-  for (const id of rootIds) {
-    const spouseIds = graph.spouseIdsOf(id)
-    if (spouseIds.length === 0) continue
-    if (spouseIds.some((spouseId) => deferred.has(spouseId))) continue
-    const rootSpouseIds = spouseIds.filter((spouseId) => rootIds.has(spouseId))
-    if (rootSpouseIds.length > 0 && keepsWalk(graph, id, rootSpouseIds)) continue
-    deferred.add(id)
-  }
-  return deferred
-}
-
-function sequenceNumbers(graph) {
-  const deferred = deferredRoots(graph)
-  const seq = new Map()
-  let next = 0
-
-  const visit = (id) => {
-    if (seq.has(id)) return
-    seq.set(id, next++)
-    const childIds = [...graph.childIdsOf(id)]
-    for (const spouseId of graph.spouseIdsOf(id)) {
-      if (!deferred.has(spouseId)) continue
-      for (const childId of graph.childIdsOf(spouseId)) {
-        if (!childIds.includes(childId)) childIds.push(childId)
-      }
+  const homeChildClusters = (cluster) => {
+    const byCluster = new Map()
+    for (const childId of cluster.childIds) {
+      const childClusterId = clusterIdOfPerson.get(childId)
+      const childCluster = childClusterId == null ? null : clusterById.get(childClusterId)
+      if (childCluster?.birthClusterId !== cluster.id) continue
+      if (!byCluster.has(childCluster.id)) byCluster.set(childCluster.id, { clusterId: childCluster.id, childIds: [] })
+      byCluster.get(childCluster.id).childIds.push(childId)
     }
-    for (const childId of childIds) visit(childId)
+    return [...byCluster.values()]
   }
 
-  for (const root of graph.roots()) {
-    if (deferred.has(root.id)) continue
-    visit(root.id)
-  }
-  return seq
-}
+  const chipsWidthOf = (cluster) =>
+    cluster.memberIds.reduce((sum, memberId, index) => sum + widthOf(memberId) + (index > 0 ? SPOUSE_GAP : 0), 0)
 
-function makeSeqOf(graph, seq) {
-  return (id) => {
-    if (seq.has(id)) return seq.get(id)
-    for (const spouseId of graph.spouseIdsOf(id)) {
-      if (seq.has(spouseId)) return seq.get(spouseId)
+  const layoutRelative = (clusterId) => {
+    const cluster = clusterById.get(clusterId)
+    const homeChildren = homeChildClusters(cluster)
+    const positions = new Map()
+    const childDrops = []
+    let cursor = 0
+
+    for (const child of homeChildren) {
+      const childLayout = layoutRelative(child.clusterId)
+      for (const [id, x] of childLayout.positions) positions.set(id, x + cursor)
+      for (const childId of child.childIds) childDrops.push(positions.get(childId) + widthOf(childId) / 2)
+      cursor += childLayout.maxX + SIBLING_GAP
     }
-    return Number.MAX_SAFE_INTEGER
-  }
-}
 
-function areSpouses(graph, a, b) {
-  return graph.spouseIdsOf(a).includes(b)
-}
-
-function sharedChildrenOf(graph, a, b) {
-  const childrenOfB = new Set(graph.childIdsOf(b))
-  return graph.childIdsOf(a).filter((childId) => childrenOfB.has(childId))
-}
-
-function couplesIn(graph, ids) {
-  const present = new Set(ids)
-  const couples = []
-  const seen = new Set()
-  for (const id of ids) {
-    for (const spouseId of graph.spouseIdsOf(id)) {
-      if (!present.has(spouseId)) continue
-      const key = [id, spouseId].sort().join("\u0000")
-      if (seen.has(key)) continue
-      seen.add(key)
-      couples.push([id, spouseId])
+    const chipsWidth = chipsWidthOf(cluster)
+    const anchor = childDrops.length > 0
+      ? (Math.min(...childDrops) + Math.max(...childDrops)) / 2
+      : chipsWidth / 2
+    let chipX = anchor - chipsWidth / 2
+    const chipLeft = chipX
+    for (const memberId of cluster.memberIds) {
+      positions.set(memberId, chipX)
+      chipX += widthOf(memberId) + SPOUSE_GAP
     }
-  }
-  return couples
-}
-
-function spouseAndPartner(graph, seq, a, b) {
-  const ownA = seq.has(a)
-  const ownB = seq.has(b)
-  if (ownA !== ownB) return ownA ? [b, a] : [a, b]
-  return graph.personById.get(a).sex === "female" ? [a, b] : [b, a]
-}
-
-export function orderRow(graph, ids) {
-  const seq = sequenceNumbers(graph)
-  const seqOf = makeSeqOf(graph, seq)
-  let ordered = [...ids].sort((a, b) => seqOf(a) - seqOf(b))
-
-  for (const [a, b] of couplesIn(graph, ordered)) {
-    const [spouse, partner] = spouseAndPartner(graph, seq, a, b)
-    const shared = sharedChildrenOf(graph, partner, spouse)
-    let side = "right"
-    if (shared.length > 0) {
-      const mean = shared.reduce((sum, id) => sum + seqOf(id), 0) / shared.length
-      if (mean <= seqOf(partner)) side = "left"
-    }
-    const without = ordered.filter((id) => id !== spouse)
-    const at = without.indexOf(partner)
-    without.splice(side === "right" ? at + 1 : at, 0, spouse)
-    ordered = without
+    const chipRight = chipX - SPOUSE_GAP
+    const childrenRight = homeChildren.length > 0 ? cursor - SIBLING_GAP : -Infinity
+    const shift = -Math.min(chipLeft, 0)
+    for (const [id, x] of positions) positions.set(id, x + shift)
+    return { positions, maxX: Math.max(chipRight, childrenRight) + shift }
   }
 
-  return ordered
+  const xById = new Map()
+  let cursor = 0
+  for (const rootClusterId of rootClusterIds) {
+    const root = layoutRelative(rootClusterId)
+    for (const [id, x] of root.positions) xById.set(id, x + cursor)
+    cursor += root.maxX + SIBLING_GAP
+  }
+
+  return xById
 }
 
 export function placeNodes(graph, { expandedId = null, expandedHeight = null } = {}) {
   const widthOf = (id) => (id === expandedId ? CARD_W : NODE_W)
   const heightOf = (id) => (id === expandedId ? expandedHeight ?? CARD_H : NODE_H)
 
-  const rows = graph
-    .generations()
-    .map((generation) => orderRow(graph, graph.idsInGeneration(generation)))
-    .filter((ids) => ids.length > 0)
+  const xById = placeClusters(graph, { expandedId })
+  const generations = graph.generations()
+  const rows = generations.map((generation) => graph.idsInGeneration(generation)).filter((ids) => ids.length > 0)
 
-  const xById = new Map()
   const yById = new Map()
   let y = 0
-  for (const ids of rows) {
-    let x = 0
-    let prev = null
-    for (const id of ids) {
-      if (prev != null) x += areSpouses(graph, prev, id) ? SPOUSE_GAP : SIBLING_GAP
-      xById.set(id, x)
-      x += widthOf(id)
-      prev = id
-    }
+  for (const generation of generations) {
+    const ids = graph.idsInGeneration(generation)
+    if (ids.length === 0) continue
     for (const id of ids) yById.set(id, y)
     y += Math.max(...ids.map(heightOf)) + ROW_GAP
   }
 
   const ids = rows.flat()
-  const respaced = (targets) => {
-    for (const row of rows) {
-      let prev = null
-      for (const id of row) {
-        const gap = prev != null && areSpouses(graph, prev, id) ? SPOUSE_GAP : SIBLING_GAP
-        const min = prev == null ? -Infinity : xById.get(prev) + widthOf(prev) + gap
-        xById.set(id, Math.max(targets.get(id), min))
-        prev = id
-      }
-    }
-  }
-
-  for (const related of [graph.childIdsOf, graph.parentIdsOf, graph.childIdsOf, graph.parentIdsOf]) {
-    const targets = new Map(
-      ids.map((id) => {
-        const relatedIds = related(id).filter((other) => xById.has(other))
-        const target = relatedIds.length === 0
-          ? xById.get(id)
-          : relatedIds.reduce((sum, other) => sum + xById.get(other), 0) / relatedIds.length
-        return [id, target]
-      })
-    )
-    respaced(targets)
-  }
-
   const minX = Math.min(...ids.map((id) => xById.get(id)))
   const minY = Math.min(...ids.map((id) => yById.get(id)))
   for (const id of ids) {
@@ -214,7 +134,9 @@ export function buildEdges(graph, nodes) {
   const centreX = (node) => node.x + node.w / 2
   const chipCentreY = (node) => node.y + NODE_H / 2
   const edges = []
+  const bloodEntries = []
   for (const [familyId, parents] of parentsByFamily) {
+    const parentIds = parents.map((parent) => parent.id)
     const [left, right] = [...parents].sort((a, b) => a.x - b.x)
     const childIds = graph.childrenOfFamily(familyId)
     const children = childIds.map((id) => nodeById.get(id)).filter((node) => node != null)
@@ -235,7 +157,7 @@ export function buildEdges(graph, nodes) {
       const childrenTop = Math.min(...children.map((child) => child.y))
       const barY = (parentsBottom + childrenTop) / 2
       const childXs = children.map(centreX)
-      edges.push({
+      const edge = {
         id: `blood:${familyId}`,
         kind: "blood",
         familyId,
@@ -244,10 +166,47 @@ export function buildEdges(graph, nodes) {
         barLeft: Math.min(...childXs, stemTop.x),
         barRight: Math.max(...childXs, stemTop.x),
         drops: children.map((child) => ({ x: centreX(child), y1: barY, y2: child.y }))
-      })
+      }
+      edges.push(edge)
+      bloodEntries.push({ edge, parentIds, parentsBottom, childrenTop, baseBarY: barY })
     }
   }
+
+  const lanesByGutter = new Map()
+  const shareParent = (a, b) => a.some((id) => b.includes(id))
+  for (const entry of bloodEntries) {
+    const key = `${entry.parentsBottom}|${entry.childrenTop}`
+    if (!lanesByGutter.has(key)) lanesByGutter.set(key, [])
+    const lanes = lanesByGutter.get(key)
+    let lane = 0
+    while (lane < 8) {
+      const occupied = lanes.filter((other) => other.lane === lane)
+      const barY = entry.baseBarY + laneOffset(lane)
+      const fitsGutter = barY > entry.parentsBottom + 6 && barY < entry.childrenTop - 6
+      const fitsBars = occupied.every(
+        (other) =>
+          shareParent(entry.parentIds, other.parentIds) ||
+          entry.edge.barRight < other.barLeft ||
+          other.barRight < entry.edge.barLeft
+      )
+      if (fitsGutter && fitsBars) break
+      lane += 1
+    }
+    if (lane >= 8) lane = 0
+    const barY = entry.baseBarY + laneOffset(lane)
+    lanes.push({ lane, barLeft: entry.edge.barLeft, barRight: entry.edge.barRight, parentIds: entry.parentIds })
+    entry.edge.barY = barY
+    for (const drop of entry.edge.drops) drop.y1 = barY
+  }
+
   return edges
+}
+
+function laneOffset(lane) {
+  if (lane === 0) return 0
+  const step = Math.ceil(lane / 2)
+  const sign = lane % 2 === 1 ? 1 : -1
+  return sign * step * LANE_GAP
 }
 
 export function edgeToPath(edge) {

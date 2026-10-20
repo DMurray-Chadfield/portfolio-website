@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest"
 import { buildGraph } from "./graph.js"
-import { placeNodes, orderRow, buildEdges, edgeToPath, computeLayout, NODE_W, NODE_H, CARD_W, CARD_H } from "./layout.js"
+import { buildClusters } from "./clusters.js"
+import { placeNodes, buildEdges, edgeToPath, computeLayout, NODE_W, NODE_H, CARD_W, CARD_H, SPOUSE_GAP, SIBLING_GAP } from "./layout.js"
 import data from "../../data/royalFamilyTree.json"
 
 const fixture = {
@@ -47,6 +48,26 @@ const marriedInFixture = {
     { id: "f-james2", husbandId: "james2", wifeId: null, childIds: ["mary2", "anne"] },
     { id: "f-william3-mary2", husbandId: "william3", wifeId: "mary2", childIds: [] },
     { id: "f-george1", husbandId: "george1", wifeId: null, childIds: ["george2"] }
+  ]
+}
+
+const crossBandFixture = {
+  people: [
+    { id: "founder", name: "Founder", kind: "monarch", sex: "male", generation: 0 },
+    { id: "branch", name: "Branch", kind: "connector", sex: "male", generation: 0 },
+    { id: "far", name: "Far", kind: "connector", sex: "male", generation: 0 },
+    { id: "first", name: "First", kind: "monarch", sex: "male", generation: 1 },
+    { id: "groom", name: "Groom", kind: "connector", sex: "male", generation: 1 },
+    { id: "bride", name: "Bride", kind: "connector", sex: "female", generation: 1 },
+    { id: "last", name: "Last", kind: "monarch", sex: "male", generation: 1 },
+    { id: "side", name: "Side", kind: "connector", sex: "male", generation: 1 },
+    { id: "child", name: "Child", kind: "monarch", sex: "male", generation: 2 }
+  ],
+  families: [
+    { id: "f-founder", husbandId: "founder", wifeId: null, childIds: ["first", "groom", "last"] },
+    { id: "f-branch", husbandId: "branch", wifeId: null, childIds: ["side"] },
+    { id: "f-far", husbandId: "far", wifeId: null, childIds: ["bride"] },
+    { id: "f-groom-bride", husbandId: "groom", wifeId: "bride", childIds: ["child"] }
   ]
 }
 
@@ -108,13 +129,42 @@ describe("placeNodes", () => {
     expect(open.get("aethelwulf").h).toBe(320)
     expect(open.get("alfred").y).toBeGreaterThan(base.get("alfred").y + (CARD_H - NODE_H))
   })
+
+  it("lets the monarch of a monarch-consort root couple keep the walk", () => {
+    const n = nodesFor(consortFixture)
+    const rowOrder = (id) => {
+      const y = n.get(id).y
+      return [...n.values()]
+        .filter((node) => node.y === y)
+        .sort((a, b) => a.x - b.x)
+        .map((node) => node.id)
+    }
+    expect(rowOrder("rival")).toEqual(["rival", "queen", "consort"])
+    expect(rowOrder("cousin")).toEqual(["cousin", "heir"])
+  })
+
+  it("reserves only chip widths for a childless couple", () => {
+    const n = nodesFor(marriedInFixture)
+    const couple = [n.get("mary2"), n.get("william3")].sort((a, b) => a.x - b.x)
+    expect(couple[1].x - (couple[0].x + couple[0].w)).toBeCloseTo(SPOUSE_GAP)
+    expect(n.get("anne").x - (couple[1].x + couple[1].w)).toBeCloseTo(SIBLING_GAP)
+  })
 })
 
-describe("orderRow", () => {
-  it("lets the monarch of a monarch-consort root couple keep the walk", () => {
-    const graph = buildGraph(consortFixture)
-    expect(orderRow(graph, graph.idsInGeneration(2))).toEqual(["rival", "queen", "consort"])
-    expect(orderRow(graph, graph.idsInGeneration(3))).toEqual(["cousin", "heir"])
+describe("lane routing", () => {
+  it("routes a cross-band reach in its own lane", () => {
+    const layout = computeLayout(crossBandFixture)
+    const blood = (familyId) => layout.edges.find((edge) => edge.id === `blood:${familyId}`)
+    const founderBar = blood("f-founder")
+    const branchBar = blood("f-branch")
+    const farBar = blood("f-far")
+    const nodeById = new Map(layout.nodes.map((node) => [node.id, node]))
+    const brideCentre = nodeById.get("bride").x + nodeById.get("bride").w / 2
+
+    expect(farBar.drops[0].x).toBeCloseTo(brideCentre)
+    expect(farBar.barLeft).toBeLessThanOrEqual(founderBar.barRight)
+    expect(founderBar.barY).not.toBeCloseTo(farBar.barY)
+    expect(branchBar.barY).not.toBeCloseTo(farBar.barY)
   })
 })
 
@@ -229,13 +279,6 @@ describe("shipped tree geometry invariants", () => {
 
   const centreOf = (node) => node.x + node.w / 2
 
-  const parentCentre = (familyId, nodeById) => {
-    const centres = parentIdsOfFamily(familyId)
-      .filter((id) => nodeById.has(id))
-      .map((id) => centreOf(nodeById.get(id)))
-    return centres.reduce((sum, centre) => sum + centre, 0) / centres.length
-  }
-
   const familyCountByParent = new Map()
   for (const family of data.families) {
     for (const id of [family.husbandId, family.wifeId]) {
@@ -273,26 +316,52 @@ describe("shipped tree geometry invariants", () => {
     }
   })
 
-  it("centres a sole family's parent over a single child", () => {
+  it("centres a sole family's parent over its single home child", () => {
+    const graph = buildGraph(data)
+    const { clusterById, clusterIdOfPerson } = buildClusters(graph)
     const layout = computeLayout(data)
     const nodeById = new Map(layout.nodes.map((node) => [node.id, node]))
+    const anchorOf = (clusterId) => {
+      const memberIds = clusterById.get(clusterId).memberIds
+      return memberIds.reduce((sum, id) => sum + centreOf(nodeById.get(id)), 0) / memberIds.length
+    }
+    const parentClusterOf = (family) => clusterIdOfPerson.get(parentIdsOfFamily(family.id)[0])
+    const homeChildIds = (family) => {
+      const parentClusterId = parentClusterOf(family)
+      return family.childIds.filter((id) => {
+        const childCluster = clusterById.get(clusterIdOfPerson.get(id))
+        return childCluster?.birthClusterId === parentClusterId
+      })
+    }
     for (const family of data.families) {
-      const children = family.childIds.filter((id) => nodeById.has(id))
-      if (children.length !== 1 || !soleFamilyForParents(family.id)) continue
-      const childCentre = centreOf(nodeById.get(children[0]))
-      expect(Math.abs(parentCentre(family.id, nodeById) - childCentre), family.id).toBeLessThanOrEqual(1)
+      if (!soleFamilyForParents(family.id)) continue
+      const homeChildren = homeChildIds(family)
+      if (homeChildren.length !== 1) continue
+      const parentAnchor = anchorOf(parentClusterOf(family))
+      const childCentre = centreOf(nodeById.get(homeChildren[0]))
+      expect(Math.abs(parentAnchor - childCentre), family.id).toBeLessThanOrEqual(1)
     }
   })
 
-  it("centres sole parents over their children's span", () => {
+  it("centres sole parents over their home children", () => {
+    const graph = buildGraph(data)
+    const { clusterById, clusterIdOfPerson } = buildClusters(graph)
     const layout = computeLayout(data)
     const nodeById = new Map(layout.nodes.map((node) => [node.id, node]))
+    const anchorOf = (clusterId) => {
+      const memberIds = clusterById.get(clusterId).memberIds
+      return memberIds.reduce((sum, id) => sum + centreOf(nodeById.get(id)), 0) / memberIds.length
+    }
+    const parentClusterOf = (family) => clusterIdOfPerson.get(parentIdsOfFamily(family.id)[0])
     for (const family of data.families) {
-      const children = family.childIds.filter((id) => nodeById.has(id))
-      if (children.length < 2 || !soleFamilyForParents(family.id)) continue
-      const centres = children.map((id) => centreOf(nodeById.get(id)))
-      const spanCentre = (Math.min(...centres) + Math.max(...centres)) / 2
-      expect(Math.abs(parentCentre(family.id, nodeById) - spanCentre), family.id).toBeLessThanOrEqual(1)
+      if (!soleFamilyForParents(family.id)) continue
+      const parentClusterId = parentClusterOf(family)
+      const homeChildCentres = family.childIds
+        .filter((id) => clusterById.get(clusterIdOfPerson.get(id))?.birthClusterId === parentClusterId)
+        .map((id) => centreOf(nodeById.get(id)))
+      if (homeChildCentres.length < 2) continue
+      const spanCentre = (Math.min(...homeChildCentres) + Math.max(...homeChildCentres)) / 2
+      expect(Math.abs(anchorOf(parentClusterId) - spanCentre), family.id).toBeLessThanOrEqual(1)
     }
   })
 })
