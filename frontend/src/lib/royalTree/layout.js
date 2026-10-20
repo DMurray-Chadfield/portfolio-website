@@ -8,7 +8,7 @@ export const CARD_H = 240
 export const SPOUSE_GAP = 24
 export const SIBLING_GAP = 24
 export const ROW_GAP = 72
-export const LANE_GAP = 12
+export const LANE_GAP = 8
 export const MARGIN = 48
 
 function placeClusters(graph, { expandedId = null } = {}) {
@@ -178,22 +178,25 @@ export function buildEdges(graph, nodes) {
     const key = `${entry.parentsBottom}|${entry.childrenTop}`
     if (!lanesByGutter.has(key)) lanesByGutter.set(key, [])
     const lanes = lanesByGutter.get(key)
-    let lane = 0
-    while (lane < 8) {
-      const occupied = lanes.filter((other) => other.lane === lane)
-      const barY = entry.baseBarY + laneOffset(lane)
-      const fitsGutter = barY > entry.parentsBottom + 6 && barY < entry.childrenTop - 6
+    const offsets = laneOffsets(entry.parentsBottom, entry.childrenTop)
+    let lane = null
+    for (let candidate = 0; candidate < offsets.length; candidate += 1) {
+      const occupied = lanes.filter((other) => other.lane === candidate)
       const fitsBars = occupied.every(
         (other) =>
           shareParent(entry.parentIds, other.parentIds) ||
           entry.edge.barRight < other.barLeft ||
           other.barRight < entry.edge.barLeft
       )
-      if (fitsGutter && fitsBars) break
-      lane += 1
+      if (!fitsBars) continue
+      lane = candidate
+      break
     }
-    if (lane >= 8) lane = 0
-    const barY = entry.baseBarY + laneOffset(lane)
+    if (lane == null) {
+      lane = 0
+      console.warn(`royal tree: no lane fits ${entry.edge.id} in its gutter`)
+    }
+    const barY = entry.baseBarY + offsets[lane]
     lanes.push({ lane, barLeft: entry.edge.barLeft, barRight: entry.edge.barRight, parentIds: entry.parentIds })
     entry.edge.barY = barY
     for (const drop of entry.edge.drops) drop.y1 = barY
@@ -202,11 +205,18 @@ export function buildEdges(graph, nodes) {
   return edges
 }
 
-function laneOffset(lane) {
-  if (lane === 0) return 0
-  const step = Math.ceil(lane / 2)
-  const sign = lane % 2 === 1 ? 1 : -1
-  return sign * step * LANE_GAP
+function laneOffsets(parentsBottom, childrenTop) {
+  const middle = (parentsBottom + childrenTop) / 2
+  const offsets = [0]
+  for (let step = 1; ; step += 1) {
+    const distance = step * LANE_GAP
+    const up = middle + distance <= childrenTop - 6
+    const down = middle - distance >= parentsBottom + 6
+    if (!up && !down) break
+    if (up) offsets.push(distance)
+    if (down) offsets.push(-distance)
+  }
+  return offsets
 }
 
 export function edgeToPath(edge) {

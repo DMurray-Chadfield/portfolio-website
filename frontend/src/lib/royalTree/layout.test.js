@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest"
+import { describe, it, expect, vi } from "vitest"
 import { buildGraph } from "./graph.js"
 import { buildClusters } from "./clusters.js"
 import { placeNodes, buildEdges, edgeToPath, computeLayout, NODE_W, NODE_H, CARD_W, CARD_H, SPOUSE_GAP, SIBLING_GAP } from "./layout.js"
@@ -70,6 +70,24 @@ const crossBandFixture = {
     { id: "f-groom-bride", husbandId: "groom", wifeId: "bride", childIds: ["child"] }
   ]
 }
+
+const overlapFixture = (count) => ({
+  people: Array.from({ length: count }, (_, index) => [
+    { id: `p${index}`, name: `P${index}`, kind: "connector", sex: "male", generation: 0 },
+    { id: `c${index}`, name: `C${index}`, kind: "connector", sex: "male", generation: 1 }
+  ]).flat(),
+  families: Array.from({ length: count }, (_, index) => ({
+    id: `f${index}`,
+    husbandId: `p${index}`,
+    wifeId: null,
+    childIds: [`c${index}`]
+  }))
+})
+
+const overlapNodes = (count) => [
+  ...Array.from({ length: count }, (_, index) => ({ id: `p${index}`, x: index * 10, y: 0, w: 140, h: 44 })),
+  ...Array.from({ length: count }, (_, index) => ({ id: `c${index}`, x: 1000 - index * 10, y: 116, w: 140, h: 44 }))
+]
 
 const nodesFor = (data, opts) => {
   const { nodes } = placeNodes(buildGraph(data), opts)
@@ -196,6 +214,20 @@ describe("lane routing", () => {
     expect(farBar.barLeft).toBeLessThanOrEqual(founderBar.barRight)
     expect(founderBar.barY).not.toBeCloseTo(farBar.barY)
     expect(branchBar.barY).not.toBeCloseTo(farBar.barY)
+  })
+
+  it("fits every overlapping bar in a gutter into its own lane", () => {
+    const graph = buildGraph(overlapFixture(6))
+    const blood = buildEdges(graph, overlapNodes(6)).filter((edge) => edge.kind === "blood")
+    expect(new Set(blood.map((edge) => edge.barY)).size).toBe(blood.length)
+  })
+
+  it("warns when a gutter cannot hold another lane", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {})
+    const graph = buildGraph(overlapFixture(12))
+    buildEdges(graph, overlapNodes(12))
+    expect(warn).toHaveBeenCalled()
+    warn.mockRestore()
   })
 })
 
@@ -426,9 +458,14 @@ describe("reported crossing cases", () => {
     }
   })
 
-  it("keeps bars apart and children centred with a card open", () => {
-    const openLayout = computeLayout(data, { expandedId: "henry1" })
-    const openBlood = openLayout.edges.filter((edge) => edge.kind === "blood")
+  it("keeps bars apart and parents centred with a leaf card open", () => {
+    const base = computeLayout(data)
+    const open = computeLayout(data, { expandedId: "edward6" })
+    const baseById = new Map(base.nodes.map((node) => [node.id, node]))
+    const moved = open.nodes.filter((node) => Math.abs(node.x - baseById.get(node.id).x) > 0.5).length
+    expect(moved).toBeGreaterThan(10)
+
+    const openBlood = open.edges.filter((edge) => edge.kind === "blood")
     for (let i = 0; i < openBlood.length; i += 1) {
       for (let j = i + 1; j < openBlood.length; j += 1) {
         const a = openBlood[i]
@@ -437,9 +474,11 @@ describe("reported crossing cases", () => {
         expect(a.barRight < b.barLeft || b.barRight < a.barLeft, `${a.id} vs ${b.id}`).toBe(true)
       }
     }
-    const nodeById = new Map(openLayout.nodes.map((node) => [node.id, node]))
-    const childCentres = ["aethelbald", "aethelberht", "aethelred1", "alfred"].map((id) => centreOf(nodeById.get(id)))
+
+    const nodeById = new Map(open.nodes.map((node) => [node.id, node]))
+    const henry = nodeById.get("henry8")
+    const childCentres = ["edward6", "mary1", "elizabeth1"].map((id) => centreOf(nodeById.get(id)))
     const spanCentre = (Math.min(...childCentres) + Math.max(...childCentres)) / 2
-    expect(centreOf(nodeById.get("aethelwulf"))).toBeCloseTo(spanCentre, 0)
+    expect(centreOf(henry)).toBeCloseTo(spanCentre, 0)
   })
 })
