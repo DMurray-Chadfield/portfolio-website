@@ -200,7 +200,7 @@ git commit -m "Add royal tree graph model"
 **Placement rule (pinned):**
 1. Rows are the non-empty generations in order; `rowHeight = max(node.h in row)`; `y` is cumulative with `ROW_GAP` between rows.
 2. Initial `x` is the running left-to-right position in the row with `SPOUSE_GAP` between spouses and `SIBLING_GAP` between everyone else.
-3. Run 4 passes: bottom-up, set each node's target `x` to the mean of its children's `x` (nodes with no children keep their `x`); then top-down, set each node's target `x` to the mean of its parents' `x`. After each half-pass, re-space the row: sort by target `x` (stable, preserving the round-1 order), then sweep left to right assigning `x = max(target, previousX + previousWidth + gap)`.
+3. Run 4 passes: bottom-up, set each node's target `x` to the mean of its children's `x` (nodes with no children keep their `x`); then top-down, set each node's target `x` to the mean of its parents' `x`. After each half-pass, re-space the row by sweeping left to right in the row's **established order** (the order `orderRow` produced — do **not** re-sort by target `x`; a re-sort can interleave a node between two spouses and break the couple adjacency `orderRow` guarantees) assigning `x = max(target, previousX + previousWidth + gap)`.
 4. Translate so `min x = MARGIN` and `min y = MARGIN`.
 
 - [ ] **Step 1: Write the failing test**
