@@ -9,20 +9,28 @@ describe("validateTree", () => {
 
   it("reports dangling references", () => {
     const bad = {
-      people: [{ id: "a", name: "A", kind: "monarch", sex: "male", generation: 0, house: "H", reign: "1-2", summary: "s" }],
+      people: [{ id: "a", name: "A", kind: "monarch", sex: "male", generation: 0, house: "H", reign: "1-2", lifeDates: "1-2", summary: "s" }],
       families: [{ id: "f", husbandId: "a", wifeId: "missing", childIds: [] }]
     }
     expect(validateTree(bad).join(" ")).toContain("missing")
   })
 
   it("reports a missing generation", () => {
-    const bad = { people: [{ id: "a", name: "A", kind: "monarch", sex: "male", house: "H", reign: "1-2", summary: "s" }], families: [] }
+    const bad = { people: [{ id: "a", name: "A", kind: "monarch", sex: "male", house: "H", reign: "1-2", lifeDates: "1-2", summary: "s" }], families: [] }
     expect(validateTree(bad).join(" ")).toContain("generation")
+  })
+
+  it("requires life dates for every monarch", () => {
+    const person = { id: "a", name: "A", kind: "monarch", sex: "male", generation: 0, house: "H", reign: "1-2", summary: "s" }
+    const missing = { people: [person], families: [] }
+    const blank = { people: [{ ...person, lifeDates: " " }], families: [] }
+    expect(validateTree(missing).join(" ")).toContain("lifeDates")
+    expect(validateTree(blank).join(" ")).toContain("lifeDates")
   })
 
   it("keeps informational notes out of the problems list", () => {
     const orphan = {
-      people: [{ id: "a", name: "A", kind: "monarch", sex: "male", generation: 0, house: "H", reign: "1-2", summary: "s" }],
+      people: [{ id: "a", name: "A", kind: "monarch", sex: "male", generation: 0, house: "H", reign: "1-2", lifeDates: "1-2", summary: "s" }],
       families: []
     }
     expect(validateTree(orphan)).toEqual([])
@@ -37,6 +45,20 @@ describe("validateTree", () => {
   it("ships exactly the full roster of monarchs", () => {
     const monarchs = data.people.filter((p) => p.kind === "monarch").map((p) => p.id).sort()
     expect(monarchs).toEqual(MONARCH_IDS)
+  })
+
+  it("gives every monarch accepted life dates", () => {
+    for (const monarch of data.people.filter((person) => person.kind === "monarch")) {
+      expect(typeof monarch.lifeDates, monarch.id).toBe("string")
+      expect(monarch.lifeDates.trim(), monarch.id).not.toBe("")
+    }
+  })
+
+  it("uses established epithets without duplicating existing ones", () => {
+    const byId = new Map(data.people.map((person) => [person.id, person]))
+    expect(byId.get("william1").name).toBe("William I the Conqueror")
+    expect(byId.get("richard1").name).toBe("Richard I the Lionheart")
+    expect(byId.get("alfred").name).toBe("Alfred the Great")
   })
 })
 

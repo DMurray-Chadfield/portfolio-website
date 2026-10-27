@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes, useLocation } from "react-router-dom"
 import Navbar from "./components/Navbar"
 import ProtectedRoute from "./components/ProtectedRoute"
 import { GurpsCharacterProvider } from "./context/GurpsCharacterContext"
@@ -9,10 +9,13 @@ import RoyalTreePage from "./pages/royalTree/RoyalTreePage"
 import GurpsCreatorPage from "./pages/gurps/GurpsCreatorPage"
 
 function App() {
+  const { pathname } = useLocation()
+  const mainClassName = pathname === "/family-tree" ? "app-main app-main-family-tree" : "app-main"
+
   return (
     <div className="app">
       <Navbar />
-      <main className="app-main">
+      <main className={mainClassName}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />

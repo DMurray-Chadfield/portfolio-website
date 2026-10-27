@@ -4,20 +4,29 @@ import FactCard from "./FactCard.jsx"
 
 const person = {
   id: "william1", name: "William I", kind: "monarch", sex: "male", generation: 9,
-  house: "House of Normandy", reign: "1066-1087",
+  house: "House of Normandy", reign: "1066-1087", lifeDates: "1028-1087",
   predecessor: "Harold II", successor: "William II",
   summary: "The Conqueror."
 }
 
 describe("FactCard", () => {
-  it("shows the name, house, reign, predecessor and successor", () => {
+  it("shows the name, house, life, reign, predecessor and successor", () => {
     const html = renderToStaticMarkup(<FactCard person={person} onClose={() => {}} />)
     expect(html).toContain("William I")
     expect(html).toContain("House of Normandy")
+    expect(html).toContain("<dt>Life</dt>")
+    expect(html).toContain("1028-1087")
+    expect(html).toContain("<dt>Reign</dt>")
     expect(html).toContain("1066-1087")
     expect(html).toContain("Harold II")
     expect(html).toContain("William II")
     expect(html).toContain("The Conqueror.")
+  })
+
+  it("renders an unknown life date literally", () => {
+    const html = renderToStaticMarkup(<FactCard person={{ ...person, lifeDates: "unknown" }} onClose={() => {}} />)
+    expect(html).toContain("<dt>Life</dt>")
+    expect(html).toContain("unknown")
   })
 
   it("uses a monogram when there is no portrait", () => {
