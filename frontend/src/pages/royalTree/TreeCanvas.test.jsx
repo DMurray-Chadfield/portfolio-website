@@ -22,4 +22,17 @@ describe("TreeCanvas", () => {
     const html = renderToStaticMarkup(<TreeCanvas data={data} expandedId={null} onSelect={() => {}} />)
     expect(html).toContain("royal-tree-controls")
   })
+
+  it("renders a tinted region and label for each house", () => {
+    const html = renderToStaticMarkup(<TreeCanvas data={data} expandedId={null} onSelect={() => {}} />)
+    expect(html).toContain("royal-tree-house-regions")
+    expect(html).toContain("royal-tree-house-region")
+    expect(html).toContain("royal-tree-house-label-prefix")
+    expect(html).toContain("royal-tree-house-label-name")
+    expect(html).toContain(">House of<")
+    expect(html).toContain(">Wessex<")
+    expect(html).toContain(">Saxe-Coburg and Gotha<")
+    expect(html).toContain('title="House of Windsor"')
+    expect(html).toContain('aria-label="House of Windsor"')
+  })
 })

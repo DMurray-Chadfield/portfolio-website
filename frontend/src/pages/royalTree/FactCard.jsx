@@ -20,13 +20,20 @@ function FactCard({ person, onClose, cardRef = null }) {
         <div className="royal-tree-card-title">
           <h3 className="royal-tree-card-name">{person.name}</h3>
           {person.house ? <p className="royal-tree-card-house">{person.house}</p> : null}
-          {person.reign ? <p className="royal-tree-card-reign">{person.reign}</p> : null}
         </div>
         <button type="button" className="royal-tree-close" onClick={onClose}>
           Close
         </button>
       </div>
       <dl className="royal-tree-facts">
+        <div>
+          <dt>Life</dt>
+          <dd>{person.lifeDates || "–"}</dd>
+        </div>
+        <div>
+          <dt>Reign</dt>
+          <dd>{person.reign || "–"}</dd>
+        </div>
         <div>
           <dt>Predecessor</dt>
           <dd>{person.predecessor || "–"}</dd>

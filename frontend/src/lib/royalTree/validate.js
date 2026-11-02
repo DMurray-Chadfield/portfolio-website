@@ -118,7 +118,7 @@ export function validateTree(data) {
       problems.push(`person ${person.id} is missing an integer generation`)
     }
     if (person.kind === "monarch") {
-      for (const field of ["name", "house", "reign", "summary"]) {
+      for (const field of ["name", "house", "reign", "lifeDates", "summary"]) {
         if (typeof person[field] !== "string" || person[field].trim() === "") {
           problems.push(`person ${person.id} has no ${field}`)
         }

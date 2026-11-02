@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { buildHouseRegions, houseLabelParts } from "../../lib/royalTree/houses.js"
 import { computeLayout, edgeToPath } from "../../lib/royalTree/layout.js"
 import { fitView, identityView, panBy, zoomAt } from "../../lib/royalTree/panZoom.js"
 import { beginDrag, dragDelta, hasDragged, isPrimaryButton } from "../../lib/royalTree/pointerDrag.js"
@@ -30,6 +31,7 @@ function TreeCanvas({ data, expandedId, onSelect }) {
   const [display, setDisplay] = useState(() => layout)
   const [animating, setAnimating] = useState(false)
   displayRef.current = display
+  const houseRegions = buildHouseRegions(display.nodes)
 
   const measureViewport = () => {
     const viewport = viewportRef.current
@@ -202,6 +204,36 @@ function TreeCanvas({ data, expandedId, onSelect }) {
           transform: `translate(${view.x}px, ${view.y}px) scale(${view.k})`
         }}
       >
+        <div className="royal-tree-house-regions">
+          {houseRegions.map((region) => {
+            const label = houseLabelParts(region.house)
+            return (
+              <div
+                key={region.house}
+                className="royal-tree-house-region"
+                style={{
+                  left: region.x,
+                  top: region.y,
+                  width: region.width,
+                  height: region.height,
+                  "--house-color": region.color
+                }}
+              >
+                <span
+                  className="royal-tree-house-label"
+                  role="note"
+                  title={region.house}
+                  aria-label={region.house}
+                >
+                  {label.prefix ? (
+                    <span className="royal-tree-house-label-prefix">{label.prefix}</span>
+                  ) : null}
+                  <span className="royal-tree-house-label-name">{label.name}</span>
+                </span>
+              </div>
+            )
+          })}
+        </div>
         <svg
           className="royal-tree-edges"
           width={display.width}
