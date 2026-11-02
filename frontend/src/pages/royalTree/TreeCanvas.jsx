@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
-import { buildHouseRegions } from "../../lib/royalTree/houses.js"
+import { buildHouseRegions, houseLabelParts } from "../../lib/royalTree/houses.js"
 import { computeLayout, edgeToPath } from "../../lib/royalTree/layout.js"
 import { fitView, identityView, panBy, zoomAt } from "../../lib/royalTree/panZoom.js"
 import { beginDrag, dragDelta, hasDragged, isPrimaryButton } from "../../lib/royalTree/pointerDrag.js"
@@ -205,21 +205,34 @@ function TreeCanvas({ data, expandedId, onSelect }) {
         }}
       >
         <div className="royal-tree-house-regions">
-          {houseRegions.map((region) => (
-            <div
-              key={region.house}
-              className="royal-tree-house-region"
-              style={{
-                left: region.x,
-                top: region.y,
-                width: region.width,
-                height: region.height,
-                "--house-color": region.color
-              }}
-            >
-              <span className="royal-tree-house-label">{region.house}</span>
-            </div>
-          ))}
+          {houseRegions.map((region) => {
+            const label = houseLabelParts(region.house)
+            return (
+              <div
+                key={region.house}
+                className="royal-tree-house-region"
+                style={{
+                  left: region.x,
+                  top: region.y,
+                  width: region.width,
+                  height: region.height,
+                  "--house-color": region.color
+                }}
+              >
+                <span
+                  className="royal-tree-house-label"
+                  role="note"
+                  title={region.house}
+                  aria-label={region.house}
+                >
+                  {label.prefix ? (
+                    <span className="royal-tree-house-label-prefix">{label.prefix}</span>
+                  ) : null}
+                  <span className="royal-tree-house-label-name">{label.name}</span>
+                </span>
+              </div>
+            )
+          })}
         </div>
         <svg
           className="royal-tree-edges"

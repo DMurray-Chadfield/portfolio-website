@@ -14,6 +14,14 @@ const HOUSE_COLORS = {
 }
 
 const FALLBACK_COLOR = "#0f7c67"
+const HOUSE_LABEL_BAND = 18
+const HOUSE_PREFIX = "House of "
+
+export function houseLabelParts(house) {
+  return house.startsWith(HOUSE_PREFIX)
+    ? { prefix: "House of", name: house.slice(HOUSE_PREFIX.length) }
+    : { prefix: "", name: house }
+}
 
 export function buildHouseRegions(nodes, padding = 20) {
   const groups = new Map()
@@ -43,8 +51,8 @@ export function buildHouseRegions(nodes, padding = 20) {
       house,
       color: HOUSE_COLORS[house] ?? FALLBACK_COLOR,
       x: bounds.minX - padding,
-      y: bounds.minY - padding,
+      y: bounds.minY - padding - HOUSE_LABEL_BAND,
       width: bounds.maxX - bounds.minX + padding * 2,
-      height: bounds.maxY - bounds.minY + padding * 2
+      height: bounds.maxY - bounds.minY + padding * 2 + HOUSE_LABEL_BAND
     }))
 }
